@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const MONGO_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 
 // Database Name
-const DB_NAME = process.env.DB_NAME || 'homework';
+const DB_NAME = process.env.DB_NAME || 'project2';
 const COLLECTIONS = {
 	USERS: 'Users',
 };
