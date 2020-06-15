@@ -19,17 +19,14 @@ module.exports = {
         console.log(ops);
         return newUser;
     },
-    async getOneByName (name) {
-        const foundItem = await db.Users.findOne(
+    async getOneByEmail (email) {
+        const foundUser = await db.Users.findOne(
             {
-                name: {
-                    '$regex': `^${name}$`,
-                    '$options': 'i'
-                }
+                email: email
             }
         );
-        if (!foundItem) throw new Error(`Item with name '${name}' does not exist`);
-        return foundItem;
+        if (!foundUser) throw new Error(`User with email '${email}' does not exist`);
+        return foundUser;
     },
     async updateByName (name, item) {
         try {

@@ -1,11 +1,35 @@
 const usersRepository = require('../repositories/usersRepository');
+
+// define errors
 let errors = {
     errUserName: '',
     errUniqueUserName: '',
     errUserNameValidation: '',
     errPassword: '',
     errPasswordValidaion: '',
-    errUniqueEmail: ''
+    errUniqueEmail: '',
+    errEmail: ''
+};
+
+ // define rule for userName
+ const regex = new RegExp(/^[a-zA-Z0-9_\.-]*$/);
+
+//  format request.body object 
+const formatRequestObject = (reqBody) => {
+    const user = {
+        'userName': reqBody.userName,
+        'email': reqBody.email,
+        'password': reqBody.password,
+        'createdAt': new Date()
+    };
+    if (reqBody.female === "on") {
+        user.female = true;
+    } else if (reqBody.male === "on") {
+        user.male = true;
+    } else {
+        user.male = true;
+    }
+    return user;
 }
 module.exports = {
     new(req, res) {
@@ -17,6 +41,12 @@ module.exports = {
             errUniqueUserName: errors.errUniqueUserName,
             errUniqueEmail: errors.errUniqueEmail
         })
+    },
+    logIn (req, res) {
+        res.render('login', {
+            errEmail: errors.errEmail,
+            errPassword: errors.errPassword
+        });
     },
     // async getAll (req, res) {
     //     try {
@@ -35,36 +65,32 @@ module.exports = {
     //     }
     // },
     async create(req, res) {
+        // Reset errors
+        errors = {
+            errUserName: '',
+            errUniqueUserName: '',
+            errUserNameValidation: '',
+            errPassword: '',
+            errPasswordValidaion: '',
+            errUniqueEmail: '',
+            errEmail: ''
+        }
         try {
-            errors = {
-                errUserName: '',
-                errUniqueUserName: '',
-                errUserNameValidation: '',
-                errPassword: '',
-                errPasswordValidaion: '',
-                errUniqueEmail: ''
-            }
-
-            const regex = new RegExp(/^[a-zA-Z0-9_\.-]*$/);
             if (req.body.password === req.body.confirmPassword &&
                 req.body.userName.length >= 3 && req.body.userName.length <= 30 &&
                 regex.test(req.body.userName)) {
+
                 // get data from req.body and format data
-                const user = {
-                    'userName': req.body.userName,
-                    'email': req.body.email,
-                    'password': req.body.password
-                };
-                if (req.body.female === "on") user.female = true;
-                if (req.body.male === "on") user.male = true;
+                const user = formatRequestObject(req.body)
+
+                // Create new user
                 const result = await usersRepository.create(user);
-                return res.send(result);
+                return res.redirect('/lico/login');
             } else {
-                throw new Error("Wrong...")
+                throw new Error("FAIL VALIDATION...")
             }
         } catch (err) {
-            const regex = new RegExp(/^[a-zA-Z0-9_\.-]*$/);
-           
+            console.log(err);
         // Check unique userName and unique email
             if(err.keyValue) {
                 // check unique userName
@@ -78,7 +104,6 @@ module.exports = {
                 }
             }
 
-            
             // check Password and confirm password
             if (req.body.password !== req.body.confirmPassword) {
                 errors.errPassword = "** You enter wrong password. **"
@@ -101,6 +126,25 @@ module.exports = {
             return res.redirect('/lico/signup');
         }
     },
+    async loginSubmit (req, res) {
+        // reset errors
+        errors.errEmail = '';
+        errors.errPassword = '';
+        
+        try {
+            const user = await usersRepository.getOneByEmail(req.body.email);
+            if(req.body.password === user.password) {
+                return res.send(user);
+            } else {
+                errors.errPassword = "** Wrong password. Please enter password again. **";
+                return res.redirect('/lico/login');
+            }     
+        } catch (err) {
+            console.log(err);
+            errors.errEmail = `** ${err.message} **`;
+            return res.redirect('/lico/login');
+        }
+    }
     // async getOneByName (req, res) {
     //     try {
     //         const item = await shopRepository.getOneByName(req.params.name);

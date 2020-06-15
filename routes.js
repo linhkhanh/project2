@@ -11,9 +11,9 @@ cloudinary.config({
 
 module.exports = (app) => {
   app.get('/lico/signup', usersController.new);
-
+  app.get('/lico/login', usersController.logIn);
   app.post('/lico/signup_submit', usersController.create);
-//   app.post('/login_submit', pages.loginSubmit);
+  app.post('/lico/login_submit', usersController.loginSubmit);
 //   app.post('/:index/upload', upload.single('image'), pages.upload);
 //   app.delete('/planet/:index', pages.deletePerson);
 //   app.get('/planet/:index', pages.showPage);

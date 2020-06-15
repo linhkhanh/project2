@@ -32,7 +32,7 @@ module.exports = {
                 birthDay: {
                     bsonType: "date"
                 },
-                createAt: {
+                createdAt: {
                     bsonType: "date"
                 }
             },
