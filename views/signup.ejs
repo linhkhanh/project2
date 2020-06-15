@@ -10,10 +10,12 @@
         <h1>Create New Account</h1>
         <form action="/lico/signup_submit" method="POST">
             <p><%= errUserName; %> <%=errUserNameValidation; %></p>
+            <p><%= errUniqueUserName; %></p>
             <div class="form-group">
                 <label for="userName">User Name *</label>
                 <input name="userName" id="userName" type="text" placeholder="enter user name" class="form-control" required>
             </div>
+            <p><%= errUniqueEmail; %></p>
             <div class="form-group">
                 <label for="email">Email *</label>
                 <input name="email" id="email" type="email" placeholder="enter your email address" class="form-control" required>
