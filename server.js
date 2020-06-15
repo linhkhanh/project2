@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 });
 
 // ROUTES
-// require('./routes')(app);
+require('./routes')(app);
 
 // LISTEN
 app.listen(port, () => {

@@ -20,7 +20,7 @@ module.exports = {
 		console.log('Connected to MongoDB');
 		const db = connection.db(DB_NAME);
 		await db.createCollection(COLLECTIONS.USERS, schema)
-		this.shop = db.collection(COLLECTIONS.USERS);
+		this.Users = db.collection(COLLECTIONS.USERS);
 	},
 	disconnect() {
 		return client.close();

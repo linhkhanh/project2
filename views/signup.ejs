@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create New Account</h1>
+        <form action="/lico/signup_submit" method="POST">
+            <p><%= errUserName; %> <%=errUserNameValidation; %></p>
+            <div class="form-group">
+                <label for="userName">User Name *</label>
+                <input name="userName" id="userName" type="text" placeholder="enter user name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input name="email" id="email" type="email" placeholder="enter your email address" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input name="password" id="password" type="password" placeholder="enter password" class="form-control" required>
+            </div>
+            <p><%= errPassword; %> <%= errPasswordValidaion; %></p>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm password *</label>
+                <input name="confirmPassword" id="confirmPassword" type="password" placeholder="confirm password"
+                    class="form-control" required>
+            </div>
+            <div>
+                <label for="female">Female</label>
+                <input name="female" type="checkbox" id="female">
+                <label for="male">Male</label>
+                <input name="male" type="checkbox" id="male">
+            </div>
+
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+</body>
+
+</html>

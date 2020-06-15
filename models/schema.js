@@ -6,11 +6,10 @@ module.exports = {
                 userName: {
                     bsonType: "string",
                     minLength: 3,
-                    maxLength: 15
+                    maxLength: 30
                 },
                 email: {
                     bsonType: "string",
-                    pattern: '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
                 },
                 password: {
                     bsonType: "string",
@@ -23,6 +22,18 @@ module.exports = {
                 },
                 avata: {
                     bsonType: "string"
+                },
+                female: {
+                    bsonType: "bool"
+                },
+                male: {
+                    bsonType: "bool"
+                },
+                birthDay: {
+                    bsonType: "date"
+                },
+                createAt: {
+                    bsonType: "date"
                 }
             },
             required: [
