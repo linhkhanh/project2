@@ -1,0 +1,11 @@
+.info {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.avata {
+    width: 30%;
+}
+.user-info {
+    width: 60%;
+}

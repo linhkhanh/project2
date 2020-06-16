@@ -23,11 +23,8 @@ module.exports = {
                 avata: {
                     bsonType: "string"
                 },
-                female: {
-                    bsonType: "bool"
-                },
-                male: {
-                    bsonType: "bool"
+                gender: {
+                    bsonType: "string"
                 },
                 birthDay: {
                     bsonType: "date"

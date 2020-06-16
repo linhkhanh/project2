@@ -1,5 +1,5 @@
 const usersRepository = require('../repositories/usersRepository');
-
+const moment = require('moment');
 // define errors
 let errors = {
     errUserName: '',
@@ -10,7 +10,6 @@ let errors = {
     errUniqueEmail: '',
     errEmail: ''
 };
-
 // define rule for userName
 const regex = new RegExp(/^[a-zA-Z0-9_\.-]*$/);
 
@@ -23,11 +22,14 @@ const formatRequestObject = (reqBody) => {
         'createdAt': new Date()
     };
     if (reqBody.female === "on") {
-        user.female = true;
+        user.gender = "female";
+        user.avata = '/images/female.png'
     } else if (reqBody.male === "on") {
-        user.male = true;
+        user.gender = "male";
+        user.avata = '/images/male.jpg'
     } else {
-        user.male = true;
+        user.gender = "male";
+        user.avata = '/images/male.jpg'
     }
     return user;
 }
@@ -73,8 +75,17 @@ module.exports = {
     },
     async show(req, res) {
         try {
-            const user = await usersRepository.show(req.params.userName);
-            return res.render('show', { user });
+            if(req.session.userName) {
+                const user = await usersRepository.show(req.params.userName);
+
+                // format date
+                user.createdAt = moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+                
+                return res.render('show', { user, name: req.session.userName });
+            } else {
+                res.redirect('/lico/login');
+            }
+           
         } catch (err) {
             return res.send(err.message);
         }
@@ -150,7 +161,7 @@ module.exports = {
             const user = await usersRepository.getOneByEmail(req.body.email);
             if (req.body.password === user.password) {
                 req.session.userName = user.userName;
-                return res.redirect('/lico/home');
+                return res.redirect('/lico/');
             } else {
                 errors.errPassword = "** Wrong password. Please enter password again. **";
                 return res.redirect('/lico/login');
@@ -160,6 +171,14 @@ module.exports = {
             errors.errEmail = `** ${err.message} **`;
             return res.redirect('/lico/login');
         }
+    },
+    logOut: (req, res) => {
+        req.session.destroy((err) => {
+            if (err) {
+                return console.log(err);
+            }
+            res.redirect('/lico/login');
+        })
     }
     // async getOneByName (req, res) {
     //     try {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/lico">Home</a>
+            <% if(name === user.userName) { %>
+                <a href="/lico/logout">Log out</a>
+            <% } %>
+             
+        </nav>
+    </header>
+    <div class="container">
+        <div class="info">
+            <img src="<%= user.avata; %>" class="avata">
+            <div class="user-info">
+                <h2><%= user.userName; %></h2>
+                <p>Gender: <%= user.gender; %></p>
+                <p>Joined at: <%= user.createdAt; %></p>
+                <% if(name === user.userName) { %>
+                <a href="/lico/<%= user.username; %>/edit">Edit profile</a>
+                <% } %>
+            </div>
+        </div>
+        <p>You have no image. Let's upload image</p>
+
+    </div>
+</body>
+
+</html>
