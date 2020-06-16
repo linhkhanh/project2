@@ -76,17 +76,17 @@ module.exports = {
     },
     async show(req, res) {
         try {
-            if(req.session.userName) {
+            if (req.session.userName) {
                 const user = await usersRepository.show(req.params.userName);
 
                 // format date
                 user.createdAt = moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-                
+
                 return res.render('show', { user, name: req.session.userName });
             } else {
                 res.redirect('/lico/login');
             }
-           
+
         } catch (err) {
             return res.send(err.message);
         }
@@ -187,12 +187,35 @@ module.exports = {
         /// CLOUDINARY
         await cloudinary.uploader.upload(req.file.path,
             async function (error, result) {
-                console.log(result);
-                const response = await usersRepository.updateByUserName( req.params.userName , { avata: result.url });
+                const response = await usersRepository.updateByUserName(req.params.userName, { avata: result.url });
             }
         )
         res.redirect(`/lico/${req.session.userName}`);
-    }
+    },
+    uploadImage: async (req, res, next) => {
+        try {
+            const user = await usersRepository.show(req.params.userName);
+
+            /// CLOUDINARY
+            await cloudinary.uploader.upload(req.file.path,
+                async function (error, result) {
+                    console.log(result);
+                    let images = user.images;
+                    if(!images) images = [];
+                    images.push({
+                        id: result.public_id,
+                        url: result.url,
+                        createdAt: result.created_at
+                    })
+                    const response = await usersRepository.updateByUserName(req.params.userName, { images: images });
+                }
+            )
+            res.redirect(`/lico/${req.session.userName}`);
+        } catch (err) {
+            console.location(err);
+        }
+       
+    },
     // async getOneByName (req, res) {
     //     try {
     //         const item = await shopRepository.getOneByName(req.params.name);
@@ -201,19 +224,25 @@ module.exports = {
     //         return res.render('errors/404', { err });
     //     }
     // },
-    // async update (req, res) {
-    //     try {
-    //         const item = {
-    //             'name': req.body.name,
-    //             'description': req.body.description,
-    //             'img': req.body.img,
-    //             'price': parseInt(req.body.price),
-    //             'qty': parseInt(req.body.qty)
-    //         };
-    //         await shopRepository.updateByName(req.params.name, item);
-    //         return res.send(item);
-    //     } catch (err) {
-    //         return res.render('errors/404', { err });
-    //     }
-    // }
+    async edit(req, res) {
+        const user = await usersRepository.show(req.params.userName);
+        res.render('edit', { user });
+    },
+    async update(req, res) {
+        try {
+            const user = {
+                'userName': req.body.userName,
+                'email': req.body.email,
+                'biography': req.body.biography,
+                'birthDay': req.body.birthDay,
+                'location': req.body.location
+            };
+            req.session.userName = req.body.userName;
+            await usersRepository.updateByUserName(req.params.userName, user);
+            return res.redirect(`/lico/${user.userName}`);
+        } catch (err) {
+            console.log(err);
+            return res.send(err.message);
+        }
+    }
 };

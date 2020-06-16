@@ -10,9 +10,9 @@
         <nav>
             <a href="/lico">Home</a>
             <% if(name === user.userName) { %>
-                <a href="/lico/logout">Log out</a>
+            <a href="/lico/logout">Log out</a>
             <% } %>
-             
+
         </nav>
     </header>
     <div class="container">
@@ -20,26 +20,68 @@
             <div class="avata">
                 <img src="<%= user.avata; %>" class="img-avata">
                 <% if(name === user.userName) { %>
+
+                <!-- UPLOAD AVATA -->
                 <form action='/lico/<%= user.userName; %>/avata' method='POST' enctype="multipart/form-data">
                     <div class="form-group">
-                      <input type="file" name="avata" class="choose-avata">
+                        <input type="file" name="avata" class="choose-avata">
                     </div>
                     <input type="submit" class="btn btn-primary change-avata" value="Change Avata">
-                  </form>
-                  <% } %>
+                </form>
+                <!-- end -->
+                <% } %>
             </div>
-            
+
 
             <div class="user-info">
                 <h2><%= user.userName; %></h2>
                 <p>Gender: <%= user.gender; %></p>
                 <p>Joined at: <%= user.createdAt; %></p>
+
+                <% if(user.biography) { %>
+                <p>About me: <%= user.biography; %></p>
+                <% } %>
+
+                <% if(user.birthDay) { %>
+                <p>BirthDay: <%= user.birthDay; %></p>
+                <% } %>
+
+                <% if(user.location) { %>
+                <p>Come from <%= user.location; %></p>
+                <% } %>
+
                 <% if(name === user.userName) { %>
-                <a href="/lico/<%= user.username; %>/edit">Edit profile</a>
+                <a href="/lico/<%= user.userName; %>/edit">Edit profile</a>
                 <% } %>
             </div>
         </div>
-        <p>You have no image. Let's upload image</p>
+        <div>
+            <% if(name === user.userName) { %>
+            <% if(!user.images) { %>
+            <p>You have no image. Let's upload image</p>
+            <% } %>
+            <!-- UPLOAD IMAGE -->
+            <form action='/lico/<%= user.userName; %>/upload' method='POST' enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" class="choose-image">
+                </div>
+                <input type="submit" class="btn btn-primary up-image" value="Upload Image">
+            </form>
+            <!-- END -->
+            <% } %>
+        </div>
+
+        <section class="images">
+            <!-- SHOW IMAGES -->
+            <% if(user.images) { %>
+            <% user.images.forEach(item => { %>
+            <img src="<%= item.url; %>" class="pic">
+            <% }) %>
+
+            <% } %>
+        </section>
+
+
 
     </div>
 </body>

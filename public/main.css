@@ -4,14 +4,26 @@
     justify-content: space-between;
 }
 .avata {
-    width: 30%;
+    width: 35%;
 }
 .img-avata {
     width: 100%;
+    height: 350px;
 }
 .user-info {
     width: 60%;
 }
-.change-avata {
+.change-avata, .up-image {
     display: none;
+}
+
+.images {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+}
+.pic {
+    width: 30%;
+    height: 250px;
+    margin: 1%;
 }

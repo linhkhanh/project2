@@ -15,19 +15,11 @@ module.exports = {
                     bsonType: "string",
                     minLength: 5
                 },
-                biography: {
-                    bsonType: "string",
-                    minLength: 5,
-                    maxLength: 100
-                },
                 avata: {
                     bsonType: "string"
                 },
                 gender: {
                     bsonType: "string"
-                },
-                birthDay: {
-                    bsonType: "date"
                 },
                 createdAt: {
                     bsonType: "date"

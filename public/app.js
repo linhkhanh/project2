@@ -1,5 +1,9 @@
-$(() => {
-    $('.choose-avata').on('click', () => {
-        $('.change-avata').show();
+const onClick = (button1, show) => {
+    $(button1).on('click', () => {
+        $(show).show();
     })
+}
+$(() => {
+    onClick('.choose-avata', '.change-avata');
+    onClick('.choose-image', '.up-image' );
 })
