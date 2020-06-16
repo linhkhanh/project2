@@ -11,8 +11,8 @@ let errors = {
     errEmail: ''
 };
 
- // define rule for userName
- const regex = new RegExp(/^[a-zA-Z0-9_\.-]*$/);
+// define rule for userName
+const regex = new RegExp(/^[a-zA-Z0-9_\.-]*$/);
 
 //  format request.body object 
 const formatRequestObject = (reqBody) => {
@@ -42,28 +42,43 @@ module.exports = {
             errUniqueEmail: errors.errUniqueEmail
         })
     },
-    logIn (req, res) {
+    logIn(req, res) {
         res.render('login', {
             errEmail: errors.errEmail,
             errPassword: errors.errPassword
         });
     },
-    // async getAll (req, res) {
-    //     try {
-    //         const items = await shopRepository.getAll();
-    //         return res.render('shop/index', { items });
-    //     } catch (err) {
-    //         return res.render('errors/404', { err });
-    //     }
-    // },
-    // async show (req, res) {
-    //     try {
-    //         const item = await shopRepository.show(req.params.name);
-    //         return res.send(item);
-    //     } catch (err) {
-    //         return res.render('errors/404', { err });
-    //     }
-    // },
+    async getAll(req, res) {
+        try {
+            if (req.session.userName) {
+                const users = await usersRepository.getAll();
+
+                // get userName of User login
+                const name = req.session.userName;
+
+                // find index of this user in data 
+                const index = users.findIndex((user) => {
+                    return user.userName === name;
+                });
+
+                // change list od users to make it just display the other users
+                users.splice(index, 1);
+                return res.render('home', { users, name });
+            } else {
+                return res.redirect('/lico/login');
+            }
+        } catch (err) {
+            return res.send(err.message);
+        }
+    },
+    async show(req, res) {
+        try {
+            const user = await usersRepository.show(req.params.userName);
+            return res.render('show', { user });
+        } catch (err) {
+            return res.send(err.message);
+        }
+    },
     async create(req, res) {
         // Reset errors
         errors = {
@@ -91,15 +106,15 @@ module.exports = {
             }
         } catch (err) {
             console.log(err);
-        // Check unique userName and unique email
-            if(err.keyValue) {
+            // Check unique userName and unique email
+            if (err.keyValue) {
                 // check unique userName
-                if(err.keyValue.userName) {
+                if (err.keyValue.userName) {
                     errors.errUniqueUserName = "** This User Name is not available. **"
                 }
 
                 // check unique email;
-                if(err.keyValue.email) {
+                if (err.keyValue.email) {
                     errors.errUniqueEmail = "** This email is used. **";
                 }
             }
@@ -122,23 +137,24 @@ module.exports = {
             if (!regex.test(req.body.userName)) {
                 errors.errUserName = "** Your user name must not have space, and some special characters ($, %, ^, @, `, (,), (,)) **"
             }
-    
+
             return res.redirect('/lico/signup');
         }
     },
-    async loginSubmit (req, res) {
+    async loginSubmit(req, res) {
         // reset errors
         errors.errEmail = '';
         errors.errPassword = '';
-        
+
         try {
             const user = await usersRepository.getOneByEmail(req.body.email);
-            if(req.body.password === user.password) {
-                return res.send(user);
+            if (req.body.password === user.password) {
+                req.session.userName = user.userName;
+                return res.redirect('/lico/home');
             } else {
                 errors.errPassword = "** Wrong password. Please enter password again. **";
                 return res.redirect('/lico/login');
-            }     
+            }
         } catch (err) {
             console.log(err);
             errors.errEmail = `** ${err.message} **`;

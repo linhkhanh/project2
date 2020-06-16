@@ -3,15 +3,15 @@ const db = require('../models');
 module.exports = {
     async getAll () {
         try {
-            return await db.users.find().toArray();
+            return await db.Users.find().toArray();
         } catch (err) {
             throw new Error(`Database Error - ${err.message}`);
         }
     },
     async show (name) {
-        const item = await db.Users.findOne({ name: { '$regex': `^${name}$`, '$options': 'i' } });
-        if (!item) throw new Error('Non-existance');
-        return item;
+        const user = await db.Users.findOne({ userName: name });
+        if (!user) throw new Error('Non-existance');
+        return user;
     },
     async create(data) {
         const { ops } = await db.Users.insertOne(data);

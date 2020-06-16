@@ -12,6 +12,8 @@ cloudinary.config({
 module.exports = (app) => {
   app.get('/lico/signup', usersController.new);
   app.get('/lico/login', usersController.logIn);
+  app.get('/lico/home', usersController.getAll);
+  app.get('/lico/:userName', usersController.show);
   app.post('/lico/signup_submit', usersController.create);
   app.post('/lico/login_submit', usersController.loginSubmit);
 //   app.post('/:index/upload', upload.single('image'), pages.upload);
