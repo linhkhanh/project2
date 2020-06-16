@@ -1,5 +1,6 @@
 const usersRepository = require('../repositories/usersRepository');
 const moment = require('moment');
+const cloudinary = require('cloudinary').v2;
 // define errors
 let errors = {
     errUserName: '',
@@ -179,6 +180,18 @@ module.exports = {
             }
             res.redirect('/lico/login');
         })
+    },
+    uploadAvata: async (req, res, next) => {
+        console.log(req.params.userName);
+
+        /// CLOUDINARY
+        await cloudinary.uploader.upload(req.file.path,
+            async function (error, result) {
+                console.log(result);
+                const response = await usersRepository.updateByUserName( req.params.userName , { avata: result.url });
+            }
+        )
+        res.redirect(`/lico/${req.session.userName}`);
     }
     // async getOneByName (req, res) {
     //     try {

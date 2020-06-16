@@ -28,20 +28,17 @@ module.exports = {
         if (!foundUser) throw new Error(`User with email '${email}' does not exist`);
         return foundUser;
     },
-    async updateByName (name, item) {
+    async updateByUserName (userName, data) {
         try {
             const { matchedCount } = await db.Users.updateOne({
-                name: {
-                    '$regex': `^${name}$`,
-                    '$options': 'i'
-                }
+                userName: userName
             }, {
-                $set: item
+                $set: data
             });
-            if (!matchedCount) throw new Error(`${name} doesn't exist`);
+            if (!matchedCount) throw new Error(`${userName} doesn't exist`);
             return true;
         } catch (err) {
-            throw new Error(`Due to ${err.message}, I cannot update it with ${JSON.stringify(item)}`);
+            throw new Error(`Due to ${err.message}, I cannot update it with ${JSON.stringify(data)}`);
         }
     }
 };

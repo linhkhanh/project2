@@ -17,7 +17,19 @@
     </header>
     <div class="container">
         <div class="info">
-            <img src="<%= user.avata; %>" class="avata">
+            <div class="avata">
+                <img src="<%= user.avata; %>" class="img-avata">
+                <% if(name === user.userName) { %>
+                <form action='/lico/<%= user.userName; %>/avata' method='POST' enctype="multipart/form-data">
+                    <div class="form-group">
+                      <input type="file" name="avata" class="choose-avata">
+                    </div>
+                    <input type="submit" class="btn btn-primary change-avata" value="Change Avata">
+                  </form>
+                  <% } %>
+            </div>
+            
+
             <div class="user-info">
                 <h2><%= user.userName; %></h2>
                 <p>Gender: <%= user.gender; %></p>

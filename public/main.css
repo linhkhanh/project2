@@ -6,6 +6,12 @@
 .avata {
     width: 30%;
 }
+.img-avata {
+    width: 100%;
+}
 .user-info {
     width: 60%;
+}
+.change-avata {
+    display: none;
 }

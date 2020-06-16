@@ -18,6 +18,7 @@ module.exports = (app) => {
     app.get('/lico/:userName', usersController.show);
     app.post('/lico/signup_submit', usersController.create);
     app.post('/lico/login_submit', usersController.loginSubmit);
+    app.post('/lico/:userName/avata', upload.single('avata'), usersController.uploadAvata);
     //   app.post('/:index/upload', upload.single('image'), pages.upload);
     //   app.delete('/planet/:index', pages.deletePerson);
     //   app.get('/planet/:index', pages.showPage);
