@@ -1,5 +1,6 @@
 const usersRepository = require('../repositories/usersRepository');
 const cloudinary = require('cloudinary').v2;
+const moment = require('moment');
 
 module.exports = {
     async uploadAvata (req, res, next) {
@@ -39,6 +40,27 @@ module.exports = {
         }
     },
     async showImage (req, res) {
+        console.log(req.params)
+        const user = await usersRepository.show(req.params.userName);
+        const image = user.images.find((item) => {
+            return item.id === req.params.idImage
+        });
+        image.createdAt =  moment(image.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        res.render('image', { image, user });
+    },
+    async commentImage (req, res) {
+        const user = await usersRepository.show(req.params.userName);
+        const image = user.images.find((item) => {
+            return item.id === req.params.idImage;
+        })
+        let comments = image.comments;
+        if(!comments) comments = [];
 
+        comments.push({
+            content: req.body.comment,
+            createdAt: Date.now(),
+            user: req.session.userName
+        })
+        res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`)
     }
 }
