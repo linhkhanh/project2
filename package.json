@@ -19,6 +19,7 @@
   "homepage": "https://github.com/linhkhanh/project2#readme",
   "dependencies": {
     "aws-sdk": "^2.696.0",
+    "bcrypt": "^5.0.0",
     "body-passer": "^1.0.0",
     "chai": "^4.2.0",
     "cloudinary": "^1.22.0",

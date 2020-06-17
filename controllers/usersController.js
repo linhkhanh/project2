@@ -1,6 +1,7 @@
 const usersRepository = require('../repositories/usersRepository');
 const moment = require('moment');
 const cloudinary = require('cloudinary').v2;
+const bcrypt = require('bcrypt');
 // define errors
 let errors = {
     errUserName: '',
@@ -15,25 +16,7 @@ let errors = {
 const regex = new RegExp(/^[a-zA-Z0-9_\.-]*$/);
 
 //  format request.body object 
-const formatRequestObject = (reqBody) => {
-    const user = {
-        'userName': reqBody.userName,
-        'email': reqBody.email,
-        'password': reqBody.password,
-        'createdAt': new Date()
-    };
-    if (reqBody.female === "on") {
-        user.gender = "female";
-        user.avata = '/images/female.png'
-    } else if (reqBody.male === "on") {
-        user.gender = "male";
-        user.avata = '/images/male.jpg'
-    } else {
-        user.gender = "male";
-        user.avata = '/images/male.jpg'
-    }
-    return user;
-}
+const formatRequestObject = require('./formatReqObject');
 module.exports = {
     new(req, res) {
         res.render('signup', {
@@ -64,7 +47,7 @@ module.exports = {
                     return user.userName === name;
                 });
 
-                // change list od users to make it just display the other users
+                // change list of users to make it just display the other users
                 users.splice(index, 1);
                 return res.render('home', { users, name });
             } else {
@@ -182,15 +165,18 @@ module.exports = {
         })
     },
     uploadAvata: async (req, res, next) => {
-        console.log(req.params.userName);
-
-        /// CLOUDINARY
-        await cloudinary.uploader.upload(req.file.path,
-            async function (error, result) {
-                const response = await usersRepository.updateByUserName(req.params.userName, { avata: result.url });
-            }
-        )
-        res.redirect(`/lico/${req.session.userName}`);
+        try {
+            /// CLOUDINARY
+            await cloudinary.uploader.upload(req.file.path,
+                async function (error, result) {
+                    const response = await usersRepository.updateByUserName(req.params.userName, { avata: result.url });
+                }
+            )
+            res.redirect(`/lico/${req.session.userName}`);
+        } catch (err) {
+            console.log(err);
+        }
+       
     },
     uploadImage: async (req, res, next) => {
         try {
@@ -201,7 +187,7 @@ module.exports = {
                 async function (error, result) {
                     console.log(result);
                     let images = user.images;
-                    if(!images) images = [];
+                    if (!images) images = [];
                     images.push({
                         id: result.public_id,
                         url: result.url,
@@ -212,9 +198,9 @@ module.exports = {
             )
             res.redirect(`/lico/${req.session.userName}`);
         } catch (err) {
-            console.location(err);
+            console.log(err);
         }
-       
+
     },
     // async getOneByName (req, res) {
     //     try {
@@ -225,8 +211,10 @@ module.exports = {
     //     }
     // },
     async edit(req, res) {
-        const user = await usersRepository.show(req.params.userName);
-        res.render('edit', { user });
+        if (req.params.userName === req.session.userName) {
+            const user = await usersRepository.show(req.params.userName);
+            res.render('edit', { user });
+        }
     },
     async update(req, res) {
         try {
