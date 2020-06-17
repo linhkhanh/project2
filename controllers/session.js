@@ -99,7 +99,7 @@ module.exports = {
                 req.session.userName = user.userName;
                 return res.redirect('/lico/');
             } else {
-                errors.errPassword = "** Wrong password. Please enter password again. **";
+                errors.errPassword = "x** Wrong password. Please enter password again. **";
                 return res.redirect('/lico/login');
             }
         } catch (err) {

@@ -32,7 +32,7 @@
                 <% } %>
             </div>
 
-
+            <!-- USER INFORMATION -->
             <div class="user-info">
                 <h2><%= user.userName; %></h2>
                 <p>Gender: <%= user.gender; %></p>
@@ -54,9 +54,12 @@
                 <a href="/lico/<%= user.userName; %>/edit">Edit profile</a>
                 <% } %>
             </div>
+            <!-- END -->
         </div>
         <div>
+            <!-- CHECK AUTHENTICATION -->
             <% if(name === user.userName) { %>
+                <!-- CHECK THERE IS IMAGES ARRAY OR NOT -->
             <% if(!user.images) { %>
             <p>You have no image. Let's upload image</p>
             <% } %>
@@ -64,6 +67,9 @@
             <form action='/lico/<%= user.userName; %>/upload' method='POST' enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="file" name="image" class="choose-image">
+                </div>
+                <div>
+                    <input type="text" name="description" placeholder="Say something about this picture.." class="form-control">
                 </div>
                 <input type="submit" class="btn btn-primary up-image" value="Upload Image">
             </form>
@@ -75,7 +81,7 @@
             <!-- SHOW IMAGES -->
             <% if(user.images) { %>
             <% user.images.forEach(item => { %>
-            <img src="<%= item.url; %>" class="pic">
+            <a href="/lico/<%= user.userName; %>/<%= item.id; %>" class="link"><img src="<%= item.url; %>" class="pic"></a>
             <% }) %>
 
             <% } %>
