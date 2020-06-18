@@ -6,16 +6,31 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="/lico">Home</a>
-            <% if(name === user.userName) { %>
-            <a href="/lico/logout">Log out</a>
-            <% } %>
+    
 
-        </nav>
-    </header>
     <div class="container">
+        <header>
+            <div>
+                <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
+            </div>
+            <form class="form-search">
+                <input placeholder="Search" class="search">
+            </form>
+            <nav>
+                <div class="icon">
+                    <a href="/lico/<%= name; %>"><img src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png" class="user-icon"></a>
+                </div>
+                <div class="icon">
+                    <a href="/lico/index"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" class="user-icon"></a>
+                </div>
+                <div class="icon">
+                    <% if(name === user.userName) { %>
+                        <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png" class="logout-icon"></a>
+                        <% } %>
+                </div>
+            </nav>
+        </header>
+
         <div class="info">
             <div class="avata">
                 <img src="<%= user.avata; %>" class="img-avata">
@@ -51,7 +66,7 @@
                 <% } %>
 
                 <% if(name === user.userName) { %>
-                <a href="/lico/<%= user.userName; %>/edit">Edit profile</a>
+                <a href="/lico/<%= user.userName; %>/edit" class="edit">Edit profile</a>
                 <% } %>
             </div>
             <!-- END -->
@@ -61,7 +76,7 @@
             <% if(name === user.userName) { %>
                 <!-- CHECK THERE IS IMAGES ARRAY OR NOT -->
             <% if(!user.images) { %>
-            <p>You have no image. Let's upload image</p>
+            <p>You have no image. Let's share your amazing images</p>
             <% } %>
             <!-- UPLOAD IMAGE -->
             <form action='/lico/<%= user.userName; %>/upload' method='POST' enctype="multipart/form-data">
@@ -69,7 +84,7 @@
                     <input type="file" name="image" class="choose-image">
                 </div>
                 <div>
-                    <input type="text" name="description" placeholder="Say something about this picture.." class="form-control">
+                    <input type="text" name="description" placeholder="Say something about this picture.." class="description">
                 </div>
                 <input type="submit" class="btn btn-primary up-image" value="Upload Image">
             </form>

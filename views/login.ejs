@@ -6,23 +6,31 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Log in</h1>
-        <form action="/lico/login_submit" method="POST">
-            <p><%= errEmail; %></p>
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input name="email" id="email" type="email" placeholder="enter your email address" class="form-control" required>
-            </div>
-            <p><%= errPassword; %></p>
-            <div class="form-group">
-                <label for="password">Password *</label>
-                <input name="password" id="password" type="password" placeholder="enter password" class="form-control" required>
-            </div>
+    <div class="container first-page">
+        <div class="left">
+            <img src="/images/logo-lico.png">
+        </div>
+        <div class="login">
+            <h1>Log in</h1>
+            <form action="/lico/login_submit" method="POST">
+                <p><%= errEmail; %></p>
+                <div>
+                    <label for="email">Email *</label><br>
+                    <input name="email" id="email" type="email" placeholder="enter your email address" class="input"
+                        required>
+                </div>
+                <p><%= errPassword; %></p>
+                <div>
+                    <label for="password">Password *</label><br>
+                    <input name="password" id="password" type="password" placeholder="enter password" required
+                        class="input">
+                </div>
+                
+                <input type="submit" value="Submit" class="login-submit">
+            </form>
+            <p>You don't have an account? <a href="/lico/signup">Sign up here</a></p>
+        </div>
 
-            <input type="submit" value="Submit" class="btn btn-primary">
-        </form>
-        <p>You don't have an account? <a href="/lico/signup">Sign up here</a></p>
     </div>
 </body>
 

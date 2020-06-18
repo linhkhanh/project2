@@ -6,4 +6,5 @@ const onClick = (button1, show) => {
 $(() => {
     onClick('.choose-avata', '.change-avata');
     onClick('.choose-image', '.up-image' );
+    onClick('.choose-image', '.description' );
 })

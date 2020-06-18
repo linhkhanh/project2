@@ -29,6 +29,8 @@ module.exports = {
     async show(req, res) {
         try {
             if (req.session.userName) {
+                req.session.avata = false;
+                req.session.image = false;
                 const user = await usersRepository.show(req.params.userName);
 
                 // format date
@@ -44,15 +46,25 @@ module.exports = {
         }
     },
     
-    // async getOneByName (req, res) {
-    //     try {
-    //         const item = await shopRepository.getOneByName(req.params.name);
-    //         return res.render('shop/show', { item });
-    //     } catch (err) {
-    //         return res.render('errors/404', { err });
-    //     }
-    // },
+    async getAllImage (req, res) {
+        try {
+            if (req.session.userName) {
+                const users = await usersRepository.getAll();
+
+                // get userName of User login
+                const name = req.session.userName;
+
+                return res.render('index', { users, name });
+            } else {
+                return res.redirect('/lico/login');
+            }
+        } catch (err) {
+            return res.send(err.message);
+        }
+        
+    },
     async edit(req, res) {
+        console.log('Edit page');
         if (req.params.userName === req.session.userName) {
             const user = await usersRepository.show(req.params.userName);
             res.render('edit', { user });

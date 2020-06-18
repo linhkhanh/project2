@@ -1,23 +1,26 @@
 const usersRepository = require('../repositories/usersRepository');
 const cloudinary = require('cloudinary').v2;
 const moment = require('moment');
+const ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
-    async uploadAvata (req, res, next) {
+    async uploadAvata(req, res, next) {
         try {
             /// CLOUDINARY
             await cloudinary.uploader.upload(req.file.path,
                 async function (error, result) {
+                   
                     await usersRepository.updateByUserName(req.params.userName, { avata: result.url });
                 }
             )
+            
             res.redirect(`/lico/${req.session.userName}`);
         } catch (err) {
             console.log(err);
         }
-       
+
     },
-    async uploadImage  (req, res, next) {
+    async uploadImage(req, res, next) {
         try {
             const user = await usersRepository.show(req.params.userName);
             /// CLOUDINARY
@@ -34,32 +37,62 @@ module.exports = {
                     await usersRepository.updateByUserName(req.params.userName, { images: images });
                 }
             )
+            
             res.redirect(`/lico/${req.session.userName}`);
         } catch (err) {
             console.log(err);
         }
     },
-    async showImage (req, res) {
-        console.log(req.params)
-        const user = await usersRepository.show(req.params.userName);
-        const image = user.images.find((item) => {
-            return item.id === req.params.idImage
-        });
-        image.createdAt =  moment(image.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-        res.render('image', { image, user });
+    async showImage(req, res) {
+        if (req.session.userName) {
+            const currentUser = req.session.userName;
+            const user = await usersRepository.show(req.params.userName);
+            const image = user.images.find((item) => {
+                return item.id === req.params.idImage
+            });
+            image.createdAt = moment(image.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+            if (image.comments) {
+                image.comments.forEach((item) => {
+                    return item.createdAt = moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+                })
+            }
+
+            res.render('image', { image, user, currentUser });
+        } else {
+            res.redirect('/lico/login');
+        }
+
     },
-    async commentImage (req, res) {
+    async commentImage(req, res) {
+        // Find user
         const user = await usersRepository.show(req.params.userName);
-        const image = user.images.find((item) => {
+        
+        // Find images array of this user
+        const images = user.images;
+        
+        // FIND INDEX OF CURRENT IMAGE
+        const index = images.findIndex((item) => {
             return item.id === req.params.idImage;
         })
-        let comments = image.comments;
-        if(!comments) comments = [];
+
+        // GET COMMENTS ARRAY OF CURRENT IMAGE
+        let comments = images[index].comments;
+
+        if (!comments) comments = []; // IF CURRENT IMAGE DOES NOT HAVE COMMENTS ARRAY, ASIGN COMMENTS TO A EMPTY ARRAY
+
+        // GET INFOMATION OF USER COMMENT
+        const userComment = await usersRepository.show(req.session.userName);
 
         comments.push({
+            id: ObjectID(),
             content: req.body.comment,
-            createdAt: Date.now(),
-            user: req.session.userName
+            createdAt: new Date,
+            userComment: req.session.userName,
+            avataOfUserComment: userComment.avata
+        })
+        images[index].comments = comments;
+        await usersRepository.updateByUserName(req.params.userName, {
+            images
         })
         res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`)
     }

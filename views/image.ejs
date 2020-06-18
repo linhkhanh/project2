@@ -6,16 +6,86 @@
 </head>
 
 <body>
+
     <div class="container">
+        <header>
+            <div>
+                <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
+            </div>
+            <form class="form-search">
+                <input placeholder="Search" class="search">
+            </form>
+            <nav>
+                <div class="icon">
+                    <a href="/lico/<%= currentUser; %>"><img
+                            src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png"
+                            class="user-icon"></a>
+                </div>
+                <div class="icon">
+                    <a href="/lico/index"><img
+                            src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
+                            class="user-icon"></a>
+                </div>
+                <div class="icon">
+                    <% if(currentUser === user.userName) { %>
+                    <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png"
+                            class="logout-icon"></a>
+                    <% } %>
+                </div>
+                <div>
+                    <a href="/lico/<%= user.userName; %>">Back</a>
+                </div>
+            </nav>
+        </header>
+
         <h1>Show image</h1>
-        <p><%= user.userName; %></p>
-        <img src="<%= image.url; %>">
-        <p>Date: <%= image.createdAt; %></p>
-        <p><%= image.description; %></p>
-        <form action="/lico/<%= user.userName; %>/<%= image.id; %>" method="POST">
-            <input type="text" name="comment" placeholder="write a comment">
-            <input type="submit" value="send">
-        </form>
+       
+
+        <div class="image-box">
+            <div class="left-box">
+                <!-- image -->
+                <img src="<%= image.url; %>" class="show-image">
+            </div>
+            <div class="right-box">
+                <!-- image information -->
+                <h3><%= user.userName; %></h3>
+                <p>Date: <%= image.createdAt; %></p>
+               
+                <!-- delete/edit image content -->
+                <% if(currentUser === user.userName) { %>
+                <form action="lico/<%= user.userName; %>/<%= image.id; %>?_method=DELETE" method="POST">
+                    <input type="submit" value="Delete">
+                </form>
+                <a href="lico/<%= user.userName; %>/<%= image.id; %>/edit">Edit</a>
+                <% } %>
+
+                <!-- image Description -->
+                <p><%= image.description; %></p>
+
+                 <!-- write COMMENT -->
+                <form action="/lico/<%= user.userName; %>/<%= image.id; %>" method="POST">
+                    <label class="current-user"><%= currentUser; %></label>
+                    <input type="text" name="comment" placeholder="write a comment" class="write-comment">
+                    <input type="submit" value="send" class="send">
+                </form>
+
+                <!-- SHOW ALL COMMENTS -->
+                <div class="all-comments">
+                    <% if(image.comments) { %>
+                        <% image.comments.forEach(item => { %>
+                        <div class="comment">
+                            <p><%= item.createdAt; %></p>
+                            <p><img src="<%= item.avataOfUserComment; %>" class="avata-comment"><a
+                                    href="/lico/<%= item.userComment; %>"><%= item.userComment; %></a> <%= item.content; %></p>
+                        </div>
+            
+                        <% }) %>
+                        <% } %>
+                </div>
+            </div>
+           
+        </div>
+
     </div>
 
 </body>

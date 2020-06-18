@@ -7,15 +7,12 @@
 
 <body>
     <div class="container">
-        <header>
-            <nav>
-                <a href="/lico/<%= name; %>"><%= name; %></a>
-            </nav>
-        </header>
-        <section>
-            <h1>All users</h1>
+
+        <%- include('./partials/header.ejs') %>
+
+        <section class="list-users">
             <% users.forEach(user => { %>
-                <p><a href="/lico/<%= user.userName; %>"><%= user.userName; %></a></p>
+                <p><img src="<%= user.avata; %>" class="avata-user"><a href="/lico/<%= user.userName; %>"> <%= user.userName; %></a></p>
             <% }) %>
         </section>
     </div>
