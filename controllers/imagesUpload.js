@@ -1,4 +1,5 @@
 const usersRepository = require('../repositories/usersRepository');
+const imagesRepository = require('../repositories/imagesRepository');
 const cloudinary = require('cloudinary').v2;
 const moment = require('moment');
 const ObjectID = require('mongodb').ObjectID;
@@ -14,7 +15,7 @@ module.exports = {
                 }
             )
             
-            res.redirect(`/lico/${req.session.userName}`);
+            return res.redirect(`/lico/${req.session.userName}`);
         } catch (err) {
             console.log(err);
         }
@@ -35,10 +36,17 @@ module.exports = {
                         description: req.body.description
                     })
                     await usersRepository.updateByUserName(req.params.userName, { images: images });
+                    await imagesRepository.create({
+                        id: result.public_id,
+                        url: result.url,
+                        createdAt: result.created_at,
+                        description: req.body.description,
+                        userName: user.userName
+                    })
                 }
             )
             
-            res.redirect(`/lico/${req.session.userName}`);
+            return res.redirect(`/lico/${req.session.userName}`);
         } catch (err) {
             console.log(err);
         }

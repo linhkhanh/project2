@@ -1,4 +1,5 @@
 const usersRepository = require('../repositories/usersRepository');
+const imagesRepository = require('../repositories/imagesRepository');
 const moment = require('moment');
 
 module.exports = {
@@ -36,7 +37,7 @@ module.exports = {
                 // format date
                 user.createdAt = moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
-                return res.render('show', { user, name: req.session.userName });
+                return res.render('show', { user, name: req.session.userName,  });
             } else {
                 res.redirect('/lico/login');
             }
@@ -89,4 +90,5 @@ module.exports = {
             return res.send(err.message);
         }
     }
+
 };
