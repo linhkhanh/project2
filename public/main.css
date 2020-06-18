@@ -74,7 +74,7 @@ header {
     align-items: center;
 }
 
-.user-icon {
+.user-icon, .logout-icon, .back-icon  {
     width: 100%;
 }
 .image-icon {
@@ -120,9 +120,7 @@ nav {
 /* END */
 
 /* SHOW PAGE */
-.logout-icon {
-    width: 100%;
-}
+
 .info {
     margin-top: 5%;
     display: flex;
@@ -205,6 +203,10 @@ nav {
     overflow: scroll;
     height: 150px;
 }
+.user-avata {
+    width: 10%;
+}
+
 /* END */
 .link {
     width: 30%;

@@ -10,14 +10,14 @@
         <%- include('./partials/header.ejs') %>
 
         <section class="list-image">
-            <% users.forEach(user => { %>
-                <% if(user.images) { %>
-                    <% user.images.forEach(item => { %>
+            <% images.forEach(image => { %>
+               
+                  
                         <div class="index-item">
-                            <a href="/lico/<%= user.userName; %>/<%= item.id; %>"><img src="<%= item.url; %>" class="index-image"></a>
+                            <a href="/lico/<%= image.userName; %>/<%= image.id; %>"><img src="<%= image.url; %>" class="index-image"></a>
                         </div>  
-                    <% }) %>
-                <% } %>
+                   
+               
             <% }) %>
         </section>
     </div>

@@ -8,6 +8,7 @@
 <body>
 
     <div class="container">
+        <!-- HEADER -->
         <header>
             <div>
                 <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
@@ -16,6 +17,9 @@
                 <input placeholder="Search" class="search">
             </form>
             <nav>
+                <div class="icon">
+                    <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png" class="user-icon"></a>
+                </div>
                 <div class="icon">
                     <a href="/lico/<%= currentUser; %>"><img
                             src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png"
@@ -32,12 +36,13 @@
                             class="logout-icon"></a>
                     <% } %>
                 </div>
-                <div>
-                    <a href="/lico/<%= user.userName; %>">Back</a>
+                <div class="icon">
+                    <a href="/lico/<%= user.userName; %>"><img src="https://image.flaticon.com/icons/png/512/93/93634.png" class="back-icon"></a>
                 </div>
             </nav>
         </header>
-
+        <!-- END HEADER -->
+        
         <h1>Show image</h1>
        
 
@@ -48,7 +53,7 @@
             </div>
             <div class="right-box">
                 <!-- image information -->
-                <h3><%= user.userName; %></h3>
+                <a href="/lico/<%= user.userName; %>"><h3><img src="<%= user.avata; %>" class="user-avata"> <%= user.userName; %></h3></a>
                 <p>Date: <%= image.createdAt; %></p>
                
                 <!-- delete/edit image content -->
