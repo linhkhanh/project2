@@ -42,14 +42,27 @@
         </header>
         <!-- END HEADER -->
 
-        <h1>Show image</h1>
-
-
+<!-- SHOW IMAGE -->
         <div class="image-box">
             <div class="left-box">
                 <!-- image -->
                 <img src="<%= image.url; %>" class="show-image">
+                <form action="/lico/<%= user.userName; %>/<%= image.id; %>/love" method="POST">
+                    <% if(image.love && image.love.findIndex(item => { return item === currentUser}) >= 0) { %>
+                        <button type="submit" class="love"><img src="/images/heart.png"></button>
+                    <% } else { %>
+                        <button type="submit" class="love"><img src="/images/white-heart.png"></button>
+                    <% } %>
+                </form>
+
+                <!-- Show How many people love this image -->
+                <% if(image.love) { %>
+                    <p><%= image.love.length; %> people</p>
+                <% } %>
+                
+                <!-- END -->
             </div>
+
             <div class="right-box">
                 <!-- image information -->
                 <a href="/lico/<%= user.userName; %>">
@@ -77,7 +90,7 @@
                     <% if(image.comments) { %>
                     <% image.comments.forEach(item => { %>
                     <div class="comment">
-                        <p><%= item.createdAt; %></p>
+                        <p class="date"><%= item.createdAt; %></p>
                         <p><img src="<%= item.avataOfUserComment; %>" class="avata-comment"><a
                                 href="/lico/<%= item.userComment; %>"><%= item.userComment; %></a> <%= item.content; %>
                         </p>
@@ -91,7 +104,7 @@
         </div>
 
     </div>
-
+<!-- END SHOW IMAGE -->
     <!-- modal -->
     <!-- delete/edit image content -->
     <% if(currentUser === user.userName) { %>
@@ -104,7 +117,7 @@
         </form>
      
         <!-- Trigger the modal with a button -->
-        
+
         <!-- EDIT BUTTON -->
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit</button>
       

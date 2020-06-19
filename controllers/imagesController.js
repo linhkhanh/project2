@@ -175,7 +175,7 @@ module.exports = {
             console.log(err.message);
         }
     },
-    async deleteImage (req, res) {
+    async deleteImage(req, res) {
         try {
             // delete current Image from IMAGES COLLECTION
             await imagesRepository.delete({ id: req.params.idImage });
@@ -183,7 +183,7 @@ module.exports = {
             // DELETE IMAGE FROM IMAGES ARRAY OF USER
             const user = await usersRepository.show(req.params.userName);
             const images = user.images;
-            const index =  images.findIndex(item => {
+            const index = images.findIndex(item => {
                 return item.id === req.params.idImage;
             });
 
@@ -197,5 +197,39 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
-     }
+    },
+    async countLove(req, res) {
+        // FIND IMAGE IN USERS COLLECTION
+
+        const user = await usersRepository.show(req.params.userName);
+        const images = user.images;
+        const index = images.findIndex(item => {
+            return item.id === req.params.idImage;
+        });
+
+        // COUNT LOVE
+        // checnk love array in curent image object
+        let love = images[index].love;
+        if (!love) {
+            love = [];
+            love.push(req.session.userName);
+        } else {
+
+            // if this user already loved this image => cannot add this user to love array
+            if (love.findIndex(item => {
+                return item === req.session.userName
+            }) < 0)
+                love.push(req.session.userName);
+        }
+        images[index].love = love;
+
+        // update images array in Users collection
+        await usersRepository.updateByUserName(req.params.userName, { images });
+
+        // update images Collection
+
+        await imagesRepository.updateByIdImage(req.params.idImage, { love });
+
+        return res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`);
+    }
 }

@@ -201,10 +201,13 @@ nav {
 }
 .all-comments {
     overflow: scroll;
-    height: 150px;
+    height: 280px;
 }
 .user-avata {
     width: 10%;
+}
+.love {
+    cursor: pointer;
 }
 
 /* END */
