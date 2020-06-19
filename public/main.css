@@ -74,7 +74,7 @@ header {
     align-items: center;
 }
 
-.user-icon, .logout-icon, .back-icon  {
+.user-icon, .logout-icon  {
     width: 100%;
 }
 .image-icon {
@@ -208,6 +208,8 @@ nav {
 }
 
 /* END */
+
+/* INDEX PAGE */
 .link {
     width: 30%;
     margin: 1%;
@@ -217,3 +219,8 @@ nav {
     height: 250px;
 }
 
+/* END */
+
+.date {
+    font-weight: lighter;
+}

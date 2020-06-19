@@ -30,5 +30,6 @@ module.exports = (app) => {
     app.post('/lico/:userName/upload', upload.single('image'), imagesController.uploadImage);
     app.post('/lico/:userName/:idImage', imagesController.commentImage);
     app.put('/lico/:userName/edit', usersController.update);
-   
+    app.put('/lico/:userName/:idImage/edit', imagesController.updateDescription);
+    app.delete('/lico/:userName/:idImage', imagesController.deleteImage)
 }

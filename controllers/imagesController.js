@@ -10,11 +10,9 @@ module.exports = {
             /// CLOUDINARY
             await cloudinary.uploader.upload(req.file.path,
                 async function (error, result) {
-                   
                     await usersRepository.updateByUserName(req.params.userName, { avata: result.url });
                 }
             )
-            
             return res.redirect(`/lico/${req.session.userName}`);
         } catch (err) {
             console.log(err);
@@ -32,7 +30,7 @@ module.exports = {
                     // GET IMAGES ARRAY OF USER
                     let images = user.images;
                     if (!images) images = []; // CHECK THERE IS IMAGES ARRAY OR NOT
-                    
+
                     // ADD NEW IMAGE TO IMAGES ARRAY OF USER
                     images.push({
                         id: result.public_id,
@@ -40,7 +38,7 @@ module.exports = {
                         createdAt: new Date(result.created_at),
                         description: req.body.description
                     });
-                    
+
                     // CREATE NEW IMAGE IN COLLECTION IMAGE
                     const data = {
                         id: result.public_id,
@@ -54,7 +52,7 @@ module.exports = {
                     await imagesRepository.create(data);
                 }
             )
-            
+
             return res.redirect(`/lico/${req.session.userName}`);
         } catch (err) {
             console.log(err);
@@ -72,6 +70,7 @@ module.exports = {
             // FORMAT DATE
             image.createdAt = moment(image.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
+            if (image.updatedAt) image.updatedAt = moment(image.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
             // SHOW ALL COMMENTS OF IMAGE
             if (image.comments) {
                 image.comments.forEach((item) => {
@@ -86,43 +85,48 @@ module.exports = {
 
     },
     async commentImage(req, res) {
-        // Find user
-        const user = await usersRepository.show(req.params.userName);
-        
-        // Find images array of this user
-        const images = user.images;
-        
-        // FIND INDEX OF CURRENT IMAGE
-        const index = images.findIndex((item) => {
-            return item.id === req.params.idImage;
-        })
+        if (req.session.userName) {
+            // Find user
+            const user = await usersRepository.show(req.params.userName);
 
-        // GET COMMENTS ARRAY OF CURRENT IMAGE
-        let comments = images[index].comments;
+            // Find images array of this user
+            const images = user.images;
 
-        if (!comments) comments = []; // IF CURRENT IMAGE DOES NOT HAVE COMMENTS ARRAY, ASIGN COMMENTS TO A EMPTY ARRAY
+            // FIND INDEX OF CURRENT IMAGE
+            const index = images.findIndex((item) => {
+                return item.id === req.params.idImage;
+            })
 
-        // GET INFOMATION OF USER COMMENT
-        const userComment = await usersRepository.show(req.session.userName);
+            // GET COMMENTS ARRAY OF CURRENT IMAGE
+            let comments = images[index].comments;
 
-        // UPDATE COMMENTS ARRAY
-        comments.push({
-            id: ObjectID(),
-            content: req.body.comment,
-            createdAt: new Date,
-            userComment: req.session.userName
-        })
-        images[index].comments = comments;
-        await usersRepository.updateByUserName(req.params.userName, {
-            images
-        })
+            if (!comments) comments = []; // IF CURRENT IMAGE DOES NOT HAVE COMMENTS ARRAY, ASIGN COMMENTS TO A EMPTY ARRAY
 
-        // UPDATE IMAGES COLLECTION
+            // GET INFOMATION OF USER COMMENT
+            const userComment = await usersRepository.show(req.session.userName);
 
-        await imagesRepository.updateByIdImage(images[index].id, { comments });
-        res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`)
+            // UPDATE COMMENTS ARRAY
+            comments.push({
+                id: ObjectID(),
+                content: req.body.comment,
+                createdAt: new Date,
+                userComment: req.session.userName,
+                avataOfUserComment: userComment.avata
+            })
+            // update COMMENTS ARRAY OF CURRENT IMAGE IN USER COLLECTION
+            images[index].comments = comments;
+            await usersRepository.updateByUserName(req.params.userName, {
+                images
+            })
+
+            // UPDATE IMAGES COLLECTION
+
+            await imagesRepository.updateByIdImage(images[index].id, { comments });
+            res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`)
+        }
+
     },
-    async getAllImage (req, res) {
+    async getAllImage(req, res) {
         try {
             if (req.session.userName) {
                 const images = await imagesRepository.getAll();
@@ -137,6 +141,61 @@ module.exports = {
         } catch (err) {
             return res.send(err.message);
         }
-        
-    }
+    },
+    async updateDescription(req, res) {
+        try {
+            // Find IMAGES ARRAYS OF USER
+            const user = await usersRepository.show(req.params.userName);
+            const images = user.images;
+
+            // FIND INDEX OF CURRENT IMAGE IN IMAGES ARRAY
+
+            const index = images.findIndex(item => {
+                return item.id === req.params.idImage
+            });
+
+            // update DESCRIPTION OF CURRENT IMAGE
+            images[index].description = req.body.description;
+            images[index].updatedAt = new Date();
+
+            // UPDATE IMAGES ARRAY
+
+            await usersRepository.updateByUserName(req.params.userName, { images });
+
+            // update IMAGES COLLECTION
+
+            await imagesRepository.updateByIdImage(req.params.idImage, {
+                description: req.body.description,
+                updatedAt: new Date()
+            });
+
+            return res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`)
+
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    async deleteImage (req, res) {
+        try {
+            // delete current Image from IMAGES COLLECTION
+            await imagesRepository.delete({ id: req.params.idImage });
+
+            // DELETE IMAGE FROM IMAGES ARRAY OF USER
+            const user = await usersRepository.show(req.params.userName);
+            const images = user.images;
+            const index =  images.findIndex(item => {
+                return item.id === req.params.idImage;
+            });
+
+            images.splice(index, 1);
+
+            // UPDATE IMAGES ARRAY OF USER
+
+            await usersRepository.updateByUserName(req.params.userName, { images })
+
+            return res.redirect(`/lico/${user.userName}`);
+        } catch (err) {
+            console.log(err)
+        }
+     }
 }

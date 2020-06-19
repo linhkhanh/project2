@@ -31,5 +31,10 @@ module.exports = {
         } catch (err) {
             throw new Error(`Due to ${err.message}, I cannot update it with ${JSON.stringify(data)}`);
         }
+    },
+    async delete(id) {
+        const { result } = await db.images.deleteOne(id);
+        if (!result.n) throw new Error(`Image with id ${idImage} does not exist!`);
+        return result.n;
     }
 }
