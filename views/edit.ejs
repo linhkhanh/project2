@@ -6,38 +6,37 @@
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <div>
-                <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
+    <header>
+        <div>
+            <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
+        </div>
+        <form class="form-search">
+            <input placeholder="Search" class="search">
+        </form>
+        <nav>
+            <div class="icon">
+                <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png"
+                        class="user-icon"></a>
             </div>
-            <form class="form-search">
-                <input placeholder="Search" class="search">
-            </form>
-            <nav>
-                <div class="icon">
-                    <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png"
-                            class="user-icon"></a>
-                </div>
-                <div class="icon">
-                    <a href="/lico/<%= user.userName; %>"><img
-                            src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png"
-                            class="user-icon"></a>
-                </div>
-                <div class="icon">
-                    <a href="/lico/index"><img
-                            src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
-                            class="user-icon"></a>
-                </div>
-                <div class="icon">
+            <div class="icon">
+                <a href="/lico/<%= user.userName; %>"><img
+                        src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png"
+                        class="user-icon"></a>
+            </div>
+            <div class="icon">
+                <a href="/lico/index"><img
+                        src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
+                        class="user-icon"></a>
+            </div>
+            <div class="icon">
 
-                    <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png"
-                            class="logout-icon"></a>
+                <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png"
+                        class="logout-icon"></a>
 
-                </div>
-            </nav>
-        </header>
-
+            </div>
+        </nav>
+    </header>
+    <div class="container">
         <h1>Edit page</h1>
         <form action="/lico/<%= user.userName; %>/edit?_method=PUT" method="POST">
             <div class="form-group ">

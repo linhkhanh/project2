@@ -6,33 +6,32 @@
 </head>
 
 <body>
-    
+    <header>
+        <div>
+            <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
+        </div>
+        <form class="form-search">
+            <input placeholder="Search" class="search">
+        </form>
+        <nav>
+            <div class="icon">
+                <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png" class="user-icon"></a>
+            </div>
+            <div class="icon">
+                <a href="/lico/<%= name; %>"><img src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png" class="user-icon"></a>
+            </div>
+            <div class="icon">
+                <a href="/lico/index"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" class="user-icon"></a>
+            </div>
+            <div class="icon">
+                <% if(name === user.userName) { %>
+                    <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png" class="logout-icon"></a>
+                    <% } %>
+            </div>
+        </nav>
+    </header>
 
     <div class="container">
-        <header>
-            <div>
-                <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
-            </div>
-            <form class="form-search">
-                <input placeholder="Search" class="search">
-            </form>
-            <nav>
-                <div class="icon">
-                    <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png" class="user-icon"></a>
-                </div>
-                <div class="icon">
-                    <a href="/lico/<%= name; %>"><img src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png" class="user-icon"></a>
-                </div>
-                <div class="icon">
-                    <a href="/lico/index"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" class="user-icon"></a>
-                </div>
-                <div class="icon">
-                    <% if(name === user.userName) { %>
-                        <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png" class="logout-icon"></a>
-                        <% } %>
-                </div>
-            </nav>
-        </header>
 
         <div class="info">
             <div class="avata">
@@ -98,11 +97,27 @@
         <section class="images">
             <!-- SHOW IMAGES -->
             <% if(user.images) { %>
-            <% user.images.forEach(item => { %>
-            <a href="/lico/<%= user.userName; %>/<%= item.id; %>" class="link"><img src="<%= item.url; %>" class="pic"></a>
+            <% user.images.forEach(image => { %>
+                <div class="index-item">
+                    <a href="/lico/<%= user.userName; %>/<%= image.id; %>"><img src="<%= image.url; %>" class="index-image"></a>
+                    
+                    <div class="show-info">
+                        <p><img src="/images/white-heart.png"> 
+                            <% if(image.love) { %>
+                                <%= image.love.length; %> 
+                            <% } %>
+                           
+                            <img src="/images/comment.png"> 
+                            <% if(image.comments) { %>
+                                <%= image.comments.length; %>
+                            <% } %>
+                        </p>
+                    </div>
+                </div>  
             <% }) %>
 
             <% } %>
+
         </section>
 
 

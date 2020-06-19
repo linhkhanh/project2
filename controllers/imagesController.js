@@ -130,11 +130,13 @@ module.exports = {
         try {
             if (req.session.userName) {
                 const images = await imagesRepository.getAll();
-
+                
+                // get all Users
+                const users = await usersRepository.getAll();
                 // get userName of User login
                 const name = req.session.userName;
 
-                return res.render('index', { images, name });
+                return res.render('index', { images, name, users });
             } else {
                 return res.redirect('/lico/login');
             }

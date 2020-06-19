@@ -6,21 +6,64 @@
 </head>
 
 <body>
-    <div class="container">
-        <%- include('./partials/header.ejs') %>
+    <%- include('./partials/header.ejs') %>
 
+    <div class="users-images">
+        <div class="users">
+            <% users.forEach(item => { %>
+            <div>
+                <a><%= item.userName; %></a><br>
+                <img src="<%= item.avata; %>" class="avata-list">
+            </div>
+            <% }) %>
+        </div>
         <section class="list-image">
             <% images.forEach(image => { %>
-               
-                  
-                        <div class="index-item">
-                            <a href="/lico/<%= image.userName; %>/<%= image.id; %>"><img src="<%= image.url; %>" class="index-image"></a>
-                        </div>  
-                   
-               
+            <div class="index-item">
+    
+                     <!-- Trigger the modal with a button -->
+                     <img src="<%= image.url; %>"
+                       class=" index-image" data-toggle="modal" data-target="#myModal">
+            
+                     <!-- Modal -->
+                     <div class="modal fade" id="myModal" role="dialog">
+                         <div class="modal-dialog">
+             
+                             <!-- Modal content-->
+                             <div class="modal-content">
+                                 <div class="modal-header">
+                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                     <h4 class="modal-title">Modal Header</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                     <p>Some text in the modal.</p>
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                 </div>
+                             </div>
+             
+                         </div>
+                     </div>
+                <div class="show-info">
+                    <p><img src="/images/white-heart.png">
+                        <% if(image.love) { %>
+                        <%= image.love.length; %>
+                        <% } %>
+
+                        <img src="/images/comment.png">
+                        <% if(image.comments) { %>
+                        <%= image.comments.length; %>
+                        <% } %>
+                    </p>
+                </div>
+            
+            
+            </div>
             <% }) %>
         </section>
     </div>
+
 </body>
 
 </html>
