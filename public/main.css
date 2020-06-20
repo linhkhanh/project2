@@ -18,7 +18,7 @@ header {
     display: flex;
     flex-flow: row nowrap;
     height: 700px;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
 }
 .login {
     width: 50%;
@@ -31,7 +31,7 @@ header {
 }
 .right {
     width: 50%;
-    background-image: url('https://picsum.photos/id/305/367/267');
+    background-image: url('https://i.picsum.photos/id/250/4928/3264.jpg?hmac=4oIwzXlpK4KU3wySTnATICCa4H6xwbSGifrxv7GafWU');
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
@@ -55,6 +55,7 @@ form {
 }
 .slogan {
     font-weight: bolder;
+    margin-bottom: 3%;
 }
 .login-submit:hover {
     background-color: #3fb0ac;
@@ -66,23 +67,24 @@ form {
 .search {
     height: 6%;
     width: 100%;
-    border: 2px solid #fccdd3;
+    border: 2px solid #e8edf3;
 }
 .form-search {
     width: 30%;
-    border: 2px solid #fccdd3;
+    border: 2px solid #e8edf3;
 }
 /* end */
 
 /* HOME PAGE */
+
 .logo {
     width: 40%;
 }
 header {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
-    border-bottom: 1px solid #6534ff;
+    justify-content: space-around;
+    border-bottom: 1px solid #173e43;
     align-items: center;
 }
 
@@ -102,10 +104,13 @@ nav {
     width: 10%;
     margin: 2%;
 }
+.body-home {
+    background-color: #e8edf3;
+}
 .list-users {
     width: 80%;
     margin: 5% 10%;
-    border: 1px solid #fccdd3;
+    border: 1px solid #e8edf3;
     padding: 2%;
 }
 .avata-user {
