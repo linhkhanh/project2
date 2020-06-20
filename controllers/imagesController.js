@@ -60,6 +60,9 @@ module.exports = {
     },
     async showImage(req, res) {
         if (req.session.userName) {
+            // get ALL users for search engine
+            const users = await usersRepository.getAll();
+
             const currentUser = req.session.userName; // GET CURRENT USER 
             const user = await usersRepository.show(req.params.userName); //FIND USER
             // FIND IMAGE
@@ -78,7 +81,7 @@ module.exports = {
                 })
             }
 
-            res.render('image', { image, user, currentUser });
+            res.render('image', { image, user, currentUser, users });
         } else {
             res.redirect('/lico/login');
         }

@@ -12,7 +12,14 @@ header {
     margin: auto;
 }
 .first-logo {
-    width: 7%;
+    width: 22%;
+}
+
+.top {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
 .first-body {
     display: flex;
@@ -53,6 +60,9 @@ form {
     padding: 1%;
     border: 3px solid#173e43;
 }
+.label {
+    font-weight: bolder;
+}
 .slogan {
     font-weight: bolder;
     margin-bottom: 3%;
@@ -65,13 +75,18 @@ form {
 
 /* header */
 .search {
-    height: 6%;
+    height: 100%;
     width: 100%;
-    border: 2px solid #e8edf3;
+    border: 2px solid #dddfd4;
+    background-color: #fef8fa;
+    border-radius: 10px;
+    text-align: center;
 }
 .form-search {
-    width: 30%;
-    border: 2px solid #e8edf3;
+    width: 20%;
+    border: 2px solid #dddfd4;
+    height: 40px;
+    border-radius: 10px;
 }
 /* end */
 
@@ -87,7 +102,23 @@ header {
     border-bottom: 1px solid #173e43;
     align-items: center;
 }
-
+.each-user {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 1%;
+}
+.btn-page {
+    background-color: #173e43;
+    color: white;
+    border-radius: 5px;
+    padding: 10%;
+    margin: 0;
+}
+.btn-page:hover {
+    background-color: #3fb0ac;
+    color: white;
+}
 .user-icon, .logout-icon  {
     width: 100%;
 }
@@ -105,13 +136,22 @@ nav {
     margin: 2%;
 }
 .body-home {
-    background-color: #e8edf3;
+    /* background-color: #e8edf3; */
+    background-image: url('https://i.picsum.photos/id/25/5616/3744.jpg?hmac=-arXS3jYY2wz-lLUaSF2TzodrlDHDa-F8FPkrH-uxUI');
+    height: 800px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
 }
 .list-users {
-    width: 80%;
-    margin: 5% 10%;
+    width: 50%;
+    margin: auto;
     border: 1px solid #e8edf3;
     padding: 2%;
+    background-color: white;
+    height: 800px;
+    overflow: scroll;
+    font-size: 15px;
 }
 .avata-user {
     width: 6%;
@@ -125,7 +165,8 @@ nav {
     flex-flow: row wrap;
     justify-content: flex-start;
     padding: 1%;
-    width: 75%;
+    width: 85%;
+    background-color: #f7f7f7;
 }
 .index-item {
     width: 30%;
@@ -143,12 +184,19 @@ nav {
     justify-content: space-between;
 }
 .users {
-    width: 20%;
+    width: 15%;
     display: flex;
     flex-direction: column;
+    
 }
 .avata-list {
-    width: 50%;
+    width: 80%;
+}
+.card {
+    text-align: center;
+}
+a {
+    color: #3fb0ac;
 }
 .show-info {
     background-color: rgba(76, 78, 76, 0.3);
@@ -162,9 +210,12 @@ nav {
 /* END */
 
 /* SHOW PAGE */
-
+.body-show{
+    background-color: #f7f7f7;
+    padding: 3%;
+}
 .info {
-    margin-top: 5%;
+    
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -189,8 +240,8 @@ nav {
     flex-flow: row wrap;
 }
 .edit {
-    border: 2px solid #fccdd3;
-    color: #6534ff;
+    border: 2px solid #dddfd4;
+    color: #3fb0ac;
     padding: 1%;
 }
 .description {

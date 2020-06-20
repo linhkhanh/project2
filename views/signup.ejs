@@ -7,11 +7,13 @@
 
 <body>
     <div class="first-page">
-        <p><img src="/images/logo-lico.png" class="first-logo"> LINK-CONNECTION</p>
-           
+        <div class="top">
+            <p><img src="/images/logo-lico.png" class="first-logo"> LINK-CONNECTION</p>
+        <p>You have an account. <a href="/lico/login">Log in here</a></p>
+        </div>
+        
         <div class="first-body">
             <div class="login">
-                <p>You have an account <a href="/lico/login">Log in here</a></p>
                 <h1 class="slogan">Create New Account</h1>
                 <form action="/lico/signup_submit" method="POST">
                     <p><%= errUserName; %> <%=errUserNameValidation; %></p>

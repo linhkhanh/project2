@@ -16,6 +16,7 @@ cloudinary.config({
 module.exports = (app) => {
     app.get('/', (req, res) => { res.redirect('/lico') });
     app.get('/lico', usersController.getAll);
+    app.get('/lico/search', usersController.searchUser);
     app.get('/lico/logout', sessionController.logOut);
     app.get('/lico/signup', sessionController.new);
     app.get('/lico/login', sessionController.logIn);

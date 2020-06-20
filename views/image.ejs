@@ -11,8 +11,15 @@
         <div>
             <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
         </div>
-        <form class="form-search">
-            <input placeholder="Search" class="search">
+        <form class="form-search" action="/lico/search" method="GET">
+        
+            <input placeholder="&#x1F50E Search" class="search" name="userName" list="usersList" type="text">
+           
+            <datalist id="usersList">
+                <% users.forEach((user) => { %>
+                    <option value="<%= user.userName; %>"></option>
+                <% }) %>
+            </datalist>
         </form>
         <nav>
             <div class="icon">

@@ -6,12 +6,21 @@
 </head>
 
 <body>
-    <%- include('./partials/header.ejs') %>
+    <header>
+        <%- include('./partials/header.ejs') %>
+        <nav>
+            <%- include('./partials/nav.ejs') %>
+        </nav>
+    </header>
+    
     <div class="body-home">
 
         <section class="list-users">
             <% users.forEach(user => { %>
-                <p><img src="<%= user.avata; %>" class="avata-user"><a href="/lico/<%= user.userName; %>"> <%= user.userName; %></a></p>
+                <div class="each-user">
+                    <p><img src="<%= user.avata; %>" class="avata-user"><a href="/lico/<%= user.userName; %>"> <%= user.userName; %></a></p>
+                    <div><a href="/lico/<%= user.userName; %>" class="btn-page">Explore</a></div>
+                </div>
             <% }) %>
         </section>
     </div>

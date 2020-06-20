@@ -8,12 +8,14 @@
 <body>
 
     <div class="first-page">
-        <p><img src="/images/logo-lico.png" class="first-logo"> LINK-CONNECTION</p>
-           
+        <div class="top">
+            <p><img src="/images/logo-lico.png" class="first-logo"> LINK-CONNECTION</p>
+            <p>You don't have an account? <a href="/lico/signup">Sign up here</a></p>
+        </div>
         <div class="first-body">
             <div class="login">
                 <h1 class="slogan">TELL YOUR STORY VIA IMAGES</h1>
-                <h3>Log in</h3>
+                <h3 class="label">Log in</h3>
                 <form action="/lico/login_submit" method="POST">
                     <p><%= errEmail; %></p>
                     <div>
@@ -27,16 +29,16 @@
                         <input name="password" id="password" type="password" placeholder="enter password" required
                             class="input">
                     </div>
-                    
+
                     <input type="submit" value="Submit" class="login-submit">
                 </form>
-                <p>You don't have an account? <a href="/lico/signup">Sign up here</a></p>
+
             </div>
             <div class="right">
 
             </div>
         </div>
-        
+
 
     </div>
 </body>

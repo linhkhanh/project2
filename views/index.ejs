@@ -6,14 +6,21 @@
 </head>
 
 <body>
-    <%- include('./partials/header.ejs') %>
+    <header>
+        <%- include('./partials/header.ejs') %>
+        <nav>
+            <%- include('./partials/nav.ejs') %>
+        </nav>
+    </header>
+    
 
     <div class="users-images">
         <div class="users">
             <% users.forEach(item => { %>
-            <div>
-                <a href="/lico/<%= item.userName; %>"><%= item.userName; %></a><br>
-                <img src="<%= item.avata; %>" class="avata-list">
+            <div class="card">
+                <img src="<%= item.avata; %>" class=" card-img-top">
+                <a href="/lico/<%= item.userName; %>" class="card-title"><%= item.userName; %></a><br>
+                
             </div>
             <% }) %>
         </div>

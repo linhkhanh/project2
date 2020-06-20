@@ -32,12 +32,14 @@ module.exports = {
             if (req.session.userName) {
                 req.session.avata = false;
                 req.session.image = false;
+
+                const users = await usersRepository.getAll()
                 const user = await usersRepository.show(req.params.userName);
 
                 // format date
                 user.createdAt = moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
-                return res.render('show', { user, name: req.session.userName,  });
+                return res.render('show', { user, name: req.session.userName, users  });
             } else {
                 res.redirect('/lico/login');
             }
@@ -49,8 +51,11 @@ module.exports = {
     ,
     async edit(req, res) {
         if (req.params.userName === req.session.userName) {
+            // Get all users for search engine
+            const users = await usersRepository.getAll();
+
             const user = await usersRepository.show(req.params.userName);
-            res.render('edit', { user });
+            res.render('edit', { user, users, name: req.session.userName });
         } else {
             res.redirect('/lico/login');
         }
@@ -71,6 +76,20 @@ module.exports = {
             console.log(err);
             return res.send(err.message);
         }
+    },
+    async searchUser (req, res) {
+        //  GET ALL USERS
+
+        const users = await usersRepository.getAll();
+        
+        const str = req.query.userName.toLowerCase();
+      
+        const findingUser = users.find((item) => {
+            return item.userName.toLowerCase().includes(str);
+        });
+        console.log(findingUser);
+        findingUser ===  undefined ? res.send('This user dose not exist.') :
+        res.redirect(`/lico/${findingUser.userName}`);
     }
 
 };

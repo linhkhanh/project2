@@ -7,22 +7,9 @@
 
 <body>
     <header>
-        <div>
-            <a href="/lico"><img src="/images/logo-lico.png" class="logo"></a>
-        </div>
-        <form class="form-search">
-            <input placeholder="Search" class="search">
-        </form>
+        <%- include('./partials/header.ejs') %>
         <nav>
-            <div class="icon">
-                <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png" class="user-icon"></a>
-            </div>
-            <div class="icon">
-                <a href="/lico/<%= name; %>"><img src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png" class="user-icon"></a>
-            </div>
-            <div class="icon">
-                <a href="/lico/index"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" class="user-icon"></a>
-            </div>
+            <%- include('./partials/nav.ejs') %>
             <div class="icon">
                 <% if(name === user.userName) { %>
                     <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png" class="logout-icon"></a>
@@ -30,99 +17,99 @@
             </div>
         </nav>
     </header>
+    <div class="body-show">
+        <div class="container">
 
-    <div class="container">
-
-        <div class="info">
-            <div class="avata">
-                <img src="<%= user.avata; %>" class="img-avata">
+            <div class="info shadow-sm p-3 mb-5 bg-white rounded ">
+                <div class="avata">
+                    <img src="<%= user.avata; %>" class="img-avata">
+                    <% if(name === user.userName) { %>
+    
+                    <!-- UPLOAD AVATA -->
+                    <form action='/lico/<%= user.userName; %>/avata' method='POST' enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" name="avata" class="choose-avata">
+                        </div>
+                        <input type="submit" class="btn btn-primary change-avata" value="Change Avata">
+                    </form>
+                    <!-- end -->
+                    <% } %>
+                </div>
+    
+                <!-- USER INFORMATION -->
+                <div class="user-info">
+                    <h2 class="label"><%= user.userName; %></h2>
+                    <p class="date"><i>Joined at: <%= user.createdAt; %></i></p>
+                    <p class="date">Gender: <%= user.gender; %></p>
+                
+                    <% if(user.biography) { %>
+                    <p class="date">About me: <%= user.biography; %></p>
+                    <% } %>
+    
+                    <% if(user.birthDay) { %>
+                    <p class="date">BirthDay: <%= user.birthDay; %></p>
+                    <% } %>
+    
+                    <% if(user.location) { %>
+                    <p>Come from <%= user.location; %></p>
+                    <% } %>
+    
+                    <% if(name === user.userName) { %>
+                    <a href="/lico/<%= user.userName; %>/edit" class="edit">Edit profile</a>
+                    <% } %>
+                </div>
+                <!-- END -->
+            </div>
+            <div>
+                <!-- CHECK AUTHENTICATION -->
                 <% if(name === user.userName) { %>
-
-                <!-- UPLOAD AVATA -->
-                <form action='/lico/<%= user.userName; %>/avata' method='POST' enctype="multipart/form-data">
+                    <!-- CHECK THERE IS IMAGES ARRAY OR NOT -->
+                <% if(!user.images) { %>
+                <p>You have no image. Let's share your amazing images</p>
+                <% } %>
+                <!-- UPLOAD IMAGE -->
+                <form action='/lico/<%= user.userName; %>/upload' method='POST' enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="file" name="avata" class="choose-avata">
+                        <input type="file" name="image" class="choose-image">
                     </div>
-                    <input type="submit" class="btn btn-primary change-avata" value="Change Avata">
+                    <div>
+                        <input type="text" name="description" placeholder="Say something about this picture.." class="description">
+                    </div>
+                    <input type="submit" class="btn btn-primary up-image" value="Upload Image">
                 </form>
-                <!-- end -->
+                <!-- END -->
                 <% } %>
             </div>
-
-            <!-- USER INFORMATION -->
-            <div class="user-info">
-                <h2><%= user.userName; %></h2>
-                <p>Gender: <%= user.gender; %></p>
-                <p class="date">Joined at: <%= user.createdAt; %></p>
-
-                <% if(user.biography) { %>
-                <p>About me: <%= user.biography; %></p>
+    
+            <section class="images">
+                <!-- SHOW IMAGES -->
+                <% if(user.images) { %>
+                <% user.images.forEach(image => { %>
+                    <div class="index-item">
+                        <a href="/lico/<%= user.userName; %>/<%= image.id; %>"><img src="<%= image.url; %>" class="index-image"></a>
+                        
+                        <div class="show-info">
+                            <p><img src="/images/white-heart.png"> 
+                                <% if(image.love) { %>
+                                    <%= image.love.length; %> 
+                                <% } %>
+                               
+                                <img src="/images/comment.png"> 
+                                <% if(image.comments) { %>
+                                    <%= image.comments.length; %>
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>  
+                <% }) %>
+    
                 <% } %>
-
-                <% if(user.birthDay) { %>
-                <p>BirthDay: <%= user.birthDay; %></p>
-                <% } %>
-
-                <% if(user.location) { %>
-                <p>Come from <%= user.location; %></p>
-                <% } %>
-
-                <% if(name === user.userName) { %>
-                <a href="/lico/<%= user.userName; %>/edit" class="edit">Edit profile</a>
-                <% } %>
-            </div>
-            <!-- END -->
+    
+            </section>
+    
         </div>
-        <div>
-            <!-- CHECK AUTHENTICATION -->
-            <% if(name === user.userName) { %>
-                <!-- CHECK THERE IS IMAGES ARRAY OR NOT -->
-            <% if(!user.images) { %>
-            <p>You have no image. Let's share your amazing images</p>
-            <% } %>
-            <!-- UPLOAD IMAGE -->
-            <form action='/lico/<%= user.userName; %>/upload' method='POST' enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="file" name="image" class="choose-image">
-                </div>
-                <div>
-                    <input type="text" name="description" placeholder="Say something about this picture.." class="description">
-                </div>
-                <input type="submit" class="btn btn-primary up-image" value="Upload Image">
-            </form>
-            <!-- END -->
-            <% } %>
-        </div>
-
-        <section class="images">
-            <!-- SHOW IMAGES -->
-            <% if(user.images) { %>
-            <% user.images.forEach(image => { %>
-                <div class="index-item">
-                    <a href="/lico/<%= user.userName; %>/<%= image.id; %>"><img src="<%= image.url; %>" class="index-image"></a>
-                    
-                    <div class="show-info">
-                        <p><img src="/images/white-heart.png"> 
-                            <% if(image.love) { %>
-                                <%= image.love.length; %> 
-                            <% } %>
-                           
-                            <img src="/images/comment.png"> 
-                            <% if(image.comments) { %>
-                                <%= image.comments.length; %>
-                            <% } %>
-                        </p>
-                    </div>
-                </div>  
-            <% }) %>
-
-            <% } %>
-
-        </section>
-
-
-
     </div>
+    
 </body>
 
 </html>
