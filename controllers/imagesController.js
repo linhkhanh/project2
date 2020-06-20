@@ -232,6 +232,8 @@ module.exports = {
 
         await imagesRepository.updateByIdImage(req.params.idImage, { love });
 
-        return res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`);
+            return res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`);
+      
+        
     }
 }

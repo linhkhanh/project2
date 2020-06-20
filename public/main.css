@@ -8,48 +8,49 @@ header {
 }
 /* first page */
 .first-page {
+    width: 90%;
+    margin: auto;
+}
+.first-logo {
+    width: 7%;
+}
+.first-body {
     display: flex;
     flex-flow: row nowrap;
-    height: 800px;
-    justify-content: space-between;
-}
-.left {
-    width: 40%;
-    border: 3px solid #fccdd3;
-    background-color: #fccdd3;
+    height: 700px;
 }
 .login {
-    width: 55%;
-    border: 3px solid #fccdd3;
-    padding: 4%;
+    width: 50%;
+    background-color: #fae596;
+    padding: 2%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    color: #6534ff;
+    align-items: center;
+    justify-content: center;
 }
-h1 {
-    text-align: center;
+.right {
+    width: 50%;
+    background-image: url('https://picsum.photos/id/305/367/267');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+form {
+    width: 80%;
 }
 .input {
     width: 100%;
-    border-top: 1px solid white ;
-    border-left: 1px solid white ;
-    border-right: 1px solid white;
-    border-bottom: 2px solid #fccdd3;
-    font-size: 18px;
+    border-top: 1px solid #fae596;
+    border-left: 1px solid #fae596;
+    border-right: 1px solid #fae596;
+    background-color: #fae596 ;
 }
 .login-submit {
-    margin-top: 3%;
-    background-color: #bbc4ef;
-    color: black;
-    border: 2px solid #bbc4ef;
-    border-radius: 5px;
-    padding: 1%;
-}
-.login-submit:hover {
-    background-color: #62bcfa;
-    border: 2px solid #62bcfa;
+    margin: 3% 0; 
+    background-color: #173e43 ;
     color: white;
+    padding: 1%;
+    border: 3px solid#173e43;
 }
 /* END */
 
