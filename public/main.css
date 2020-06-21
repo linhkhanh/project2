@@ -171,8 +171,8 @@ nav {
 .index-item {
     width: 30%;
     margin: 1%;
-    height: 250px;
 }
+
 .index-image {
     width: 100%;
     height: 250px;
@@ -186,15 +186,37 @@ nav {
 .users {
     width: 15%;
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column; 
+    padding-top: 2%;
 }
-.avata-list {
-    width: 80%;
-}
-.card {
+.title {
+   height: 160px;
+    background: rgba(146, 150, 146, 0.3);
+    width: 100%;
+    position: relative;
+    bottom: 100%;
+    font-weight: bolder;
+    display: none;
     text-align: center;
+    padding: 30%;
 }
+
+.link-title {
+    color: white; 
+}
+.link-title:hover {
+    color: #3fb0ac;
+}
+.user-column {
+    height: 160px;
+    margin-bottom: 2%;
+}
+.avata-column{
+    width: 100%;
+    
+    height: 160px;
+}
+
 a {
     color: #3fb0ac;
 }

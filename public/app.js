@@ -4,21 +4,34 @@ const onClick = (button1, show) => {
     })
 };
 
-const showInfo = () => {
-    $('.index-image').on('mouseenter', (event) => {
-        console.log(event.currentTarget);
+const showInfo = (image, info) => {
+    $(image).on('mouseenter', (event) => {
+        
         const $div = $(event.currentTarget).parent();
-        console.log($div);
-        const $show = $div.siblings('.show-info');
+        
+        const $show = $div.siblings(info);
         $show.show();
     })
 }
-const hideInfo = () => {
-    $('.index-image').on('mouseleave', (event) => {
+const showUserName = () => {
+    $('.user-column').on('mouseenter', (event) => {
+        const $userName = $(event.currentTarget).children('.title');
+        $userName.show();
+    })
+};
+
+const hideUserName = () => {
+    $('.user-column').on('mouseleave', (event) => {
+        const $userName = $(event.currentTarget).children('.title');
+        $userName.hide();
+    })
+}
+const hideInfo = (image, info) => {
+    $(image).on('mouseleave', (event) => {
         console.log(event.currentTarget);
         const $div = $(event.currentTarget).parent();
         console.log($div);
-        const $show = $div.siblings('.show-info');
+        const $show = $div.siblings(info);
         $show.hide();
     })
 }
@@ -26,6 +39,10 @@ $(() => {
     onClick('.choose-avata', '.change-avata');
     onClick('.choose-image', '.up-image' );
     onClick('.choose-image', '.description' );
-    showInfo();
-    hideInfo();
+
+    showInfo('.index-image', '.show-info');
+    hideInfo('.index-image', '.show-info');
+
+    showUserName();
+    hideUserName();
 })
