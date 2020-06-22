@@ -31,17 +31,19 @@
                         data-target="#<%= image.id; %>"></a>
 
                 <!-- SHOW INFO -->
-                <div class="">
-                    <p><img src="/images/white-heart.png">
-                        <% if(image.love) { %>
-                        <%= image.love.length; %>
-                        <% } %>
-
-                        <img src="/images/comment.png">
-                        <% if(image.comments) { %>
-                        <%= image.comments.length; %>
-                        <% } %>
-                    </p>
+                <div class="bottom-image">
+                    <div>
+                        <p><img src="/images/white-heart.png">
+                            <% if(image.love) { %>
+                            <%= image.love.length; %>
+                            <% } %>
+                            <img src="/images/comment.png">
+                            <% if(image.comments) { %>
+                            <%= image.comments.length; %>
+                            <% } %>
+                        </p>
+                    </div>
+                    <a href="/lico/<&= image.userName; %>"><%= image.userName; %></a>
                  
                 </div>
                 <!-- END SHOW INFO -->
@@ -68,9 +70,9 @@
                                      <!-- image information -->
 
                                      <% if(!image.updatedAt) { %>
-                                        <p class="date">Date: <%= image.createdAt; %></p>
+                                        <p class="date"><i>Date: <%= image.createdAt; %></i></p>
                                         <%} else { %>
-                                        <p class="date">Edit: <%= image.updatedAt; %></p>
+                                        <p class="date"><i>Edit: <%= image.updatedAt; %></i></p>
                                         <% } %>
     
     
@@ -79,20 +81,28 @@
 
                                     <!-- image -->
                                     <img src="<%= image.url; %>" class="show-image">
-                                    <form action="/lico/<%= image.userName; %>/<%= image.id; %>/love" method="POST">
-                                        <% if(image.love && image.love.findIndex(item => { return item === name}) >= 0) { %>
-                                        <button type="submit" class="love"><img src="/images/heart.png"></button>
+                                   
+                                    <!-- REACTION -->
+                                    <div class="reaction">
+                                       
+                                        <form class="white-love" action="/api/<%= image.userName; %>/<%= image.id; %>/love" method="GET">
+                                            <% if(image.love && image.love.findIndex(item => { return item === name}) >= 0) { %>
+                                            <button type="submit"id="<%= image.userName; %>" class="love"><img id="<%= image.id; %>" src="/images/heart.png"></button>
+                            
                                         <% } else { %>
-                                        <button type="submit" class="love"><img src="/images/white-heart.png"></button>
+
+                                                <button type="submit" id="<%= image.userName; %>" class=" love"><img id="<%= image.id; %>" src="/images/white-heart.png"></button>
+                                                <% } %>
+                                            </form>
+
+                                    
+                                           
+                                        <!-- Show How many people love this image -->
+                                        <% if(image.love) { %>
+                                        <p class="reaction-people"><%= image.love.length; %> people</p>
                                         <% } %>
-                                    </form>
-
-                                    <!-- Show How many people love this image -->
-                                    <% if(image.love) { %>
-                                    <p><%= image.love.length; %> people</p>
-                                    <% } %>
-
-                                    <!-- END -->
+                                    </div>
+                                    <!-- END REACTION-->
 
                                    
 
@@ -109,7 +119,7 @@
                                         <% if(image.comments) { %>
                                         <% image.comments.forEach(item => { %>
                                         <div class="comment">
-                                            <p class="date"><%= item.createdAt; %></p>
+                                            <p class="date"><i><%= item.createdAt; %></i></p>
                                             <p><img src="<%= item.avataOfUserComment; %>" class="avata-comment"><a
                                                     href="/lico/<%= item.userComment; %>"><%= item.userComment; %></a>
                                                 <%= item.content; %>

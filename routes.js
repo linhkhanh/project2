@@ -22,9 +22,12 @@ module.exports = (app) => {
     app.get('/lico/login', sessionController.logIn);
     app.get('/lico/index', imagesController.getAllImage);
     app.get('/lico/:userName/edit', usersController.edit);
-    app.get('/api/:userName/:idImage', imagesApi.show);
+    
     app.get('/lico/:userName/:idImage', imagesController.showImage);
+    
     app.get('/lico/:userName', usersController.show);
+
+    app.get('/api/:userName/:idImage/love', imagesApi.countLove);
     app.post('/lico/signup_submit', sessionController.create);
     app.post('/lico/login_submit', sessionController.loginSubmit);
     app.post('/lico/:userName/avata', upload.single('avata'), imagesController.uploadAvata);

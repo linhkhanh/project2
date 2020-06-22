@@ -213,18 +213,22 @@ module.exports = {
         });
 
         // COUNT LOVE
-        // checnk love array in curent image object
+        // check love array in curent image object
         let love = images[index].love;
         if (!love) {
             love = [];
             love.push(req.session.userName);
         } else {
-
-            // if this user already loved this image => cannot add this user to love array
-            if (love.findIndex(item => {
+            const indexUser = love.findIndex(item => {
                 return item === req.session.userName
-            }) < 0)
+            });
+            // if this user already loved this image => unlove, remove this user from love array
+            if ( indexUser < 0) {
                 love.push(req.session.userName);
+            } else {
+                love.splice(indexUser, 1);
+            }
+                
         }
         images[index].love = love;
 

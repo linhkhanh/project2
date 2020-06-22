@@ -63,7 +63,7 @@
 
                     <!-- Show How many people love this image -->
                     <% if(image.love) { %>
-                    <p><i><%= image.love.length; %> people like it</i></p>
+                    <p class="reaction-people"><i><%= image.love.length; %> people</i></p>
                     <% } %>
 
                     <!-- END -->
@@ -73,12 +73,12 @@
 
             <div class="right-box">
                 <!-- image information -->
-                <div>
+                <div class="right-box-top">
                     <a href="/lico/<%= user.userName; %>">
                         <h3><img src="<%= user.avata; %>" class="user-avata"> <%= user.userName; %></h3>
                     </a>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             ...
                         </button>
@@ -119,7 +119,7 @@
                             <div class="all-comments">
                                 <% if(image.comments) { %>
                                 <% image.comments.forEach(item => { %>
-                                <div class="comment">
+                                <div class="comment card">
                                     <p class="date"><i><%= item.createdAt; %></i></p>
                                     <p><img src="<%= item.avataOfUserComment; %>" class="avata-comment"><a
                                             href="/lico/<%= item.userComment; %>"><%= item.userComment; %></a>
@@ -136,18 +136,13 @@
 
     </div>
     <!-- END SHOW IMAGE -->
+
     <!-- modal -->
-    <!-- delete/edit image content -->
+    <!-- edit image content -->
     <% if(currentUser === user.userName) { %>
 
     <div class="container">
-
-
-
         <!-- Trigger the modal with a button -->
-
-
-
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
