@@ -62,10 +62,23 @@
                     </form>
 
                     <!-- Show How many people love this image -->
-                    <% if(image.love) { %>
-                    <p class="reaction-people"><i><%= image.love.length; %> people</i></p>
-                    <% } %>
-
+                    <div class="detail-people">
+                        <p class="reaction-people">
+                            <% if(image.love) { %>
+                           <%= image.love.length; %> 
+                           <% } %>
+                           people</p>
+                       
+                           <!-- SHOW LIST OF PEOPLE LIKE IT -->
+               
+                       <% if(image.love) { %>
+                           <ul class="list-people">
+                               <% image.love.forEach(person => { %>
+                                   <li><a href="/lico/<%= person; %>"><%= person; %></a></li>
+                              <% }) %>
+                           </ul>
+                       <% } %>
+                       </div>    
                     <!-- END -->
                 </div>
 

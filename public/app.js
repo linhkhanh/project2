@@ -46,7 +46,6 @@ const hideInfo = (image, info) => {
 
 const onClickCountLove = () => {
     $('.white-love').on('click', (event) => {
-        const $people = $(event.currentTarget).siblings('.reaction-people');
         const $button = $(event.currentTarget).children().eq(0);
         const $img = $button.children().eq(0);
 
@@ -60,8 +59,7 @@ const onClickCountLove = () => {
 
             promise.then(
                 (data) => {
-                    console.log(data);
-                    $people.html(`${data.length} people`);
+                    $(`.${idImage}-love`).html(data.length);
                     return data;
                 },
                 () => {
@@ -72,10 +70,25 @@ const onClickCountLove = () => {
             $img.attr('src') === '/images/heart.png' ? $img.attr('src', '/images/white-heart.png') : $img.attr('src', '/images/heart.png');
             
             
-            return false
-        
-
+            return false     
     });
+}
+
+// SHOW LIST PEOPLE LILE IMAGE
+const showPeople = () => {
+    $('.reaction-people').on('click', (event) => {
+        const $list = $(event.currentTarget).siblings('.list-people');
+        console.log($list);
+        $list.show();
+    })
+};
+
+// HIDE LIST PEOPLE LIKE IMAGE
+const hidePeople = () => {
+    $('.list-people').on('mouseleave', (event) => {
+       $(event.currentTarget).hide();
+       
+    })
 }
 $(() => {
     onClick('.choose-avata', '.change-avata');
@@ -87,6 +100,9 @@ $(() => {
 
     showUserName();
     hideUserName();
+
+    showPeople();
+    hidePeople();
 
     $('.btn-default').on('click', () =>{
         location.reload();

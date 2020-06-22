@@ -28,18 +28,18 @@
             <div class="index-item shadow-sm p-3 bg-white rounded">
                 <!-- Trigger the modal with a button -->
                 <a><img src="<%= image.url; %>" class="index-image" data-toggle="modal"
-                        data-target="#<%= image.id; %>"></a>
+                        data-target="#<%= image.id; %><%= image.userName; %>"></a>
 
                 <!-- SHOW INFO -->
                 <div class="bottom-image">
                     <div>
                         <p><img src="/images/white-heart.png">
                             <% if(image.love) { %>
-                            <%= image.love.length; %>
+                            <span class="<%=image.id; %>-love"><%= image.love.length; %></span>
                             <% } %>
                             <img src="/images/comment.png">
                             <% if(image.comments) { %>
-                            <%= image.comments.length; %>
+                            <span class="<%= image.id; %>-comment"><%= image.comments.length; %></span>
                             <% } %>
                         </p>
                     </div>
@@ -49,7 +49,7 @@
                 <!-- END SHOW INFO -->
 
                 <!-- Modal -->
-                <div class="modal fade" id="<%= image.id; %>" role="dialog">
+                <div class="modal fade" id="<%= image.id; %><%= image.userName; %>" role="dialog">
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -98,13 +98,24 @@
                                     
                                            
                                         <!-- Show How many people love this image -->
-                                       
+                                       <div class="detail-people">
                                         <p class="reaction-people">
-                                             <% if(image.love) { %>
-                                            <%= image.love.length; %> 
-                                            <% } %>
-                                            people</p>
-                                      
+                                            <% if(image.love) { %>
+                                           <span class="<%= image.id; %>-love"><%= image.love.length; %> </span>
+                                           <% } %>
+                                           people</p>
+                                       
+                                           <!-- SHOW LIST OF PEOPLE LIKE IT -->
+                               
+                                       <% if(image.love) { %>
+                                           <ul class="list-people">
+                                               <% image.love.forEach(person => { %>
+                                                   <li><a href="/lico/<%= person; %>"><%= person; %></a></li>
+                                              <% }) %>
+                                           </ul>
+                                       <% } %>
+                                       </div>
+                                        
                                     </div>
                                     <!-- END REACTION-->
 
