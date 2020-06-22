@@ -240,7 +240,6 @@ a {
     min-height: 800px;
 }
 .info {
-    background-color: #fcf5f8;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -305,11 +304,18 @@ a {
 
 /* IMAGE PAGE */
 .image-box {
-    margin-top: 5%;
+    width: 90%;
+    margin: auto;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 1%;
+    background-color: white;
+}
+.image-concept {
+    background-image: linear-gradient(rgb(202, 243, 248), rgb(238, 238, 210));
+    height: 800px;
+    padding: 2%;
 }
 .show-image-main {
     width: 100%;
