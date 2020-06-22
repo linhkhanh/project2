@@ -40,8 +40,8 @@ $(() => {
     onClick('.choose-image', '.up-image' );
     onClick('.choose-image', '.description' );
 
-    showInfo('.index-image', '.show-info');
-    hideInfo('.index-image', '.show-info');
+    showInfo('.show-image', '.show-info');
+    hideInfo('.show-image', '.show-info');
 
     showUserName();
     hideUserName();
