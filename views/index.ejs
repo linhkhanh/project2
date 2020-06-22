@@ -12,14 +12,15 @@
             <%- include('./partials/nav.ejs') %>
         </nav>
     </header>
-    
+
 
     <div class="users-images">
         <div class="users">
             <% users.forEach(item => { %>
             <div class="user-column">
                 <a href="/lico/<%= item.userName; %>"><img src="<%= item.avata; %>" class="avata-column "></a>
-                <div class="title"><a href="/lico/<%= item.userName; %>" class="link-title"><%= item.userName; %></a><br></div>
+                <div class="title"><a href="/lico/<%= item.userName; %>"
+                        class="link-title"><%= item.userName; %></a><br></div>
             </div>
             <% }) %>
         </div>
@@ -44,7 +45,7 @@
                         </p>
                     </div>
                     <a href="/lico/<%= image.userName; %>"><%= image.userName; %></a>
-                 
+
                 </div>
                 <!-- END SHOW INFO -->
 
@@ -55,8 +56,8 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                 <!-- User Name -->
-                                 <a href="/lico/<%= image.userName; %>">
+                                <!-- User Name -->
+                                <a href="/lico/<%= image.userName; %>">
                                     <h3><img src="<%= image.avataUser; %>" class="user-avata">
                                         <%= image.userName; %></h3>
                                 </a>
@@ -66,60 +67,64 @@
                             <!-- MODAL BODY -->
                             <div class="modal-body">
                                 <div>
-                                   
-                                     <!-- image information -->
 
-                                     <% if(!image.updatedAt) { %>
-                                        <p class="date"><i>Date: <%= image.createdAt; %></i></p>
-                                        <%} else { %>
-                                        <p class="date"><i>Edit: <%= image.updatedAt; %></i></p>
-                                        <% } %>
-    
-    
-                                        <!-- image Description -->
-                                        <p><%= image.description; %></p>
+                                    <!-- image information -->
+
+                                    <% if(!image.updatedAt) { %>
+                                    <p class="date"><i>Date: <%= image.createdAt; %></i></p>
+                                    <%} else { %>
+                                    <p class="date"><i>Edit: <%= image.updatedAt; %></i></p>
+                                    <% } %>
+
+
+                                    <!-- image Description -->
+                                    <p><%= image.description; %></p>
 
                                     <!-- image -->
                                     <img src="<%= image.url; %>" class="show-image">
-                                   
+
                                     <!-- REACTION -->
                                     <div class="reaction">
-                                       
-                                        <form class="white-love" action="/api/<%= image.userName; %>/<%= image.id; %>/love" method="GET">
+
+                                        <form class="white-love"
+                                            action="/api/<%= image.userName; %>/<%= image.id; %>/love" method="GET">
                                             <% if(image.love && image.love.findIndex(item => { return item === name}) >= 0) { %>
-                                            <button type="submit"id="<%= image.userName; %>" class="love"><img id="<%= image.id; %>" src="/images/heart.png"></button>
-                            
-                                        <% } else { %>
+                                            <button type="submit" id="<%= image.userName; %>" class="love"><img
+                                                    id="<%= image.id; %>" src="/images/heart.png"></button>
 
-                                                <button type="submit" id="<%= image.userName; %>" class=" love"><img id="<%= image.id; %>" src="/images/white-heart.png"></button>
-                                                <% } %>
-                                            </form>
+                                            <% } else { %>
 
-                                    
-                                           
+                                            <button type="submit" id="<%= image.userName; %>" class=" love"><img
+                                                    id="<%= image.id; %>" src="/images/white-heart.png"></button>
+                                            <% } %>
+                                        </form>
+
+
+
                                         <!-- Show How many people love this image -->
-                                       <div class="detail-people">
-                                        <p class="reaction-people">
-                                            <% if(image.love) { %>
-                                           <span class="<%= image.id; %>-love"><%= image.love.length; %> </span>
-                                           <% } %>
-                                           people</p>
-                                       
-                                           <!-- SHOW LIST OF PEOPLE LIKE IT -->
-                               
-                                       <% if(image.love) { %>
-                                           <ul class="list-people">
-                                               <% image.love.forEach(person => { %>
-                                                   <li><a href="/lico/<%= person; %>"><%= person; %></a></li>
-                                              <% }) %>
-                                           </ul>
-                                       <% } %>
-                                       </div>
-                                        
+                                        <div class="detail-people">
+                                            <p class="reaction-people">
+                                                <% if(image.love) { %>
+                                                <span class="<%= image.id; %>-love"><%= image.love.length; %> </span>
+                                                <% } %>
+                                                people</p>
+
+                                            <!-- SHOW LIST OF PEOPLE LIKE IT -->
+
+                                            <ul class="list-people">
+                                                <% if(image.love) { %>
+                                                <% image.love.forEach(person => { %>
+                                                <li><a href="/lico/<%= person; %>"><%= person; %></a></li>
+                                                <% }) %>
+                                                <% } %>
+                                            </ul>
+
+                                        </div>
+
                                     </div>
                                     <!-- END REACTION-->
 
-                                   
+
 
                                     <!-- write COMMENT -->
                                     <form action="/lico/<%= image.userName; %>/<%= image.id; %>" method="POST">

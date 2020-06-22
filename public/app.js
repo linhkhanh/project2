@@ -60,6 +60,10 @@ const onClickCountLove = () => {
             promise.then(
                 (data) => {
                     $(`.${idImage}-love`).html(data.length);
+                    $('.list-people').empty();
+                    data.forEach( item => {
+                        $('.list-people').append(`<li><a href="/lico/${item}">${item}</a></li>`);
+                    })
                     return data;
                 },
                 () => {
