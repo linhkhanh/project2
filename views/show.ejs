@@ -17,7 +17,7 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="body-show">
         <div class="container">
 
@@ -40,7 +40,7 @@
                 <!-- USER INFORMATION -->
                 <div class="user-info">
                     <div class="user-info-name">
-                        <h2 class="label"><%= user.userName; %></h2>
+                        <h2 class="label label-username"><%= user.userName; %></h2>
                         <% if(name === user.userName) { %>
                             <a href="/lico/<%= user.userName; %>/edit" class="edit">Edit profile</a>
                             <% } %>

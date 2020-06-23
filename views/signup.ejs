@@ -9,13 +9,16 @@
     <div class="first-page">
         <div class="top">
             <p><img src="/images/logo-lico.png" class="first-logo"> LINK-CONNECTION</p>
-        <p>You have an account. <a href="/lico/login">Log in here</a></p>
+        <p>You already have an account? <a href="/lico/login">Log in here</a></p>
         </div>
         
         <div class="first-body">
+            <div class="left">
+
+            </div>
             <div class="login">
-                <h1 class="slogan">Create New Account</h1>
-                <form action="/lico/signup_submit" method="POST">
+                <h1 class="label">Create New Account</h1>
+                <form action="/lico/signup_submit" method="POST" class="shadow-sm p-3 mb-5 bg-white rounded">
                     <p><%= errUserName; %> <%=errUserNameValidation; %></p>
                     <p><%= errUniqueUserName; %></p>
                     <div class="form-group">
@@ -50,9 +53,7 @@
                     <input type="submit" value="Submit" class="login-submit">
                 </form>
             </div>
-            <div class="right">
-
-            </div>
+           
         </div>
         
 

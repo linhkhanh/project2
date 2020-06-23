@@ -29,14 +29,14 @@ header {
 }
 .login {
     width: 50%;
-    background-color: #fae596;
+    background-image: linear-gradient(rgb(224, 244, 245), rgb(238, 238, 210));
     padding: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.right {
+.left {
     width: 50%;
     background-image: url('https://i.picsum.photos/id/250/4928/3264.jpg?hmac=4oIwzXlpK4KU3wySTnATICCa4H6xwbSGifrxv7GafWU');
     background-position: center; /* Center the image */
@@ -62,6 +62,7 @@ form {
 }
 .label {
     font-weight: bolder;
+    color: #3fb0ac;
 }
 .slogan {
     font-weight: bolder;
@@ -78,7 +79,7 @@ form {
     height: 100%;
     width: 100%;
     border: 2px solid #dddfd4;
-    background-color: #fef8fa;
+    background-image: linear-gradient(rgb(224, 244, 245), rgb(238, 238, 210));
     border-radius: 10px;
     text-align: center;
 }
@@ -99,7 +100,7 @@ header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
-    border-bottom: 1px solid #173e43;
+    border-bottom: 1px solid #3fb0ac;
     align-items: center;
 }
 .each-user {
@@ -270,6 +271,9 @@ a {
     margin: 1%;
     height: 250px;
 }
+.label-username {
+    color: #173e43;
+}
 .show-info {
     background-color: rgba(76, 78, 76, 0.3);
     position: relative;
@@ -371,6 +375,9 @@ a {
 .form-comment {
     width: 100%;
 }
+.form-edit-comment {
+   width: 100%;
+}
 .send:hover {
     background-color: #3fb0ac;
     border: 2px solid #3fb0ac;
@@ -394,7 +401,13 @@ a {
     width: 30%;
     padding: 1%;
 }
-
+.reaction-people {
+    cursor: pointer;
+}
+.reaction-people:hover {
+    color: #3fb0ac;
+    text-decoration: underline;
+}
 .detail-people {
     width: 80%;
     height: 50px;

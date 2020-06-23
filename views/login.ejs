@@ -13,30 +13,30 @@
             <p>You don't have an account? <a href="/lico/signup">Sign up here</a></p>
         </div>
         <div class="first-body">
+            <div class="left">
+
+            </div>
             <div class="login">
                 <h1 class="slogan">TELL YOUR STORY VIA IMAGES</h1>
                 <h3 class="label">Log in</h3>
-                <form action="/lico/login_submit" method="POST">
+                <form action="/lico/login_submit" method="POST" class="shadow-sm p-3 mb-5 bg-white rounded">
                     <p><%= errEmail; %></p>
                     <div>
                         <label for="email">Email *</label><br>
-                        <input name="email" id="email" type="email" placeholder="enter your email address" class="input"
-                            required>
+                        <input name="email" id="email" type="email" placeholder="enter your email address"
+                            class="form-control" required>
                     </div>
                     <p><%= errPassword; %></p>
                     <div>
                         <label for="password">Password *</label><br>
-                        <input name="password" id="password" type="password" placeholder="enter password" required
-                            class="input">
+                        <input name="password" id="password" type="password" placeholder="enter password" class="form-control" required>
                     </div>
 
                     <input type="submit" value="Submit" class="login-submit">
                 </form>
 
             </div>
-            <div class="right">
-
-            </div>
+            
         </div>
 
 
