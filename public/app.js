@@ -43,7 +43,7 @@ const hideInfo = (image, info) => {
     })
 }
 
-
+// COUNT LOVE
 const onClickCountLove = () => {
     $('.white-love').on('click', (event) => {
         const $button = $(event.currentTarget).children().eq(0);
@@ -51,34 +51,32 @@ const onClickCountLove = () => {
 
         const idImage = $img.attr('id');
         const userName = $button.attr('id');
-        console.log(idImage);
-        console.log(userName);
             const promise = $.ajax({
                 url: `/api/${userName}/${idImage}/love?`
             });
 
             promise.then(
                 (data) => {
-                    $(`.${idImage}-love`).html(data.length);
-                    $('.list-people').empty();
+                    $(`.${idImage}-love`).html(data.length); //update how many people love image
+
+                    $('.list-people').empty(); // update list people love image
                     data.forEach( item => {
                         $('.list-people').append(`<li><a href="/lico/${item}">${item}</a></li>`);
                     })
+                    // change image white love  => black love (and convert)
+                    $img.attr('src') === '/images/heart.png' ? $img.attr('src', '/images/white-heart.png') : $img.attr('src', '/images/heart.png');
                     return data;
                 },
                 () => {
                     console.log('bad request');
                 }
             );
-
-            $img.attr('src') === '/images/heart.png' ? $img.attr('src', '/images/white-heart.png') : $img.attr('src', '/images/heart.png');
-            
             
             return false     
     });
 }
 
-// SHOW LIST PEOPLE LILE IMAGE
+// SHOW LIST PEOPLE LIKE IMAGE
 const showPeople = () => {
     $('.reaction-people').on('click', (event) => {
         const $list = $(event.currentTarget).siblings('.list-people');
@@ -92,6 +90,53 @@ const hidePeople = () => {
     $('.list-people').on('mouseleave', (event) => {
        $(event.currentTarget).hide();
        
+    })
+}
+
+// UPDATE COMMENT
+const commentImage = () => {
+    $('.send').on('click', (event) => {
+        // get id of input.send
+        const id = $(event.currentTarget).attr('id'); //id = userName-idImage
+
+        const arrId = id.split('-'); // split string
+       
+        const idImage = arrId[1]; // get idImage for url to call ajax
+        const userName = arrId[0]; // get userName for url to call ajax
+
+        const $div = $(event.currentTarget).parent(); 
+        const $allComments = $div.siblings('.all-comments'); // update div.all-comments
+
+        const $writeComment = $(event.currentTarget).siblings('.write-comment'); // find input.write-comment
+
+        const commentContent = $writeComment.val(); // get content of comment from input
+       
+            const promise = $.ajax({
+                url: `/api/${userName}/${idImage}/comment?comment=${commentContent}`
+            });
+
+            promise.then(
+                (data) => {
+                    const newData = JSON.parse(data);
+                    const allComments = newData.comments;
+                    const newComment = allComments[allComments.length - 1]; // get newest comment
+                   
+                    // update div.all-comments
+                   $allComments.append(`<div class="comment"> 
+                   <p class="date"><i>${newComment.createdAt}</i></p>
+                   <p><img src="${newComment.avataOfUserComment}" class="avata-comment"><a
+                           href="/lico/${newComment.userComment}">${newComment.userComment}</a>
+                       ${newComment.content}
+                   </p>
+               </div>`);
+                    $(`.${newData.idImage}-comment`).html(allComments.length); // update how many comments in index page
+                    return data;
+                },
+                () => {
+                    console.log('bad request');
+                }
+            );
+            return false;
     })
 }
 $(() => {
@@ -108,9 +153,8 @@ $(() => {
     showPeople();
     hidePeople();
 
-    $('.btn-default').on('click', () =>{
-        location.reload();
-    })
     onClickCountLove();
+
+    commentImage();
 
 })

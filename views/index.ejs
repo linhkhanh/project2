@@ -71,9 +71,9 @@
                                     <!-- image information -->
 
                                     <% if(!image.updatedAt) { %>
-                                    <p class="date"><i>Date: <%= image.createdAt; %></i></p>
+                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Date: <%= image.createdAt; %></i></a>
                                     <%} else { %>
-                                    <p class="date"><i>Edit: <%= image.updatedAt; %></i></p>
+                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Edit: <%= image.updatedAt; %></i></a>
                                     <% } %>
 
 
@@ -124,14 +124,12 @@
                                     </div>
                                     <!-- END REACTION-->
 
-
-
                                     <!-- write COMMENT -->
-                                    <form action="/lico/<%= image.userName; %>/<%= image.id; %>" method="POST">
+                                    <form action="/api/<%= image.userName; %>/<%= image.id; %>/comment" method="GET">
                                         <label class="current-user"><%= name; %></label>
-                                        <input type="text" name="comment" placeholder="write a comment"
+                                        <input type="text" name="comment" 
                                             class="write-comment">
-                                        <input type="submit" value="send" class="send">
+                                        <input type="submit" value="send" class="send" id="<%= image.userName; %>-<%= image.id; %>">
                                     </form>
 
                                     <!-- SHOW ALL COMMENTS -->

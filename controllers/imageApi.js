@@ -1,28 +1,9 @@
 const usersRepository = require('../repositories/usersRepository');
 const imagesRepository = require('../repositories/imagesRepository');
+const ObjectID = require('mongodb').ObjectID;
 const moment = require('moment');
 
 module.exports = {
-    // async show (req, res) {
-    //     res.setHeader('Content-Type', 'application/json');
-        
-    //     if (req.session.userName) {
-    //         const user = await usersRepository.show(req.params.userName);
-    //         const image = user.images.find((item) => {
-    //             return item.id === req.params.idImage
-    //         });
-    //         image.createdAt = moment(image.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-    //         if (image.comments) {
-    //             image.comments.forEach((item) => {
-    //                 return item.createdAt = moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-    //             })
-    //         }
-
-    //         res.end(JSON.stringify(image));
-    //     } else {
-    //         res.end(JSON.stringify({ error: "Image is not found." }));
-    //     }
-    // },
     async countLove(req, res) {
         res.setHeader('Content-Type', 'application/json');
          // FIND IMAGE IN USERS COLLECTION
@@ -34,7 +15,7 @@ module.exports = {
          });
  
          // COUNT LOVE
-         // checnk love array in curent image object
+         // check love array in curent image object
          let love = images[index].love;
          if (!love) {
              love = [];
@@ -60,6 +41,46 @@ module.exports = {
          await imagesRepository.updateByIdImage(req.params.idImage, { love });
  
              return res.end(JSON.stringify(love));
-       
+    },
+    async comment (req, res) {
+        if (req.session.userName) {
+            // Find user
+            const user = await usersRepository.show(req.params.userName);
+
+            // Find images array of this user
+            const images = user.images;
+
+            // FIND INDEX OF CURRENT IMAGE
+            const index = images.findIndex((item) => {
+                return item.id === req.params.idImage;
+            })
+            const image = images[index];
+            // GET COMMENTS ARRAY OF CURRENT IMAGE
+            let comments = images[index].comments;
+
+            if (!comments) comments = []; // IF CURRENT IMAGE DOES NOT HAVE COMMENTS ARRAY, ASIGN COMMENTS TO A EMPTY ARRAY
+
+            // GET INFOMATION OF USER COMMENT
+            const userComment = await usersRepository.show(req.session.userName);
+
+            // UPDATE COMMENTS ARRAY
+            comments.push({
+                id: ObjectID(),
+                content: req.query.comment,
+                createdAt: new Date,
+                userComment: req.session.userName,
+                avataOfUserComment: userComment.avata
+            })
+            // update COMMENTS ARRAY OF CURRENT IMAGE IN USER COLLECTION
+            images[index].comments = comments;
+            await usersRepository.updateByUserName(req.params.userName, {
+                images
+            })
+
+            // UPDATE IMAGES COLLECTION
+
+            await imagesRepository.updateByIdImage(images[index].id, { comments });
+            return res.end(JSON.stringify( {comments, idImage: image.id} ));
+        }
     }
 }

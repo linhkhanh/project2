@@ -28,6 +28,7 @@ module.exports = (app) => {
     app.get('/lico/:userName', usersController.show);
 
     app.get('/api/:userName/:idImage/love', imagesApi.countLove);
+    app.get('/api/:userName/:idImage/comment', imagesApi.comment);
     app.post('/lico/signup_submit', sessionController.create);
     app.post('/lico/login_submit', sessionController.loginSubmit);
     app.post('/lico/:userName/avata', upload.single('avata'), imagesController.uploadAvata);
