@@ -72,8 +72,8 @@ module.exports = {
 
             // FORMAT DATE
             image.createdAt = moment(image.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-
-            if (image.updatedAt) image.updatedAt = moment(image.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
+            if(image.updatedAt) image.updatedAt = moment(image.updatedAt).format('MMMM Do YYYY, h:mm:ss a')
+           
             // SHOW ALL COMMENTS OF IMAGE
             if (image.comments) {
                 image.comments.forEach((item) => {

@@ -59,9 +59,9 @@ const onClickCountLove = () => {
                 (data) => {
                     $(`.${idImage}-love`).html(data.length); //update how many people love image
 
-                    $('.list-people').empty(); // update list people love image
+                    $(`.${idImage}-list`).empty(); // update list people love image
                     data.forEach( item => {
-                        $('.list-people').append(`<li><a href="/lico/${item}">${item}</a></li>`);
+                        $(`.${idImage}-list`).append(`<li><a href="/lico/${item}">${item}</a></li>`);
                     })
                     // change image white love  => black love (and convert)
                     $img.attr('src') === '/images/heart.png' ? $img.attr('src', '/images/white-heart.png') : $img.attr('src', '/images/heart.png');

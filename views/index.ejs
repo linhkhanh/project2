@@ -35,13 +35,21 @@
                 <div class="bottom-image">
                     <div>
                         <p><img src="/images/white-heart.png">
-                            <% if(image.love) { %>
-                            <span class="<%=image.id; %>-love"><%= image.love.length; %></span>
-                            <% } %>
+
+                            <span class="<%=image.id; %>-love">
+                                <% if(image.love) { %>
+                                <%= image.love.length; %>
+                                <% } %>
+                            </span>
+
                             <img src="/images/comment.png">
-                            <% if(image.comments) { %>
-                            <span class="<%= image.id; %>-comment"><%= image.comments.length; %></span>
-                            <% } %>
+
+                            <span class="<%= image.id; %>-comment">
+                                <% if(image.comments) { %>
+                                <%= image.comments.length; %>
+                                <% } %>
+                            </span>
+
                         </p>
                     </div>
                     <a href="/lico/<%= image.userName; %>"><%= image.userName; %></a>
@@ -71,9 +79,11 @@
                                     <!-- image information -->
 
                                     <% if(!image.updatedAt) { %>
-                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Date: <%= image.createdAt; %></i></a>
+                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Date:
+                                            <%= image.createdAt; %></i></a>
                                     <%} else { %>
-                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Edit: <%= image.updatedAt; %></i></a>
+                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Edit:
+                                            <%= image.updatedAt; %></i></a>
                                     <% } %>
 
 
@@ -104,17 +114,19 @@
                                         <!-- Show How many people love this image -->
                                         <div class="detail-people">
                                             <p class="reaction-people">
-                                                <% if(image.love) { %>
-                                                <span class="<%= image.id; %>-love"><%= image.love.length; %> </span>
-                                                <% } %>
+                                                <span class="<%= image.id; %>-love">
+                                                    <% if(image.love) { %>
+                                                    <%= image.love.length; %> 
+                                                    <% } %>
+                                                </span>
                                                 people</p>
 
                                             <!-- SHOW LIST OF PEOPLE LIKE IT -->
 
-                                            <ul class="list-people">
+                                            <ul class="list-people <%= image.id; %>-list">
                                                 <% if(image.love) { %>
                                                 <% image.love.forEach(person => { %>
-                                                <li><a href="/lico/<%= person; %>"><%= person; %></a></li>
+                                                <li><a href="/lico/<%= person; %>" class="all-people"><%= person; %></a></li>
                                                 <% }) %>
                                                 <% } %>
                                             </ul>
@@ -125,11 +137,12 @@
                                     <!-- END REACTION-->
 
                                     <!-- write COMMENT -->
-                                    <form action="/api/<%= image.userName; %>/<%= image.id; %>/comment" method="GET">
+                                    <form action="/api/<%= image.userName; %>/<%= image.id; %>/comment" method="GET" class="form-comment">
                                         <label class="current-user"><%= name; %></label>
-                                        <input type="text" name="comment" 
+                                        <input type="text" name="comment" placeholder="write a comment"
                                             class="write-comment">
-                                        <input type="submit" value="send" class="send" id="<%= image.userName; %>-<%= image.id; %>">
+                                        <input type="submit" value="send" class="send"
+                                            id="<%= image.userName; %>-<%= image.id; %>">
                                     </form>
 
                                     <!-- SHOW ALL COMMENTS -->

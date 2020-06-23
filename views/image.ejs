@@ -78,26 +78,158 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <% if(name === user.userName) { %>
 
-                                <!-- DELETE BUTTON -->
-                                <form action="/lico/<%= user.userName; %>/<%= image.id; %>?_method=DELETE" method="POST">
-                                    <button class="dropdown-item" type="submit">Delete</button>
-                                </form>
+                            <!-- DELETE BUTTON -->
+                            <form action="/lico/<%= user.userName; %>/<%= image.id; %>?_method=DELETE" method="POST">
+                                <button class="dropdown-item" type="submit">Delete</button>
+                            </form>
 
-                                 <!-- EDIT BUTTON -->
+                            <!-- EDIT BUTTON -->
                             <button type="button" class="dropdown-item" data-toggle="modal"
-                            data-target="#myModal">Edit</button>
-                            
-                            <% } %>   
+                                data-target="#myModal">Edit</button>
+
+                            <% } %>
                         </div>
                     </div>
                     <!-- END DROPDOWN -->
                 </div>
                 <!-- END right-box-top -->
+
+                <!-- Show Time -->
+                <% if(!image.updatedAt) { %>
+                <p class="date"><i>Date: <%= image.createdAt; %></i></p>
+                <%} else { %>
+                <p class="date"><i>Edit: <%= image.updatedAt; %></i></p>
+                <% } %>
+                <!-- END TIME -->
+
+                <!-- image Description -->
+                <p><%= image.description; %></p>
+                <!-- write COMMENT -->
+                <form action="/lico/<%= user.userName; %>/<%= image.id; %>" method="POST" class="form-comment">
+                    <label class="current-user"><%= name; %></label>
+                    <input type="text" name="comment" placeholder="write a comment" class="write-comment">
+                    <input type="submit" value="send" class="send">
+                </form>
+
+                <!-- SHOW ALL COMMENTS -->
+                <div class="all-comments">
+                    <% if(image.comments) { %>
+                    <% image.comments.forEach((item, index) => { %>
+                    <!-- ONE COMMENT -->
+                    <div class="comment card">
+                        <div class="time-edit">
+                            <!-- TIME -->
+                            <p class="date"><i>
+                                    <% if(item.updatedAt) { %>
+                                    <%= item.updatedAt; %>
+                                    <% } else { %>
+                                    <%= item.createdAt; %>
+                                    <% } %>
+                                </i></p>
+                            <!-- delete/edit COMMENT -->
+                            <!-- DROPDOWN -->
+                            <% if(item.userComment === name) { %>
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ...
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <!-- DELETE BUTTON -->
+                                    <form
+                                        action="/lico/<%= user.userName; %>/<%= image.id; %>/<%= item.id; %>/delete?_method=PUT"
+                                        method="POST">
+                                        <button class="dropdown-item" type="submit">Delete</button>
+                                    </form>
+
+                                     <!-- EDIT BUTTON -->
+                                    <!-- Trigger the modal with a button -->
+                                    <button type="button" class="dropdown-item" data-toggle="modal"
+                                        data-target="#a<%= index; %>">Edit</button>
+                                </div>
+                            </div>
+                            <!-- END DROP DOWN -->
+                            <% } %>
+                        </div>
+                        <!-- CONTENT OF COMMENT -->
+
+                        <p><img src="<%= item.avataOfUserComment; %>" class="avata-comment"> <a
+                            href="/lico/<%= item.userComment; %>"> <%= item.userComment; %></a>
+                        <%= item.content; %>
+                    </p>
+
+                    <% if(item.userComment === name) { %>
+                        <!-- Modal FOR EDIT COMMENT -->
+                        <div id="a<%= index; %>" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                 <!-- Modal content-->
+                                 <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Edit comment</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <form
+                                            action="/lico/<%= user.userName; %>/<%= image.id; %>/<%= item.id; %>/edit?_method=PUT"
+                                            method="POST">
+                                            <input type="text" name="comment" value="<%= item.content; %>">
+                                            <input type="submit" value="Edit">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END MODAL -->
+                    <% } %>
+                    </div>
+                    <% }) %>
+                    <% } %>
+                </div>
             </div>
             <!-- END RIGHT BOX -->
         </div>
     </div>
 
+     <!-- modal -->
+    <!-- edit image content -->
+    <% if(name === user.userName) { %>
+
+        <div class="container">
+            <!-- Trigger the modal with a button -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Description</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/lico/<%= user.userName; %>/<%= image.id; %>/edit?_method=PUT" method="POST">
+    
+                                <input name="description" type="text" value="<%= image.description; %>">
+                                <img src="<%= image.url; %>" class="show-image">
+                                <input type="submit" value="update">
+                            </form>
+    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
+        <% } %>
 </body>
 
 </html>
