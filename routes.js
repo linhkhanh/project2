@@ -31,11 +31,16 @@ module.exports = (app) => {
     app.post('/lico/signup_submit', sessionController.create);
     app.post('/lico/login_submit', sessionController.loginSubmit);
     app.post('/lico/:userName/avata', upload.single('avata'), imagesController.uploadAvata);
-    app.post('/lico/:userName/upload', upload.single('image'), imagesController.uploadImage);
+    app.post('/lico/:userName/upload', upload.single('image'), imagesController.uploadImage); 
     app.post('/lico/:userName/:idImage/love', imagesController.countLove);
+    
     app.post('/lico/:userName/:idImage', imagesController.commentImage);
     
+    
+
     app.put('/lico/:userName/edit', usersController.update);
     app.put('/lico/:userName/:idImage/edit', imagesController.updateDescription);
+    app.put('/lico/:userName/:idImage/:idComment/delete', imagesController.deleteComment);
+    app.put('/lico/:userName/:idImage/:idComment/edit', imagesController.editComment);
     app.delete('/lico/:userName/:idImage', imagesController.deleteImage)
 }

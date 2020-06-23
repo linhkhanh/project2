@@ -394,7 +394,11 @@ a {
     display: flex;
     flex-flow: row nowrap;
 }
-
+.time-edit {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
 /* END */
 
 
