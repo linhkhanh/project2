@@ -17,16 +17,20 @@ const client = new MongoClient(MONGO_URL, { useUnifiedTopology: true });
 // 
 module.exports = {
 	async connect() {
-		const connection = await client.connect();
-		console.log('Connected to MongoDB');
-		const db = connection.db(DB_NAME);
-		await db.createCollection(COLLECTIONS.USERS, schemaUser);
-		await db.createCollection(COLLECTIONS.IMAGES, schemaImage);
+		// const connection = await client.connect();
+		// console.log('Connected to MongoDB');
+		// const db = connection.db(DB_NAME);
+		// await db.createCollection(COLLECTIONS.USERS, schemaUser);
+		// await db.createCollection(COLLECTIONS.IMAGES, schemaImage);
 
-		db.collection(COLLECTIONS.USERS).createIndex({"userName": 1}, {unique: true});
-		db.collection(COLLECTIONS.USERS).createIndex({"email": 1}, {unique: true});
-		this.Users = db.collection(COLLECTIONS.USERS);
-		this.images = db.collection(COLLECTIONS.IMAGES)
+		// db.collection(COLLECTIONS.USERS).createIndex({"userName": 1}, {unique: true});
+		// db.collection(COLLECTIONS.USERS).createIndex({"email": 1}, {unique: true});
+		// this.Users = db.collection(COLLECTIONS.USERS);
+		// this.images = db.collection(COLLECTIONS.IMAGES)
+		await client.connect();
+        console.log('Successfully connected to Mongo');
+        this.Users = client.db(DB_NAME).collection('Users');
+        this.images = client.db(DB_NAME).collection('images');
 	},
 	disconnect() {
 		return client.close();
