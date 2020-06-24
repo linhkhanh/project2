@@ -70,18 +70,7 @@ module.exports = {
                 return item.id === req.params.idImage
             });
 
-            // FORMAT DATE
-            image.createdAt = moment(image.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-            if(image.updatedAt) image.updatedAt = moment(image.updatedAt).format('MMMM Do YYYY, h:mm:ss a')
-           
-            // SHOW ALL COMMENTS OF IMAGE
-            if (image.comments) {
-                image.comments.forEach((item) => {
-                    return item.createdAt = moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-                })
-            }
-
-            res.render('image', { image, user, name, users });
+            res.render('image', { image, user, name, users, moment });
         } else {
             res.redirect('/lico/login');
         }
@@ -141,7 +130,7 @@ module.exports = {
                 // get userName of User login
                 const name = req.session.userName;
 
-                return res.render('index', { images, name, users });
+                return res.render('index', { images, name, users, moment });
             } else {
                 return res.redirect('/lico/login');
             }

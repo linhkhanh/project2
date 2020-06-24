@@ -181,7 +181,6 @@ nav {
 }
 .show-image {
     width: 100%;
-    height: 250px;
 }
 .index-image {
     width: 100%;
@@ -277,6 +276,9 @@ a {
 .label-username {
     color: #173e43;
 }
+.display-image {
+    height: 250px;
+}
 .show-info {
     background-color: rgba(76, 78, 76, 0.3);
     position: relative;
@@ -306,11 +308,20 @@ a {
 }
 .user-info {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .change-avata, .up-image {
     display: none;
+    background-color: #173e43;
+    color: white;
+    border: 2px solid #173e43;
 }
-
+.change-avata:hover, .up-image:hover {
+    background-color: #3fb0ac;
+    border: 2px solid #3fb0ac;
+}
 .images {
     display: flex;
     justify-content: flex-start;
@@ -324,9 +335,15 @@ a {
 }
 .description {
     display: none;
-    background-color: #fccdd3;
-    border: 2px solid #fccdd3;
-    width: 30%;
+    background-color: #fae596;
+    border: 2px solid#fae596;
+    width: 40%;
+    padding: 1%;
+    margin-bottom: 1%;
+}
+
+.form-upimage {
+    text-align: right;
 }
 /* END */
 
@@ -424,7 +441,27 @@ a {
 }
 /* END */
 
-
+/* EDIT PAGE */
+.edit-page {
+    text-align: center;
+}
+.form-edit-profile {
+    width: 80%;
+    margin: auto;
+}
+.edit-profile {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 4%;
+}
+.edit-main, .edit-extra {
+    width: 47%;
+}
+.edit-profile-button {
+    text-align: center;
+}
+/* END */
 .date {
     font-weight: lighter;
 }

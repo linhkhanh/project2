@@ -11,9 +11,6 @@ module.exports =  (reqBody) => {
         if (reqBody.female === "on") {
             user.gender = "female";
             user.avata = '/images/female.png'
-        } else if (reqBody.male === "on") {
-            user.gender = "male";
-            user.avata = '/images/male.jpg'
         } else {
             user.gender = "male";
             user.avata = '/images/male.jpg'

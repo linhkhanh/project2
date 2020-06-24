@@ -79,11 +79,11 @@
                                     <!-- image information -->
 
                                     <% if(!image.updatedAt) { %>
-                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Date:
-                                            <%= image.createdAt; %></i></a>
+                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>
+                                            <%= moment(image.createdAt).fromNow(); %></i></a>
                                     <%} else { %>
-                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Edit:
-                                            <%= image.updatedAt; %></i></a>
+                                    <a href="/lico/<%= image.userName; %>/<%= image.id; %>" class="date"><i>Edited:
+                                            <%= moment(image.updatedAt).fromNow(); %></i></a>
                                     <% } %>
 
 
@@ -150,7 +150,11 @@
                                         <% if(image.comments) { %>
                                         <% image.comments.forEach(item => { %>
                                         <div class="comment">
-                                            <p class="date"><i><%= item.createdAt; %></i></p>
+                                            <% if(!item.updatedAt) { %>
+                                                <p class="date"><i><%= moment(item.createdAt).fromNow(); %></i></p>
+                                            <% } else { %>
+                                                <p class="date"><i><%= moment(item.updatedAt).fromNow(); %></i></p>
+                                            <% } %>
                                             <p><img src="<%= item.avataOfUserComment; %>" class="avata-comment"><a
                                                     href="/lico/<%= item.userComment; %>"><%= item.userComment; %></a>
                                                 <%= item.content; %>

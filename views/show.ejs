@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <input type="file" name="avata" class="choose-avata">
                         </div>
-                        <input type="submit" class="btn btn-primary change-avata" value="Change Avata">
+                        <input type="submit" class="change-avata" value="Change Avata">
                     </form>
                     <!-- end -->
                     <% } %>
@@ -40,29 +40,32 @@
 
                 <!-- USER INFORMATION -->
                 <div class="user-info">
-                    <div class="user-info-name">
-                        <h2 class="label label-username"><%= user.userName; %></h2>
-                        <% if(name === user.userName) { %>
-                        <a href="/lico/<%= user.userName; %>/edit" class="edit">Edit profile</a>
+                    <div>
+                        <div class="user-info-name">
+                            <h2 class="label label-username"><%= user.userName; %></h2>
+                            <% if(name === user.userName) { %>
+                            <a href="/lico/<%= user.userName; %>/edit" class="edit">Edit profile</a>
+                            <% } %>
+                        </div>
+
+                        <p class="date"><i>Joined at: <%= user.createdAt; %></i></p>
+                        <p class="date">Gender: <%= user.gender; %></p>
+
+                        <% if(user.biography) { %>
+                        <p class="date">About me: <%= user.biography; %></p>
+                        <% } %>
+
+                        <% if(user.birthDay) { %>
+                        <p class="date">BirthDay: <%= user.birthDay; %></p>
+                        <% } %>
+
+                        <% if(user.location) { %>
+                        <p>Come from <%= user.location; %></p>
                         <% } %>
                     </div>
-
-                    <p class="date"><i>Joined at: <%= user.createdAt; %></i></p>
-                    <p class="date">Gender: <%= user.gender; %></p>
-
-                    <% if(user.biography) { %>
-                    <p class="date">About me: <%= user.biography; %></p>
-                    <% } %>
-
-                    <% if(user.birthDay) { %>
-                    <p class="date">BirthDay: <%= user.birthDay; %></p>
-                    <% } %>
-
-                    <% if(user.location) { %>
-                    <p>Come from <%= user.location; %></p>
-                    <% } %>
-
-
+                    <div>
+                        <p>Posts <%= user.images.length; %></p>
+                    </div>
                 </div>
                 <!-- END -->
             </div>
@@ -73,8 +76,10 @@
                 <% if(!user.images) { %>
                 <p>You have no image. Let's share your amazing images</p>
                 <% } %>
+
                 <!-- UPLOAD IMAGE -->
-                <form action='/lico/<%= user.userName; %>/upload' method='POST' enctype="multipart/form-data">
+                <form action='/lico/<%= user.userName; %>/upload' method='POST' enctype="multipart/form-data"
+                    class="form-upimage">
                     <div class="form-group">
                         <input type="file" name="image" class="choose-image">
                     </div>
@@ -82,8 +87,10 @@
                         <input type="text" name="description" placeholder="Say something about this picture.."
                             class="description">
                     </div>
-                    <input type="submit" class="btn btn-primary up-image" value="Upload Image">
+                    <input type="submit" class="up-image" value="Upload Image">
                 </form>
+
+
                 <!-- END -->
                 <% } %>
             </div>
@@ -95,7 +102,7 @@
                 <% user.images.forEach(image => { %>
                 <div class="show-item">
                     <a href="/lico/<%= user.userName; %>/<%= image.id; %>"><img src="<%= image.url; %>"
-                            class="show-image"></a>
+                            class="display-image show-image"></a>
 
                     <div class="show-info">
                         <p><img src="/images/white-heart.png">

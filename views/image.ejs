@@ -95,9 +95,9 @@
 
                 <!-- Show Time -->
                 <% if(!image.updatedAt) { %>
-                <p class="date"><i>Date: <%= image.createdAt; %></i></p>
+                <p class="date"><i><%= moment(image.createdAt).fromNow(); %></i></p>
                 <%} else { %>
-                <p class="date"><i>Edit: <%= image.updatedAt; %></i></p>
+                <p class="date"><i>edited: <%= moment(image.updatedAt).fromNow(); %></i></p>
                 <% } %>
                 <!-- END TIME -->
 
@@ -120,9 +120,9 @@
                             <!-- TIME -->
                             <p class="date"><i>
                                     <% if(item.updatedAt) { %>
-                                    <%= item.updatedAt; %>
+                                    <%= moment(item.updatedAt).fromNow(); %>
                                     <% } else { %>
-                                    <%= item.createdAt; %>
+                                    <%= moment(item.createdAt).fromNow(); %>
                                     <% } %>
                                 </i></p>
                             <!-- delete/edit COMMENT -->

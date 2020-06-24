@@ -1,7 +1,7 @@
 const usersRepository = require('../repositories/usersRepository');
 const imagesRepository = require('../repositories/imagesRepository');
 const moment = require('moment');
-
+const bcrypt = require('bcrypt');
 module.exports = {
    
     async getAll(req, res) {
@@ -62,14 +62,21 @@ module.exports = {
     },
     async update(req, res) {
         try {
+            
             const user = {
-                'userName': req.body.userName,
+                'userName': req.params.userName,
                 'email': req.body.email,
                 'biography': req.body.biography,
                 'birthDay': req.body.birthDay,
                 'location': req.body.location
             };
+            if(req.body.newPassword) {
+                const hashedString = bcrypt.hashSync(req.body.newPassword, bcrypt.genSaltSync(10));
+                user.password = hashedString;
+            }
             req.session.userName = req.body.userName;
+            
+            // update user information
             await usersRepository.updateByUserName(req.params.userName, user);
             return res.redirect(`/lico/${user.userName}`);
         } catch (err) {
