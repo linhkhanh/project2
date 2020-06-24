@@ -14,7 +14,16 @@
     </header>
     
     <div class="body-home">
-
+        <div class="weather">
+            <p>Singapore</p>
+            <p><%= moment().format('MMMM Do YYYY, h:mm:ss a'); %></p>
+            <p>Temperature: <span class="tempt"></span>&#176;C</p>
+            <p>Temp-min: <span class="min-tempt"></span> &#176;C </p>
+            <p>Temp-max: <span class="max-tempt"></span>&#176;C</p>
+            <p>Humidity: <span class="humidity"></span>%</p>
+            <p>Description: <span class="describe"></span></p>
+            <p>Main: <span class="main"></span></p>
+        </div>
         <section class="list-users">
             <% users.forEach(user => { %>
                 <div class="each-user">

@@ -146,10 +146,20 @@ nav {
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+.weather {
+    width: 20%;
+    background-color: white;
+    margin: 2%;
+    padding: 2%;
+    height: 350px;
 }
 .list-users {
     width: 50%;
-    margin: auto;
+    /* margin: auto; */
     border: 1px solid #e8edf3;
     padding: 2%;
     background-color: white;

@@ -138,6 +138,28 @@ const commentImage = () => {
             return false;
     })
 }
+// CALL API WEATHER
+const getWeather = () => {
+    const apiKey = 'ed9d9a092edac51d1afa9c2b98725554';
+    const countryCode = '1880251';
+    const promise = $.ajax({
+        url: `http://api.openweathermap.org/data/2.5/weather?id=${countryCode}&appid=${apiKey}`
+    });
+    promise.then(
+        (data) => {
+            $('.tempt').html((data.main.temp/10).toFixed(2) );
+            $('.min-tempt').html((data.main.temp_min/10).toFixed(2));
+            $('.max-tempt').html((data.main.temp_max/10).toFixed(2));
+            $('.humidity').html(data.main.humidity);
+            $('.main').html(data.weather[0].main);
+            $('.describe').html(data.weather[0].description);
+
+        },
+        () => {
+            console.log('bad request');
+        }
+    )
+};
 $(() => {
     onClick('.choose-avata', '.change-avata');
     onClick('.choose-image', '.up-image');
@@ -155,5 +177,5 @@ $(() => {
     onClickCountLove();
 
     commentImage();
-
+    getWeather();
 })

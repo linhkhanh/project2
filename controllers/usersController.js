@@ -19,7 +19,7 @@ module.exports = {
 
                 // change list of users to make it just display the other users
                 users.splice(index, 1);
-                return res.render('home', { users, name });
+                return res.render('home', { users, name, moment });
             } else {
                 return res.redirect('/lico/login');
             }
