@@ -260,7 +260,7 @@ a {
 /* SHOW PAGE */
 .body-show{
     /* background-color: #fcf5f8; */
-    background-image: linear-gradient(rgb(245, 248, 202), rgb(210, 236, 238));
+    background-image: linear-gradient(rgb(247, 248, 228), rgb(210, 236, 238));
     padding: 3%;
     min-height: 800px;
 }
