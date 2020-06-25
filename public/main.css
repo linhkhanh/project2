@@ -46,13 +46,7 @@ header {
 form {
     width: 80%;
 }
-.input {
-    width: 100%;
-    border-top: 1px solid #fae596;
-    border-left: 1px solid #fae596;
-    border-right: 1px solid #fae596;
-    background-color: #fae596 ;
-}
+
 .login-submit {
     margin: 3% 0; 
     background-color: #173e43 ;
@@ -405,7 +399,13 @@ a {
 .form-comment {
     width: 100%;
 }
-
+.input {
+    margin-bottom: 1%;
+}
+.edit-description {
+    margin-top: 1%;
+    text-align: right;
+}
 .send:hover {
     background-color: #3fb0ac;
     border: 2px solid #3fb0ac;
@@ -448,6 +448,9 @@ a {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+}
+.form-edit-image {
+    width: 100%;
 }
 /* END */
 

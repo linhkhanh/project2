@@ -270,6 +270,7 @@ module.exports = {
         notification.love.push({
             userLoveImage: req.session.userName,
             idImage: req.params.idImage,
+            urlImage: images[index].url,
             avataOfUserLoveImage: userLoveImage.avata
         });
 
