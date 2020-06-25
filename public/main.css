@@ -47,7 +47,9 @@ header {
 form {
     width: 80%;
 }
-
+.login-button {
+    text-align: center;
+}
 .login-submit {
     margin: 3% 0; 
     background-color: #173e43 ;
@@ -267,7 +269,7 @@ a {
 
 /* SHOW PAGE */
 .body-show{
-    /* background-color: #fcf5f8; */
+    
     background-image: linear-gradient(rgb(247, 248, 228), rgb(210, 236, 238));
     padding: 3%;
     min-height: 800px;
@@ -488,12 +490,18 @@ a {
     .each-user {
         font-size: 20px;
     }
+    .body-home {
+       height: 700px;
+    }
     .weather {
         display: none;
     }
     .list-users {
         width: 100%;
         padding: 5%;
+        background-image: linear-gradient(rgb(247, 248, 228), rgb(210, 236, 238));
+        height: 700px;
+        overflow: scroll;
     }
     .form-search {
         width: 40%;
@@ -512,6 +520,10 @@ a {
     /* INDEX PAGE */
     .users {
         display: none;
+    }
+    .users-images, .body-show {
+        height: 700px;
+        overflow: scroll;
     }
     .list-image {
         width: 100%;
@@ -554,4 +566,31 @@ a {
     textarea {
         width: 100%
     }
+
+    /* image page */
+    .image-box {
+        flex-direction: column;
+        
+    }
+    .reaction {
+        width: 50%;
+    }
+    .left-box, .right-box {
+        width: 100%;
+    }
+    .right-box {
+        max-height: 350px;
+        overflow: scroll;
+    }
+
+    /* LOGIN PAGE */
+  .left {
+      display: none;
+  }
+  .login {
+      width: 100%;
+  }
+  .slogan {
+      text-align: center;
+  }
   }
