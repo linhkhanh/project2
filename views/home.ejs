@@ -12,7 +12,7 @@
             <%- include('./partials/nav.ejs') %>
         </nav>
     </header>
-    
+
     <div class="body-home">
         <div class="weather">
             <p>Singapore</p>
@@ -26,10 +26,11 @@
         </div>
         <section class="list-users">
             <% users.forEach(user => { %>
-                <div class="each-user">
-                    <p><img src="<%= currentUser.avata; %>" class="avata-user"><a href="/lico/<%= currentUser.userName; %>"> <%= user.userName; %></a></p>
-                    <div><a href="/lico/<%= currentUser.userName; %>" class="btn-page">Explore</a></div>
-                </div>
+            <div class="each-user">
+                <p><img src="<%= currentUser.avata; %>" class="avata-user"><a href="/lico/<%= currentUser.userName; %>">
+                        <%= user.userName; %></a></p>
+                <div><a href="/lico/<%= currentUser.userName; %>" class="btn-page">Explore</a></div>
+            </div>
             <% }) %>
         </section>
     </div>

@@ -167,7 +167,10 @@ const getWeather = () => {
     });
     promise.then(
         (data) => {
-            // $('.today').html(moment().format('MMMM Do YYYY, h:mm:ss a'));
+           setInterval(()=> {
+               const time = moment().format('MMMM Do YYYY, h:mm:ss a');
+            $('.today').html(time);
+           }, 1000);
             $('.tempt').html((data.main.temp/10).toFixed(2) );
             $('.min-tempt').html((data.main.temp_min/10).toFixed(2));
             $('.max-tempt').html((data.main.temp_max/10).toFixed(2));
