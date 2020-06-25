@@ -232,28 +232,8 @@ module.exports = {
         if (!love) {
             love = [];
             love.push(req.session.userName);
-        } else {
-            const indexUser = love.findIndex(item => {
-                return item === req.session.userName
-            });
-            // if this user already loved this image => unlove, remove this user from love array
-            if (indexUser < 0) {
-                love.push(req.session.userName);
-            } else {
-                love.splice(indexUser, 1);
-            }
 
-        }
-        images[index].love = love; // update images array
-
-        // update images array in Users collection
-        await usersRepository.updateByUserName(req.params.userName, { images });
-
-        // update images Collection
-
-        await imagesRepository.updateByIdImage(req.params.idImage, { love });
-
-        // UPDATE NOTIFICATION OF CURRENT USER
+             // UPDATE NOTIFICATION OF CURRENT USER
         let notification = user.notification;
 
         // CHECK IS THERE NOTIFICATION OBJECT OR NOT
@@ -275,6 +255,49 @@ module.exports = {
         });
 
         await usersRepository.updateByUserName(req.params.userName, { notification })
+        } else {
+            const indexUser = love.findIndex(item => {
+                return item === req.session.userName
+            });
+
+            // if this user already loved this image => unlove, remove this user from love array
+            if (indexUser < 0) {
+                love.push(req.session.userName);
+                 // UPDATE NOTIFICATION OF CURRENT USER
+        let notification = user.notification;
+
+        // CHECK IS THERE NOTIFICATION OBJECT OR NOT
+        if (!notification) notification = {
+            love: []
+        };
+
+        // IF THERE IS NOTIFICATION OBJECT, CHECK NOTIFICATION.LOVE EXISTS OR NOT
+        if (!notification.love) notification.love = [];
+
+        // get User loves image
+        const userLoveImage = await usersRepository.show(req.session.userName);
+
+        notification.love.push({
+            userLoveImage: req.session.userName,
+            idImage: req.params.idImage,
+            urlImage: images[index].url,
+            avataOfUserLoveImage: userLoveImage.avata
+        });
+
+        await usersRepository.updateByUserName(req.params.userName, { notification })
+            } else {
+                love.splice(indexUser, 1);
+            }
+
+        }
+        images[index].love = love; // update images array
+
+        // update images array in Users collection
+        await usersRepository.updateByUserName(req.params.userName, { images });
+
+        // update images Collection
+
+        await imagesRepository.updateByIdImage(req.params.idImage, { love });
 
         return res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`);
     },

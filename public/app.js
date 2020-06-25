@@ -57,14 +57,26 @@ const onClickCountLove = () => {
 
             promise.then(
                 (data) => {
-                    $(`.${idImage}-love`).html(data.length); //update how many people love image
+   
+                    const newPerson = data.love[data.love.length - 1]; // GET NEWEST USER IN LOVE ARRAY
+
+                    $(`.${idImage}-love`).html(data.love.length); //update how many people love image
 
                     $(`.${idImage}-list`).empty(); // update list people love image
-                    data.forEach( item => {
+
+                    data.love.forEach( item => {
                         $(`.${idImage}-list`).append(`<li><a href="/lico/${item}" class="all-people">${item}</a></li>`);
                     })
                     // change image white love  => black love (and convert)
                     $img.attr('src') === '/images/heart.png' ? $img.attr('src', '/images/white-heart.png') : $img.attr('src', '/images/heart.png');
+                    
+                     // UPDATE NOTIFICATION
+                     if(newPerson === data.interestedUser) {
+                        $('.notification').attr('src', '/images/notification-1.png');
+                        $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newPerson}">${newPerson}</a> loved <a
+                        href="/lico/${newPerson}/${data.idImage}">your image</a></p>`)
+                    };
+
                     return data;
                 },
                 () => {
@@ -129,6 +141,14 @@ const commentImage = () => {
                    </p>
                </div>`);
                     $(`.${newData.idImage}-comment`).html(allComments.length); // update how many comments in index page
+                    
+                    // UPDATE NOTIFICATION
+                    if(newComment.userComment === newData.interestedUser) {
+                        $('.notification').attr('src', '/images/notification-1.png');
+                        $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newComment.userComment}">${newComment.userComment}</a> commented <a
+                        href="/lico/${newComment.userComment}/${newComment.idImage}">your image</a></p>`)
+                    };
+
                     return data;
                 },
                 () => {
@@ -147,6 +167,7 @@ const getWeather = () => {
     });
     promise.then(
         (data) => {
+            // $('.today').html(moment().format('MMMM Do YYYY, h:mm:ss a'));
             $('.tempt').html((data.main.temp/10).toFixed(2) );
             $('.min-tempt').html((data.main.temp_min/10).toFixed(2));
             $('.max-tempt').html((data.main.temp_max/10).toFixed(2));
@@ -173,7 +194,7 @@ const clearNotification = () => {
         });
         promise.then(
             () => {
-                $('.dropdown-menu').empty();
+                $('.list-notification').empty();
                 $('.notification').attr('src', '/images/notification.png');
             }
         ),
