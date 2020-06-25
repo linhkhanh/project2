@@ -29,7 +29,7 @@
         <section class="list-users">
             <% users.forEach(user => { %>
             <div class="each-user">
-                <p><img src="<%= user.avata; %>" class="avata-user"><a href="/lico/<%= currentUser.userName; %>">
+                <p><img src="<%= user.avata; %>" class="avata-user"><a href="/lico/<%= user.userName; %>">
                         <%= user.userName; %></a></p>
                 <div><a href="/lico/<%= user.userName; %>" class="btn-page">Explore</a></div>
             </div>
