@@ -14,20 +14,22 @@
     </header>
 
     <div class="body-home">
-        <div class="weather">
-            <p>Singapore</p>
-            <p><span class="today"></span></p>
-            <p>Temperature: <span class="tempt"></span>&#176;C</p>
-            <p>Temp-min: <span class="min-tempt"></span> &#176;C </p>
-            <p>Temp-max: <span class="max-tempt"></span>&#176;C</p>
-            <p>Humidity: <span class="humidity"></span>%</p>
-            <p>Description: <span class="describe"></span></p>
-            <p>Main: <span class="main"></span></p>
+        <div class="weather card shadow-lg p-3 mb-5 rounded">
+            <p class="slogan">Singapore</p>
+            <p class="date"><span class="today"></span></p>
+           
+            <p>	&#127777; <span class="tempt"></span>&#176;C </p>
+            <p class="date">(<span class="min-tempt"></span> &#176;C - <span class="max-tempt"></span>&#176;C)</p>
+            <p>	&#128167; <span class="humidity"></span>%</p>
+            <p>&#9729; <span class="clouds"></span>%</p>
+          
+            <p><span class="describe"></span></p>
+            
         </div>
         <section class="list-users">
             <% users.forEach(user => { %>
             <div class="each-user">
-                <p><img src="<%= currentUser.avata; %>" class="avata-user"><a href="/lico/<%= currentUser.userName; %>">
+                <p><img src="<%= user.avata; %>" class="avata-user"><a href="/lico/<%= currentUser.userName; %>">
                         <%= user.userName; %></a></p>
                 <div><a href="/lico/<%= currentUser.userName; %>" class="btn-page">Explore</a></div>
             </div>
