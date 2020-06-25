@@ -8,6 +8,7 @@ module.exports = {
         try {
             if (req.session.userName) {
                 const users = await usersRepository.getAll();
+                const currentUser = await usersRepository.show(req.session.userName);
 
                 // get userName of User login
                 const name = req.session.userName;
@@ -19,7 +20,7 @@ module.exports = {
 
                 // change list of users to make it just display the other users
                 users.splice(index, 1);
-                return res.render('home', { users, name, moment });
+                return res.render('home', { users, name, moment, currentUser });
             } else {
                 return res.redirect('/lico/login');
             }
@@ -35,11 +36,12 @@ module.exports = {
 
                 const users = await usersRepository.getAll()
                 const user = await usersRepository.show(req.params.userName);
+                const currentUser = await usersRepository.show(req.session.userName);
 
                 // format date
                 user.createdAt = moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
-                return res.render('show', { user, name: req.session.userName, users  });
+                return res.render('show', { user, name: req.session.userName, users, currentUser  });
             } else {
                 res.redirect('/lico/login');
             }
@@ -54,8 +56,8 @@ module.exports = {
             // Get all users for search engine
             const users = await usersRepository.getAll();
 
-            const user = await usersRepository.show(req.params.userName);
-            res.render('edit', { user, users, name: req.session.userName });
+            const currentUser = await usersRepository.show(req.params.userName);
+            res.render('edit', { currentUser, users, name: req.session.userName });
         } else {
             res.redirect('/lico/login');
         }
@@ -97,6 +99,10 @@ module.exports = {
         console.log(findingUser);
         findingUser ===  undefined ? res.send('This user dose not exist.') :
         res.redirect(`/lico/${findingUser.userName}`);
+    },
+    async updateNotification (req, res) {
+         await usersRepository.updateByUserName(req.params.userName, { notification: null });
+         return res.end(JSON.stringify( {notification: null}));
     }
 
 };

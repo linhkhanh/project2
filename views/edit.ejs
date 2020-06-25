@@ -11,7 +11,7 @@
         <nav>
             <%- include('./partials/nav.ejs') %>
             <div class="icon">
-                <% if(name === user.userName) { %>
+                <% if(name === currentUser.userName) { %>
                 <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png"
                         class="logout-icon"></a>
                 <% } %>
@@ -21,16 +21,16 @@
     <div class="image-concept">
 
         <div class="container shadow-sm p-3 mb-5 bg-white rounded">
-            <h2 class="edit-page"><%= user.userName; %></h2>
+            <h2 class="edit-page"><%= currentUser.userName; %></h2>
             <h3 class="label edit-page">Edit profile</h3>
 
-            <form action="/lico/<%= user.userName; %>/edit?_method=PUT" method="POST" class="form-edit-profile">
+            <form action="/lico/<%= currentUser.userName; %>/edit?_method=PUT" method="POST" class="form-edit-profile">
             <div class="edit-profile">
 
                 <div class="edit-main">
                     <div class="form-group ">
                         <label for="email">Email</label>
-                        <input type="email" name="email" value="<%= user.email; %>" class="form-control">
+                        <input type="email" name="email" value="<%= currentUser.email; %>" class="form-control">
                     </div>
                     <div class="form-group ">
                         <label for="newPassword">Change password</label>
@@ -43,16 +43,16 @@
                     <div class="form-group ">
                         <label for="biography">Bio</label>
                         <textarea name="biography" rows="4" cols="50">
-                            <%= user.biography; %>
+                            <%= currentUser.biography; %>
                         </textarea>
                     </div>
                     <div class="form-group ">
                         <label for="birthDay">Birthday</label>
-                        <input type="date" name="birthDay" value="<%= user.birthDay; %>">
+                        <input type="date" name="birthDay" value="<%= currentUser.birthDay; %>">
                     </div>
                     <div class="form-group ">
                         <label for="location">Where do you live</label>
-                        <input type="text" name="location" value="<%= user.location; %>">
+                        <input type="text" name="location" value="<%= currentUser.location; %>">
                     </div>
                 </div>
             </div>

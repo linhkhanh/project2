@@ -64,7 +64,9 @@
                         <% } %>
                     </div>
                     <div>
-                        <p>Posts <%= user.images.length; %></p>
+                        <% if(user.images) { %>
+                            <p>Posts <%= user.images.length; %></p>
+                        <% } %>
                     </div>
                 </div>
                 <!-- END -->

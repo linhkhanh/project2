@@ -64,13 +64,15 @@ module.exports = {
             const users = await usersRepository.getAll();
 
             const name = req.session.userName; // GET CURRENT USER 
+            const currentUser = await usersRepository.show(name);
+
             const user = await usersRepository.show(req.params.userName); //FIND USER
             // FIND IMAGE
             const image = user.images.find((item) => {
                 return item.id === req.params.idImage
             });
 
-            res.render('image', { image, user, name, users, moment });
+            res.render('image', { image, user, name, users, moment, currentUser });
         } else {
             res.redirect('/lico/login');
         }
@@ -114,6 +116,25 @@ module.exports = {
             // UPDATE IMAGES COLLECTION
 
             await imagesRepository.updateByIdImage(images[index].id, { comments });
+
+            // update NOTIFICATION OF CURRENT USER
+            let notification = user.notification;
+
+            // CHECK IS THERE NOTIFICATION OBJECT OR NOT
+            if (!notification) notification = {
+                comments: []
+            };
+
+            // IF THERE IS NOTIFICATION OBJECT, CHECK NOTIFICATION.COMMENTS EXISTS OR NOT
+            if (!notification.comments) notification.comments = [];
+
+            notification.comments.push({
+                userComment: req.session.userName,
+                idImage: req.params.idImage,
+                avataOfUserComment: userComment.avata
+            });
+            await usersRepository.updateByUserName(req.params.userName, { notification })
+
             res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`)
         }
 
@@ -123,14 +144,16 @@ module.exports = {
             if (req.session.userName) {
                 const images = await imagesRepository.getAll();
                 images.reverse();
-                
+
                 // get all Users
                 const users = await usersRepository.getAll();
                 users.reverse();
                 // get userName of User login
                 const name = req.session.userName;
+                // get currentUser
+                const currentUser = await usersRepository.show(name);
 
-                return res.render('index', { images, name, users, moment });
+                return res.render('index', { images, name, users, moment, currentUser });
             } else {
                 return res.redirect('/lico/login');
             }
@@ -214,14 +237,14 @@ module.exports = {
                 return item === req.session.userName
             });
             // if this user already loved this image => unlove, remove this user from love array
-            if ( indexUser < 0) {
+            if (indexUser < 0) {
                 love.push(req.session.userName);
             } else {
                 love.splice(indexUser, 1);
             }
-                
+
         }
-        images[index].love = love;
+        images[index].love = love; // update images array
 
         // update images array in Users collection
         await usersRepository.updateByUserName(req.params.userName, { images });
@@ -230,18 +253,40 @@ module.exports = {
 
         await imagesRepository.updateByIdImage(req.params.idImage, { love });
 
-            return res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`);
+        // UPDATE NOTIFICATION OF CURRENT USER
+        let notification = user.notification;
+
+        // CHECK IS THERE NOTIFICATION OBJECT OR NOT
+        if (!notification) notification = {
+            love: []
+        };
+
+        // IF THERE IS NOTIFICATION OBJECT, CHECK NOTIFICATION.LOVE EXISTS OR NOT
+        if (!notification.love) notification.love = [];
+
+        // get User loves image
+        const userLoveImage = await usersRepository.show(req.session.userName);
+
+        notification.love.push({
+            userLoveImage: req.session.userName,
+            idImage: req.params.idImage,
+            avataOfUserLoveImage: userLoveImage.avata
+        });
+
+        await usersRepository.updateByUserName(req.params.userName, { notification })
+
+        return res.redirect(`/lico/${req.params.userName}/${req.params.idImage}`);
     },
-    async deleteComment (req, res) {
+    async deleteComment(req, res) {
         // FIND USER
         const user = await usersRepository.show(req.params.userName);
 
         // FIND CURRENT IMAGE
-        const images =  user.images;
-        const index =images.findIndex((item) => {
+        const images = user.images;
+        const index = images.findIndex((item) => {
             return item.id === req.params.idImage;
         });
-       
+
         // FIND INDEX OF COMMENT
         const indexComment = images[index].comments.findIndex(item => {
             return item.id === req.params.idComment;
@@ -249,34 +294,34 @@ module.exports = {
 
         // delete current comment from comments array
         const comments = images[index].comments.splice(indexComment, 1);
-        
+
         // update comments array of current image in USERS COLLECTION
 
         await usersRepository.updateByUserName(req.params.userName, { images });
-        
+
         // UPDATE COMMENTS ARRAY IN IMAGES COLLECTION
 
         await imagesRepository.updateByIdImage(req.params.idImage, { comments });
 
         return res.redirect(`/lico/${user.userName}/${req.params.idImage}`);
     },
-    async editComment (req, res) {
+    async editComment(req, res) {
         // FIND USER
         const user = await usersRepository.show(req.params.userName);
 
         // FIND CURRENT IMAGE
-        const images =  user.images;
-        const index =images.findIndex((item) => {
+        const images = user.images;
+        const index = images.findIndex((item) => {
             return item.id === req.params.idImage;
         });
-       
+
         // FIND INDEX OF COMMENT
         const indexComment = images[index].comments.findIndex(item => {
             return item.id == req.params.idComment;
         });
-    
+
         // update CONTENT OF CURRENT COMMENT
-      
+
         images[index].comments[indexComment].content = req.body.comment;
         images[index].comments[indexComment].updatedAt = new Date;
 

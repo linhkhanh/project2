@@ -2,8 +2,41 @@
     <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png" class="user-icon"></a>
 </div>
 <div class="icon">
-    <a href="/lico/<%= name; %>"><img src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png" class="user-icon"></a>
+    <a href="/lico/<%= name; %>"><img
+            src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png"
+            class="user-icon"></a>
 </div>
 <div class="icon">
-    <a href="/lico/index"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" class="user-icon"></a>
+    <a href="/lico/index"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
+            class="user-icon"></a>
+</div>
+<!-- SHOW NOTIFICATION -->
+<div class="dropdown icon">
+    <% if(!currentUser.notification) { %>
+    <img src="/images/notification.png" class="notification user-icon" type="button" id="dropdownMenu2"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <% } else { %>
+    <img src="/images/notification-1.png" class="notification user-icon" type="button" id="dropdownMenu2"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <% if(currentUser.notification) { %>
+        <% if(currentUser.notification.love) { %>
+        <% currentUser.notification.love.forEach(item => { %>
+        <p class="dropdown-item"><a href="/lico/<%=item.userLoveImage; %> "><%= item.userLoveImage; %></a> loved <a
+                href="/lico/<%= currentUser.userName; %>/<%= item.idImage; %>">your image</a></p>
+        <% }); %>
+        <% } %>
+        <% if(currentUser.notification.comments) { %>
+        <% currentUser.notification.comments.forEach(item => { %>
+        <p class="dropdown-item"><a href="/lico/<%=item.userComment; %> "><%= item.userComment; %></a> commented <a
+                href="/lico/<%= currentUser.userName; %>/<%= item.idImage; %>">your image</a></p>
+        <% }) %>
+        <% } %>
+        <form action="/api/<%= currentUser.userName; %>/notification">
+            <input type="submit" value="seen" class="seen" id='user&<%= currentUser.userName; %>'>
+        </form>
+        <% } %>
+    </div>
+    <% } %>
+
 </div>

@@ -98,7 +98,7 @@ const commentImage = () => {
         // get id of input.send
         const id = $(event.currentTarget).attr('id'); //id = userName-idImage
 
-        const arrId = id.split('-'); // split string
+        const arrId = id.split('&'); // split string
        
         const idImage = arrId[1]; // get idImage for url to call ajax
         const userName = arrId[0]; // get userName for url to call ajax
@@ -153,13 +153,38 @@ const getWeather = () => {
             $('.humidity').html(data.main.humidity);
             $('.main').html(data.weather[0].main);
             $('.describe').html(data.weather[0].description);
-
         },
         () => {
             console.log('bad request');
         }
     )
 };
+
+// CLEAR NOTIFICATION
+const clearNotification = () => {
+    $('.seen').on('click', () => {
+        // get id of input.seen
+        const id = $('.seen').attr('id');
+        const arr = id.split('&');
+        const userName = arr[1];
+
+        const promise = $.ajax({
+            url: `/api/${userName}/notification`
+        });
+        promise.then(
+            () => {
+                $('.dropdown-menu').empty();
+                $('.notification').attr('src', '/images/notification.png');
+            }
+        ),
+        () => {
+            console.log('bad request');
+        }
+        
+        return false
+    })
+};
+
 $(() => {
     onClick('.choose-avata', '.change-avata');
     onClick('.choose-image', '.up-image');
@@ -178,4 +203,6 @@ $(() => {
 
     commentImage();
     getWeather();
+
+    clearNotification();
 })

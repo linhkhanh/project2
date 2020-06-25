@@ -22,7 +22,7 @@ module.exports = (app) => {
     app.get('/lico/login', sessionController.logIn);
     app.get('/lico/index', imagesController.getAllImage);
     app.get('/lico/:userName/edit', usersController.edit);
-    
+    app.get('/api/:userName/notification', usersController.updateNotification);
     app.get('/lico/:userName/:idImage', imagesController.showImage);
     
     app.get('/lico/:userName', usersController.show);
