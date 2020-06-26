@@ -114,13 +114,7 @@ const commentImage = () => {
        
         const idImage = arrId[1]; // get idImage for url to call ajax
         const userName = arrId[0]; // get userName for url to call ajax
-
-        const $div = $(event.currentTarget).parent(); 
-        const $form = $div.parent();
-        // const $allComments = $form.siblings('.all-comments'); // update div.all-comments
-
-        // const $writeComment = $(event.currentTarget).siblings('.write-comment'); // find input.write-comment
-
+        
         const commentContent = $(`#${idImage}-write`).val(); // get content of comment from input
         $(`#${idImage}-write`).val('');
 
@@ -164,30 +158,30 @@ const commentImage = () => {
 const getWeather = () => {
     const apiKey = 'ed9d9a092edac51d1afa9c2b98725554';
     const countryCode = '1880251';
-    const promise = $.ajax({
-        url: `http://api.openweathermap.org/data/2.5/weather?id=${countryCode}&appid=${apiKey}`
-    });
-    promise.then(
-        (data) => {
-
-           setInterval(()=> {
-               const time = moment().format('MMMM Do YYYY, h:mm:ss a');
-            $('.today').html(time);
-           
-            $('.tempt').html((data.main.temp/10).toFixed(2) );
-            $('.min-tempt').html((data.main.temp_min/10).toFixed(2));
-            $('.max-tempt').html((data.main.temp_max/10).toFixed(2));
-            $('.humidity').html(data.main.humidity);
-            $('.clouds').html(data.clouds.all);
-          
-            $('.describe').html(data.weather[0].description);
-           }, 1000);
-           
-        },
-        () => {
-            console.log('bad request');
-        }
-    )
+    setInterval(()=> {
+        const time = moment().format('MMMM Do YYYY, h:mm:ss a');
+        $('.today').html(time);
+        
+        const promise = $.ajax({
+            url: `http://api.openweathermap.org/data/2.5/weather?id=${countryCode}&appid=${apiKey}`
+        });
+        promise.then(
+            (data) => { 
+                $('.tempt').html((data.main.temp/10).toFixed(2) );
+                $('.min-tempt').html((data.main.temp_min/10).toFixed(2));
+                $('.max-tempt').html((data.main.temp_max/10).toFixed(2));
+                $('.humidity').html(data.main.humidity);
+                $('.clouds').html(data.clouds.all);
+              
+                $('.describe').html(data.weather[0].description);
+               
+            },
+            () => {
+                console.log('bad request');
+            }
+        )
+    }, 1000);
+   
 };
 
 // CLEAR NOTIFICATION
