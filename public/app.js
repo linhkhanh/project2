@@ -116,12 +116,13 @@ const commentImage = () => {
         const userName = arrId[0]; // get userName for url to call ajax
 
         const $div = $(event.currentTarget).parent(); 
-        const $allComments = $div.siblings('.all-comments'); // update div.all-comments
+        const $form = $div.parent();
+        // const $allComments = $form.siblings('.all-comments'); // update div.all-comments
 
-        const $writeComment = $(event.currentTarget).siblings('.write-comment'); // find input.write-comment
+        // const $writeComment = $(event.currentTarget).siblings('.write-comment'); // find input.write-comment
 
-        const commentContent = $writeComment.val(); // get content of comment from input
-        $writeComment.val('');
+        const commentContent = $(`#${idImage}-write`).val(); // get content of comment from input
+        $(`#${idImage}-write`).val('');
 
             const promise = $.ajax({
                 url: `/api/${userName}/${idImage}/comment?comment=${commentContent}`
@@ -134,7 +135,7 @@ const commentImage = () => {
                     const newComment = allComments[allComments.length - 1]; // get newest comment
                    
                     // update div.all-comments
-                   $allComments.append(`<div class="comment"> 
+                   $(`#${idImage}-allComments`).append(`<div class="comment"> 
                    <p class="date"><i>${newComment.createdAt}</i></p>
                    <p><img src="${newComment.avataOfUserComment}" class="avata-comment"><a
                            href="/lico/${newComment.userComment}">${newComment.userComment}</a>

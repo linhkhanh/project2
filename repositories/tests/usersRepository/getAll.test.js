@@ -20,9 +20,11 @@ describe('usersRepository.getAll', () => {
     it('should return an array of all users, and one of the users has userName is "Juliet"', async () => {
         const users = await usersRepository.getAll();
         const userOne = users.find(user => user.userName === 'Juliet');
-       
         expect(userOne.userName).to.equal('Juliet');
     });
 
-    
+    it('should return all multiple users',  async () => {
+        const users = await usersRepository.getAll();
+        expect(users.length).to.be.greaterThan(0);
+    });
 });

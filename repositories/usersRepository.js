@@ -13,11 +13,14 @@ module.exports = {
         if (!user) throw new Error('Non-existance');
         return user;
     },
-    async create(data) {
-        const { ops } = await db.Users.insertOne(data);
-        const [newUser] = ops;
-        console.log(ops);
-        return newUser;
+    async create (user) {
+        try {
+            const { insertedCount } = await db.Users.insertOne(user);
+            if (!insertedCount) throw new Error('insertion failure');
+            return true;
+        } catch (err) {
+            throw new Error(`Due to ${err.message}, you are not allowed to insert this user ${JSON.stringify(user)}`);
+        }
     },
     async getOneByEmail (email) {
         const foundUser = await db.Users.findOne(

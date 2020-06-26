@@ -46,7 +46,7 @@ module.exports = {
                 const user = formatRequestObject(req.body)
 
                 // Create new user
-                const result = await usersRepository.create(user);
+                 await usersRepository.create(user);
                 return res.redirect('/lico/login');
             } else {
                 throw new Error("WRONG PASSWORD OR FAIL VALIDATION...")
