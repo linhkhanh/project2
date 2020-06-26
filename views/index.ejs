@@ -19,8 +19,9 @@
             <% users.forEach(item => { %>
             <div class="user-column">
                 <a href="/lico/<%= item.userName; %>"><img src="<%= item.avata; %>" class="avata-column "></a>
-                <div class="title"><a href="/lico/<%= item.userName; %>"
-                        class="link-title"><%= item.userName; %></a></div>
+                <div class="title">
+                    <a href="/lico/<%= item.userName; %>" class="link-title"><%= item.userName; %></a>
+                </div>
             </div>
             <% }) %>
         </div>
@@ -41,25 +42,25 @@
                                 <% if(image.love && image.love.findIndex(item => { return item === name}) >= 0) { %>
                                 <img src="/images/heart.png" id="<%= image.id; %>-img-love">
                                 <% } else { %>
-                                    <img src="/images/white-heart.png" id="<%= image.id; %>-img-love"> 
+                                <img src="/images/white-heart.png" id="<%= image.id; %>-img-love">
                                 <% } %>
                             </button>
                         </form>
                         <p class="form-love"><span class="<%=image.id; %>-love">
-                            <% if(image.love) { %>
-                            <%= image.love.length; %>
-                            <% } %>
-                        </span></p>
-                        <p class="form-love"><img src="/images/comment.png"> 
+                                <% if(image.love) { %>
+                                <%= image.love.length; %>
+                                <% } %>
+                            </span></p>
+                        <p class="form-love"><img src="/images/comment.png">
 
                             <span class="<%= image.id; %>-comment">
                                 <% if(image.comments) { %>
                                 <%= image.comments.length; %>
                                 <% } %>
                             </span></p>
-                         <!-- END -->
+                        <!-- END -->
                     </div>
-                    <a href="/lico/<%= image.userName; %>"><%= image.userName; %></a> 
+                    <a href="/lico/<%= image.userName; %>"><%= image.userName; %></a>
 
                 </div>
                 <!-- END SHOW INFO -->
@@ -123,7 +124,7 @@
                                             <p class="reaction-people">
                                                 <span class="<%= image.id; %>-love">
                                                     <% if(image.love) { %>
-                                                    <%= image.love.length; %> 
+                                                    <%= image.love.length; %>
                                                     <% } %>
                                                 </span>
                                                 people</p>
@@ -133,7 +134,8 @@
                                             <ul class="list-people <%= image.id; %>-list">
                                                 <% if(image.love) { %>
                                                 <% image.love.forEach(person => { %>
-                                                <li><a href="/lico/<%= person; %>" class="all-people"><%= person; %></a></li>
+                                                <li><a href="/lico/<%= person; %>" class="all-people"><%= person; %></a>
+                                                </li>
                                                 <% }) %>
                                                 <% } %>
                                             </ul>
@@ -144,12 +146,13 @@
                                     <!-- END REACTION-->
 
                                     <!-- write COMMENT -->
-                                    <form action="/api/<%= image.userName; %>/<%= image.id; %>/comment" method="GET" class="form-comment">
+                                    <form action="/api/<%= image.userName; %>/<%= image.id; %>/comment" method="GET"
+                                        class="form-comment">
                                         <label class="current-user"><%= name; %></label>
                                         <input type="text" name="comment" placeholder="write a comment"
                                             class="write-comment" id="<%= image.id; %>-write">
                                         <div class="send-button"><input type="submit" value="send" class="send"
-                                            id="<%= image.userName; %>&<%= image.id; %>"></div>
+                                                id="<%= image.userName; %>&<%= image.id; %>"></div>
                                     </form>
 
                                     <!-- SHOW ALL COMMENTS -->
@@ -158,9 +161,9 @@
                                         <% image.comments.forEach(item => { %>
                                         <div class="comment">
                                             <% if(!item.updatedAt) { %>
-                                                <p class="date"><i><%= moment(item.createdAt).fromNow(); %></i></p>
+                                            <p class="date"><i><%= moment(item.createdAt).fromNow(); %></i></p>
                                             <% } else { %>
-                                                <p class="date"><i><%= moment(item.updatedAt).fromNow(); %></i></p>
+                                            <p class="date"><i><%= moment(item.updatedAt).fromNow(); %></i></p>
                                             <% } %>
                                             <p><img src="<%= item.avataOfUserComment; %>" class="avata-comment"><a
                                                     href="/lico/<%= item.userComment; %>"><%= item.userComment; %></a>

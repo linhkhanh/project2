@@ -138,7 +138,6 @@ nav {
     margin: 2%;
 }
 .body-home {
-    /* background-color: #e8edf3; */
     background-image: url('https://i.picsum.photos/id/309/3872/2592.jpg?hmac=mpv4pTnYv_x4vdrsXOUvytC19nhEPMgp56sK3Ize-Vo');
     height: 800px;
     background-position: center; /* Center the image */
@@ -189,7 +188,7 @@ nav {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    padding: 1%;
+    padding: 1% 5%;
     width: 85%;
     min-height: 800px;
     background-image: linear-gradient(rgb(224, 244, 245), rgb(238, 238, 210));
@@ -197,14 +196,15 @@ nav {
 .index-item {
     width: 30%;
     margin: 1%;
-    height: 320px;
+    height: 300px;
+    /* background-color: whitesmoke; */
 }
 .show-image {
     width: 100%;
 }
 .index-image {
     width: 100%;
-    height: 250px;
+    height: 240px;
     margin: 1%;
     cursor: pointer;
 }
@@ -212,6 +212,10 @@ nav {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    background-image: url('https://i.picsum.photos/id/309/3872/2592.jpg?hmac=mpv4pTnYv_x4vdrsXOUvytC19nhEPMgp56sK3Ize-Vo');
+    /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
 }
 .users {
     width: 15%;
@@ -229,13 +233,13 @@ nav {
     bottom: 100%;
     font-weight: bolder;
     display: none;
-    padding: 30%;
+  text-align: center;
     font-size: 17px;
+    padding-top: 20%;
 }
 
 .link-title {
     color: white; 
-    bottom: 70%;
 }
 .link-title:hover {
     color: #3fb0ac;
