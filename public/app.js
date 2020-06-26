@@ -51,43 +51,94 @@ const onClickCountLove = () => {
 
         const idImage = $img.attr('id');
         const userName = $button.attr('id');
-            const promise = $.ajax({
-                url: `/api/${userName}/${idImage}/love?`
-            });
+        const promise = $.ajax({
+            url: `/api/${userName}/${idImage}/love?`
+        });
 
-            promise.then(
-                (data) => {
-   
-                    const newPerson = data.love[data.love.length - 1]; // GET NEWEST USER IN LOVE ARRAY
+        promise.then(
+            (data) => {
 
-                    $(`.${idImage}-love`).html(data.love.length); //update how many people love image
+                const newPerson = data.love[data.love.length - 1]; // GET NEWEST USER IN LOVE ARRAY
 
-                    $(`.${idImage}-list`).empty(); // update list people love image
+                $(`.${idImage}-love`).html(data.love.length); //update how many people love image
 
-                    data.love.forEach( item => {
-                        $(`.${idImage}-list`).append(`<li><a href="/lico/${item}" class="all-people">${item}</a></li>`);
-                    })
-                    // change image white love  => black love (and convert)
-                    $img.attr('src') === '/images/heart.png' ? $img.attr('src', '/images/white-heart.png') : $img.attr('src', '/images/heart.png');
-                    
-                     // UPDATE NOTIFICATION
-                     if(newPerson === data.interestedUser) {
-                        $('.notification').attr('src', '/images/notification-1.png');
-                        $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newPerson}">${newPerson}</a> loved <a
+                $(`.${idImage}-list`).empty(); // update list people love image
+
+                data.love.forEach(item => {
+                    $(`.${idImage}-list`).append(`<li><a href="/lico/${item}" class="all-people">${item}</a></li>`);
+                })
+                // change image white love  => black love (and convert)
+                $img.attr('src') === '/images/heart.png' ? $img.attr('src', '/images/white-heart.png') : $img.attr('src', '/images/heart.png');
+                $(`#${idImage}-img-love`).attr('src') === '/images/heart.png' ? $(`#${idImage}-img-love`).attr('src', '/images/white-heart.png') : $(`#${idImage}-img-love`).attr('src', '/images/heart.png');
+
+                // UPDATE NOTIFICATION
+                if (newPerson === data.interestedUser) {
+                    $('.notification').attr('src', '/images/notification-1.png');
+                    $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newPerson}">${newPerson}</a> loved <a
                         href="/lico/${newPerson}/${data.idImage}">your image</a></p>`)
-                    };
+                };
 
-                    return data;
-                },
-                () => {
-                    console.log('bad request');
-                }
-            );
-            
-            return false     
+                return data;
+            },
+            () => {
+                console.log('bad request');
+            }
+        );
+
+        return false
     });
-}
+};
 
+// COUNT LOVE 2 
+const onClickCountLove2 = () => {
+    $('.love-button').on('click', (event) => {
+        
+        // Get userName for call Api
+        const id = $(event.currentTarget).attr('id'); // id="<%= image.userName; %>&button"
+        const arr1 = id.split('&'); //[image.userName, 'button'];
+        const userName = arr1[0];
+
+        // GET IDIMAGE FOR CALL API
+        const $img = $(event.currentTarget).children().eq(0);
+        const id2 = $img.attr('id'); // id="<%= image.id; %>-img-love"
+        const arr2 = id2.split('-');
+        const idImage = arr2[0];
+
+        const promise = $.ajax({
+            url: `/api/${userName}/${idImage}/love?`
+        });
+
+        promise.then(
+            (data) => {
+                const newPerson = data.love[data.love.length - 1]; // GET NEWEST USER IN LOVE ARRAY
+
+                $(`.${idImage}-love`).html(data.love.length); //update how many people love image
+
+                $(`.${idImage}-list`).empty(); // update list people love image
+
+                data.love.forEach(item => {
+                    $(`.${idImage}-list`).append(`<li><a href="/lico/${item}" class="all-people">${item}</a></li>`);
+                })
+                // change image white love  => black love (and convert)
+                
+                $(`#${idImage}-img-love`).attr('src') === '/images/heart.png' ? $(`#${idImage}-img-love`).attr('src', '/images/white-heart.png') : $(`#${idImage}-img-love`).attr('src', '/images/heart.png');
+                $(`#${idImage}`).attr('src') === '/images/heart.png' ? $(`#${idImage}`).attr('src', '/images/white-heart.png') : $(`#${idImage}`).attr('src', '/images/heart.png');
+                // UPDATE NOTIFICATION
+                if (newPerson === data.interestedUser) {
+                    $('.notification').attr('src', '/images/notification-1.png');
+                    $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newPerson}">${newPerson}</a> loved <a
+                        href="/lico/${newPerson}/${data.idImage}">your image</a></p>`)
+                };
+
+                return data;
+            },
+            () => {
+                console.log('bad request');
+            }
+        )
+        return false;
+    })
+}
 // SHOW LIST PEOPLE LIKE IMAGE
 const showPeople = () => {
     $('.reaction-people').on('click', (event) => {
@@ -99,8 +150,8 @@ const showPeople = () => {
 // HIDE LIST PEOPLE LIKE IMAGE
 const hidePeople = () => {
     $('.list-people').on('mouseleave', (event) => {
-       $(event.currentTarget).hide();
-       
+        $(event.currentTarget).hide();
+
     })
 }
 
@@ -111,77 +162,76 @@ const commentImage = () => {
         const id = $(event.currentTarget).attr('id'); //id = userName-idImage
 
         const arrId = id.split('&'); // split string
-       
+
         const idImage = arrId[1]; // get idImage for url to call ajax
         const userName = arrId[0]; // get userName for url to call ajax
-        
+
         const commentContent = $(`#${idImage}-write`).val(); // get content of comment from input
         $(`#${idImage}-write`).val('');
 
-            const promise = $.ajax({
-                url: `/api/${userName}/${idImage}/comment?comment=${commentContent}`
-            });
+        const promise = $.ajax({
+            url: `/api/${userName}/${idImage}/comment?comment=${commentContent}`
+        });
 
-            promise.then(
-                (data) => {
-                    const newData = JSON.parse(data);
-                    const allComments = newData.comments;
-                    const newComment = allComments[allComments.length - 1]; // get newest comment
-                   
-                    // update div.all-comments
-                   $(`#${idImage}-allComments`).append(`<div class="comment"> 
+        promise.then(
+            (data) => {
+                const newData = JSON.parse(data);
+                const allComments = newData.comments;
+                const newComment = allComments[allComments.length - 1]; // get newest comment
+
+                // update div.all-comments
+                $(`#${idImage}-allComments`).append(`<div class="comment"> 
                    <p class="date"><i>${newComment.createdAt}</i></p>
                    <p><img src="${newComment.avataOfUserComment}" class="avata-comment"><a
                            href="/lico/${newComment.userComment}">${newComment.userComment}</a>
                        ${newComment.content}
                    </p>
                </div>`);
-                    $(`.${newData.idImage}-comment`).html(allComments.length); // update how many comments in index page
-                    
-                    // UPDATE NOTIFICATION
-                    if(newComment.userComment === newData.interestedUser) {
-                        $('.notification').attr('src', '/images/notification-1.png');
-                        $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newComment.userComment}">${newComment.userComment}</a> commented <a
-                        href="/lico/${newComment.userComment}/${newComment.idImage}">your image</a></p>`)
-                    };
+                $(`.${newData.idImage}-comment`).html(allComments.length); // update how many comments in index page
 
-                    return data;
-                },
-                () => {
-                    console.log('bad request');
-                }
-            );
-            return false;
+                // UPDATE NOTIFICATION
+                if (newComment.userComment === newData.interestedUser) {
+                    $('.notification').attr('src', '/images/notification-1.png');
+                    $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newComment.userComment}">${newComment.userComment}</a> commented <a
+                        href="/lico/${newComment.userComment}/${newComment.idImage}">your image</a></p>`)
+                };
+
+                return data;
+            },
+            () => {
+                console.log('bad request');
+            }
+        );
+        return false;
     })
 }
 // CALL API WEATHER
 const getWeather = () => {
     const apiKey = 'ed9d9a092edac51d1afa9c2b98725554';
     const countryCode = '1880251';
-    setInterval(()=> {
+
+    setInterval(() => {
         const time = moment().format('MMMM Do YYYY, h:mm:ss a');
         $('.today').html(time);
-        
+
         const promise = $.ajax({
             url: `http://api.openweathermap.org/data/2.5/weather?id=${countryCode}&appid=${apiKey}`
         });
         promise.then(
-            (data) => { 
-                $('.tempt').html((data.main.temp/10).toFixed(2) );
-                $('.min-tempt').html((data.main.temp_min/10).toFixed(2));
-                $('.max-tempt').html((data.main.temp_max/10).toFixed(2));
+            (data) => {
+                $('.tempt').html((data.main.temp / 10).toFixed(2));
+                $('.min-tempt').html((data.main.temp_min / 10).toFixed(2));
+                $('.max-tempt').html((data.main.temp_max / 10).toFixed(2));
                 $('.humidity').html(data.main.humidity);
                 $('.clouds').html(data.clouds.all);
-              
                 $('.describe').html(data.weather[0].description);
-               
             },
             () => {
                 console.log('bad request');
             }
         )
     }, 1000);
-   
+
 };
 
 // CLEAR NOTIFICATION
@@ -201,10 +251,10 @@ const clearNotification = () => {
                 $('.notification').attr('src', '/images/notification.png');
             }
         ),
-        () => {
-            console.log('bad request');
-        }
-        
+            () => {
+                console.log('bad request');
+            }
+
         return false
     })
 };
@@ -225,9 +275,10 @@ $(() => {
     hidePeople();
 
     onClickCountLove();
+    onClickCountLove2();
 
     commentImage();
-    
+
 
     clearNotification();
 })

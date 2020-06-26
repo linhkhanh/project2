@@ -84,7 +84,7 @@ module.exports = {
 
         await imagesRepository.updateByIdImage(req.params.idImage, { love });
 
-        return res.end(JSON.stringify({love, interestedUser: user.userName, idImage: images[index] }));
+        return res.end(JSON.stringify({love, interestedUser: user.userName, idImage: images[index].id }));
     },
     async comment(req, res) {
         if (req.session.userName) {

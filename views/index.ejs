@@ -20,13 +20,13 @@
             <div class="user-column">
                 <a href="/lico/<%= item.userName; %>"><img src="<%= item.avata; %>" class="avata-column "></a>
                 <div class="title"><a href="/lico/<%= item.userName; %>"
-                        class="link-title"><%= item.userName; %></a><br></div>
+                        class="link-title"><%= item.userName; %></a></div>
             </div>
             <% }) %>
         </div>
         <section class="list-image">
             <% images.forEach(image => { %>
-            <div class="index-item shadow-sm p-3 bg-white rounded">
+            <div class="index-item shadow-sm p-3 rounded">
                 <!-- Trigger the modal with a button -->
                 <a><img src="<%= image.url; %>" class="index-image" data-toggle="modal"
                         data-target="#<%= image.id; %><%= image.userName; %>"></a>
@@ -34,25 +34,32 @@
                 <!-- SHOW INFO -->
                 <div class="bottom-image">
                     <div>
-                        <p><img src="/images/white-heart.png">
+                        <!-- Love reaction Button -->
 
-                            <span class="<%=image.id; %>-love">
-                                <% if(image.love) { %>
-                                <%= image.love.length; %>
+                        <form class="form-love" action="/api/<%= image.userName; %>/<%= image.id; %>/love" method="GET">
+                            <button type="submit" class="love-button" id="<%= image.userName; %>&button">
+                                <% if(image.love && image.love.findIndex(item => { return item === name}) >= 0) { %>
+                                <img src="/images/heart.png" id="<%= image.id; %>-img-love">
+                                <% } else { %>
+                                    <img src="/images/white-heart.png" id="<%= image.id; %>-img-love"> 
                                 <% } %>
-                            </span>
-
-                            <img src="/images/comment.png"> 
+                            </button>
+                        </form>
+                        <p class="form-love"><span class="<%=image.id; %>-love">
+                            <% if(image.love) { %>
+                            <%= image.love.length; %>
+                            <% } %>
+                        </span></p>
+                        <p class="form-love"><img src="/images/comment.png"> 
 
                             <span class="<%= image.id; %>-comment">
                                 <% if(image.comments) { %>
                                 <%= image.comments.length; %>
                                 <% } %>
-                            </span>
-
-                        </p>
+                            </span></p>
+                         <!-- END -->
                     </div>
-                    <a href="/lico/<%= image.userName; %>"><%= image.userName; %></a>
+                    <a href="/lico/<%= image.userName; %>"><%= image.userName; %></a> 
 
                 </div>
                 <!-- END SHOW INFO -->
