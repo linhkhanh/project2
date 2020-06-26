@@ -80,6 +80,9 @@ form {
     border-radius: 10px;
     text-align: center;
 }
+.contain-logo {
+    width: 10%;
+}
 .form-search {
     width: 20%;
     border: 2px solid #dddfd4;
@@ -91,7 +94,7 @@ form {
 /* HOME PAGE */
 
 .logo {
-    width: 40%;
+    width: 50%;
 }
 header {
     display: flex;
@@ -207,13 +210,13 @@ nav {
     width: 15%;
     display: flex;
     flex-direction: column; 
-    padding-top: 2%;
+    padding: 1%;
     overflow: scroll;
     height: 800px;
 }
 .title {
    height: 160px;
-    background: rgba(146, 150, 146, 0.3);
+    background: rgba(35, 36, 35, 0.3);
     width: 100%;
     position: relative;
     bottom: 100%;
@@ -257,7 +260,7 @@ nav {
 }
 .avata-column{
     width: 100%;
-    
+    border: 2px solid #dddfd4;
     height: 160px;
 }
 
@@ -403,8 +406,13 @@ a {
     color: white;
     border: 2px solid #173e43;
 }
+.send-button {
+    text-align: right;
+}
 .form-comment {
     width: 100%;
+    margin: 1%;
+    padding: 1%;
 }
 .input {
     margin-bottom: 1%;
@@ -419,7 +427,7 @@ a {
 }
 .all-comments {
     overflow: scroll;
-    height: 350px;
+    max-height: 350px;
 }
 .user-avata {
     width: 10%;
@@ -490,11 +498,17 @@ a {
     .each-user {
         font-size: 20px;
     }
+    .header {
+        justify-content: flex-start;
+    }
     .body-home {
        height: 700px;
     }
     .weather {
         display: none;
+    }
+    .logo {
+        width: 80%;
     }
     .list-users {
         width: 100%;
@@ -505,6 +519,7 @@ a {
     }
     .form-search {
         width: 40%;
+        height: 30px;
     }
     nav {
         width: 40%;
@@ -521,19 +536,21 @@ a {
     .users {
         display: none;
     }
-    .users-images, .body-show {
+    .users-images {
         height: 700px;
         overflow: scroll;
     }
     .list-image {
         width: 100%;
+        height: 700px;
+        overflow: scroll;
     }
     .index-item {
-        width: 100%;
-        height: 380px;
+        width: 47%;
+        height: 180px;
     }
     .index-image {
-        height: 320px;
+        height: 120px;
     }
     /* Show page */
     .info {
