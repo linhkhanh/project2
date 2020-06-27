@@ -143,11 +143,12 @@ module.exports = {
         try {
             if (req.session.userName) {
                 const images = await imagesRepository.getAll();
-                images.reverse();
+                images.sort((item1, item2) => {
+                    return item2.createdAt - item1.createdAt;
+                });
 
                 // get all Users
                 const users = await usersRepository.getAll();
-                users.reverse();
                 // get userName of User login
                 const name = req.session.userName;
                 // get currentUser
