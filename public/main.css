@@ -12,7 +12,10 @@ body {
 .first-logo {
     width: 22%;
 }
-
+.error {
+    color: red;
+    font-size: 15px;
+}
 .top {
     display: flex;
     flex-flow: row nowrap;
@@ -509,9 +512,7 @@ a {
 }
 
 @media only screen and (max-width: 600px) {
-    .each-user {
-        font-size: 20px;
-    }
+    
     .header {
         justify-content: flex-start;
     }
@@ -522,7 +523,7 @@ a {
         display: none;
     }
     .logo {
-        width: 80%;
+        width: 100%;
     }
     .list-users {
         width: 100%;
@@ -531,9 +532,14 @@ a {
         height: 700px;
         overflow: scroll;
     }
+    .dropdown-menu {
+       font-size: 12px;
+    }
     .form-search {
         width: 40%;
         height: 30px;
+        font-size: 15x;
+        border: none;
     }
     nav {
         width: 40%;

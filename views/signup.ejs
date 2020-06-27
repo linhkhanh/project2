@@ -19,14 +19,15 @@
             <div class="login">
                 <h1 class="label slogan">Create New Account</h1>
                 <form action="/lico/signup_submit" method="POST" class="shadow-sm p-3 mb-5 bg-white rounded">
-                    <p><%= errUserName; %> <%=errUserNameValidation; %></p>
-                    <p><%= errUniqueUserName; %></p>
+                    <p class="error"><%= errUserName; %> <%=errUserNameValidation; %></p>
+                    <p class="error"><%= errUniqueUserName; %></p>
+                    <p class="error"><%=  errUserExist; %></p>
                     <div class="form-group">
                         <label for="userName">User Name *</label>
                         <input name="userName" id="userName" type="text" placeholder="enter user name" class="form-control"
                             required>
                     </div>
-                    <p><%= errUniqueEmail; %></p>
+                    <p class="error"><%= errUniqueEmail; %></p>
                     <div class="form-group">
                         <label for="email">Email *</label>
                         <input name="email" id="email" type="email" placeholder="enter your email address"
@@ -37,7 +38,7 @@
                         <input name="password" id="password" type="password" placeholder="enter password"
                             class="form-control" required>
                     </div>
-                    <p><%= errPassword; %> <%= errPasswordValidaion; %></p>
+                    <p class="error"><%= errPassword; %> <%= errPasswordValidaion; %></p>
                     <div class="form-group">
                         <label for="confirmPassword">Confirm password *</label>
                         <input name="confirmPassword" id="confirmPassword" type="password" placeholder="confirm password"

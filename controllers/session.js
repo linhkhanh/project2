@@ -12,6 +12,7 @@ const formatRequestObject = require('./formatReqObject');
 module.exports = {
     new(req, res) {
         res.render('signup', {
+            errUserExist: errors.errUserExist,
             errUserName: errors.errUserName,
             errUserNameValidation: errors.errUserNameValidation,
             errPassword: errors.errPassword,
@@ -29,6 +30,7 @@ module.exports = {
     async create(req, res) {
         // Reset errors
         errors = {
+            errUserExist: '',
             errUserName: '',
             errUniqueUserName: '',
             errUserNameValidation: '',
@@ -46,13 +48,17 @@ module.exports = {
                 const user = formatRequestObject(req.body)
 
                 // Create new user
-                 await usersRepository.create(user);
+                await usersRepository.create(user);
                 return res.redirect('/lico/login');
             } else {
                 throw new Error("WRONG PASSWORD OR FAIL VALIDATION...")
             }
         } catch (err) {
             console.log(err);
+            // Check user exists or not
+            if(err.message) {
+                errors.errUserExist = "** This user already existed. **";
+            }
             // Check unique userName and unique email
             if (err.keyValue) {
                 // check unique userName
@@ -82,7 +88,7 @@ module.exports = {
 
             // check regular expression for userName
             if (!regex.test(req.body.userName)) {
-                errors.errUserName = "** Your user name must not have space, and some special characters ($, %, ^, @, `, (,), (,)) **"
+                errors.errUserName = "** Your user name must not have space, or some special characters ($, %, ^, @, `, (,), (,)) **"
             }
 
             return res.redirect('/lico/signup');
@@ -99,7 +105,7 @@ module.exports = {
                 req.session.userName = user.userName;
                 return res.redirect('/lico/');
             } else {
-                errors.errPassword = "x** Wrong password. Please enter password again. **";
+                errors.errPassword = "** Wrong password. Please enter password again. **";
                 return res.redirect('/lico/login');
             }
         } catch (err) {
