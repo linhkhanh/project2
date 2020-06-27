@@ -72,7 +72,7 @@ const onClickCountLove = () => {
                 $(`#${idImage}-img-love`).attr('src') === '/images/heart.png' ? $(`#${idImage}-img-love`).attr('src', '/images/white-heart.png') : $(`#${idImage}-img-love`).attr('src', '/images/heart.png');
 
                 // UPDATE NOTIFICATION
-                if (newPerson === data.interestedUser) {
+                if (newPerson === data.interestedUser && !data.userUnLove) {
                     $('.notification').attr('src', '/images/notification-1.png');
                     $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newPerson}">${newPerson}</a> loved <a
                         href="/lico/${newPerson}/${data.idImage}">your image</a></p>`)
@@ -124,7 +124,7 @@ const onClickCountLove2 = () => {
                 $(`#${idImage}-img-love`).attr('src') === '/images/heart.png' ? $(`#${idImage}-img-love`).attr('src', '/images/white-heart.png') : $(`#${idImage}-img-love`).attr('src', '/images/heart.png');
                 $(`#${idImage}`).attr('src') === '/images/heart.png' ? $(`#${idImage}`).attr('src', '/images/white-heart.png') : $(`#${idImage}`).attr('src', '/images/heart.png');
                 // UPDATE NOTIFICATION
-                if (newPerson === data.interestedUser) {
+                if (newPerson === data.interestedUser && !data.userUnLove) {
                     $('.notification').attr('src', '/images/notification-1.png');
                     $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newPerson}">${newPerson}</a> loved <a
                         href="/lico/${newPerson}/${data.idImage}">your image</a></p>`)

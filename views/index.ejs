@@ -40,9 +40,9 @@
                         <form class="form-love" action="/api/<%= image.userName; %>/<%= image.id; %>/love" method="GET">
                             <button type="submit" class="love-button" id="<%= image.userName; %>&button">
                                 <% if(image.love && image.love.findIndex(item => { return item === name}) >= 0) { %>
-                                <img src="/images/heart.png" id="<%= image.id; %>-img-love">
+                                <img src="/images/heart.png" id="<%= image.id; %>-img-love" class="img-love">
                                 <% } else { %>
-                                <img src="/images/white-heart.png" id="<%= image.id; %>-img-love">
+                                <img src="/images/white-heart.png" id="<%= image.id; %>-img-love" class="img-love">
                                 <% } %>
                             </button>
                         </form>
@@ -60,7 +60,7 @@
                             </span></p>
                         <!-- END -->
                     </div>
-                    <a href="/lico/<%= image.userName; %>"><%= image.userName; %></a>
+                    <a href="/lico/<%= image.userName; %>" class="imageOfUser"><%= image.userName; %></a>
 
                 </div>
                 <!-- END SHOW INFO -->

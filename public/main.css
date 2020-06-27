@@ -195,6 +195,8 @@ nav {
     width: 85%;
     min-height: 800px;
     background-image: linear-gradient(rgb(224, 244, 245), rgb(238, 238, 210));
+    border-left: #dddfd4;
+    /* background: white; */
 }
 .index-item {
     width: 30%;
@@ -532,6 +534,9 @@ a {
         height: 700px;
         overflow: scroll;
     }
+    .imageOfUser {
+        display: none;
+    }
     .dropdown-menu {
        font-size: 12px;
     }
@@ -553,6 +558,7 @@ a {
     }
 
     /* INDEX PAGE */
+    
     .users {
         display: none;
     }
