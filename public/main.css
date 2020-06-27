@@ -179,7 +179,7 @@ nav {
 /* INDEX PAGE */
 .love-button {
     border: none;
-    background-color: rgba(201, 235, 238, 0.3);
+    background: rgba(235, 243, 245, 0.3)
 }
 .form-love {
     display: inline;
@@ -197,7 +197,6 @@ nav {
     width: 30%;
     margin: 1%;
     height: 300px;
-    /* background-color: whitesmoke; */
 }
 .show-image {
     width: 100%;
@@ -212,10 +211,11 @@ nav {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    background-image: url('https://i.picsum.photos/id/309/3872/2592.jpg?hmac=mpv4pTnYv_x4vdrsXOUvytC19nhEPMgp56sK3Ize-Vo');
-    /* Center the image */
+     background-image: url('https://i.picsum.photos/id/309/3872/2592.jpg?hmac=mpv4pTnYv_x4vdrsXOUvytC19nhEPMgp56sK3Ize-Vo');
+   
     background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover;
+    background-size: cover; 
+   
 }
 .users {
     width: 15%;
