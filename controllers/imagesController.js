@@ -314,11 +314,12 @@ module.exports = {
 
         // FIND INDEX OF COMMENT
         const indexComment = images[index].comments.findIndex(item => {
-            return item.id === req.params.idComment;
+            return item.id == req.params.idComment; // because type in db != type in browser
         });
-
+        
         // delete current comment from comments array
-        const comments = images[index].comments.splice(indexComment, 1);
+        images[index].comments.splice(indexComment, 1);
+        const comments = images[index].comments;
 
         // update comments array of current image in USERS COLLECTION
 
