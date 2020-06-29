@@ -89,6 +89,10 @@ form {
     height: 40px;
     border-radius: 10px;
 }
+.list-notification {
+    max-height: 200px;
+    overflow: scroll;
+}
 /* end */
 
 /* HOME PAGE */
