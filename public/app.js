@@ -219,6 +219,7 @@ const getWeather = () => {
         });
         promise.then(
             (data) => {
+                $('.country').html(data.sys.country);
                 $('.tempt').html((data.main.temp / 10).toFixed(2));
                 $('.min-tempt').html((data.main.temp_min / 10).toFixed(2));
                 $('.max-tempt').html((data.main.temp_max / 10).toFixed(2));
