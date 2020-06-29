@@ -1,8 +1,8 @@
 <div class="icon icon-home">
-    <a href="/lico"><img src="https://static.thenounproject.com/png/423483-200.png" class="user-icon"></a>
+    <a href="/lico" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="List of all users"><img src="https://static.thenounproject.com/png/423483-200.png" class="user-icon"></a>
 </div>
 <!-- SHOW NOTIFICATION -->
-<div class="dropdown icon">
+<div class="dropdown icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Notification">
     <% if(!currentUser.notification) { %>
     <img src="/images/notification.png" class="notification user-icon" type="button" id="dropdownMenu2"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,17 +40,17 @@
 
 </div>
 <div class="icon">
-    <a href="/lico/<%= name; %>"><img
+    <a href="/lico/<%= name; %>" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="My account"><img
             src="https://icons-for-free.com/iconfiles/png/512/profile+user+icon-1320166082804563970.png"
             class="user-icon"></a>
 </div>
 <div class="icon">
-    <a href="/lico/index"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
+    <a href="/lico/index" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="All images"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
             class="user-icon"></a>
 </div>
 <div class="icon">
     <% if(name === currentUser.userName) { %>
-    <a href="/lico/logout"><img src="https://static.thenounproject.com/png/205237-200.png"
+    <a href="/lico/logout" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Log out"><img src="https://static.thenounproject.com/png/205237-200.png"
             class="logout-icon"></a>
     <% } %>
 </div>

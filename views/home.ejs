@@ -15,17 +15,19 @@
 
     <div class="body-home">
         <div class="weather shadow-lg p-3 mb-5">
-            <p class="slogan"><span class="country"></span></p>
-            <p><span class="today"></span></p>
-           
-            <p class="slogan">	&#127777; <span class="tempt"></span>&#176;C </p>
-            <p class="date">(<span class="min-tempt"></span> &#176;C - <span class="max-tempt"></span>&#176;C)</p>
-            <p>	&#128167; <span class="humidity"></span>% - &#9729; <span class="clouds"></span>%</p>
-           
-          
-            <p class="slogan"><span class="describe"></span></p>
-            
+            <div class="time-location">
+                <p class="slogan"><span class="country"></span></p>
+                <p>&#x1f4c5 <span class="today date"></span></p>
+            </div>
+
+            <div class="detail-weather">
+                <p class="slogan"> &#127777; <span class="tempt"></span>&#176;C </p>
+                <p class="date">(<span class="min-tempt"></span> &#176;C - <span class="max-tempt"></span>&#176;C)</p>
+                <p> &#128167; <span class="humidity"></span>% - &#9729; <span class="clouds"></span>%</p>
+                <p class="slogan"><span class="describe"></span></p>
+            </div>
         </div>
+
         <section class="list-users">
             <% users.forEach(user => { %>
             <div class="each-user">

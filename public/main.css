@@ -152,15 +152,22 @@ nav {
 }
 .weather {
     width: 20%;
-    background: rgba(80, 80, 79, 0.3);
     margin: 2%;
-    /* padding: 2%; */
-    height: 250px;
+    height: 270px;
     font-family: 'Cairo', sans-serif;
     text-align: center;
     font-size: 17px;
-   border-radius: 20%;
-   color: white;
+}
+
+.time-location {
+    background-color: #2a6049;
+    padding: 1%;
+    color: white;
+}
+
+.detail-weather {
+    background-color: whitesmoke;
+    padding: 1%;
 }
 .list-users {
     width: 50%;
@@ -194,7 +201,7 @@ nav {
     padding: 1% 5%;
     width: 85%;
     min-height: 800px;
-    background-image: linear-gradient(rgb(224, 244, 245), rgb(238, 238, 210));
+    background-image: linear-gradient(rgb(2, 46, 7), rgb(238, 238, 210));
     border-left: #dddfd4;
     /* background: white; */
 }
@@ -289,7 +296,6 @@ a {
 
 /* SHOW PAGE */
 .body-show{
-    
     background-image: linear-gradient(rgb(247, 248, 228), rgb(210, 236, 238));
     padding: 3%;
     min-height: 800px;

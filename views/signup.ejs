@@ -9,7 +9,7 @@
     <div class="first-page">
         <div class="top">
             <p><img src="/images/logo-lico.png" class="first-logo"> LINK-CONNECTION</p>
-        <p>You already have an account? <a href="/lico/login">Log in here</a></p>
+        <p class="date">You already have an account? <a href="/lico/login" class="label">Log in here</a></p>
         </div>
         
         <div class="first-body">
@@ -23,24 +23,24 @@
                     <p class="error"><%= errUniqueUserName; %></p>
                     <p class="error"><%=  errUserExist; %></p>
                     <div class="form-group">
-                        <label for="userName">User Name *</label>
+                        <label for="userName" class="slogan">User Name *</label>
                         <input name="userName" id="userName" type="text" placeholder="enter user name" class="form-control"
                             required>
                     </div>
                     <p class="error"><%= errUniqueEmail; %></p>
                     <div class="form-group">
-                        <label for="email">Email *</label>
+                        <label for="email" class="slogan">Email *</label>
                         <input name="email" id="email" type="email" placeholder="enter your email address"
                             class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password *</label>
+                        <label for="password" class="slogan">Password *</label>
                         <input name="password" id="password" type="password" placeholder="enter password"
                             class="form-control" required>
                     </div>
                     <p class="error"><%= errPassword; %> <%= errPasswordValidaion; %></p>
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm password *</label>
+                        <label for="confirmPassword" class="slogan">Confirm password *</label>
                         <input name="confirmPassword" id="confirmPassword" type="password" placeholder="confirm password"
                             class="form-control" required>
                     </div>

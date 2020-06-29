@@ -261,6 +261,7 @@ const clearNotification = () => {
 };
 
 $(() => {
+    $('[data-toggle="popover"]').popover()
     getWeather();
     onClick('.choose-avata', '.change-avata');
     onClick('.choose-image', '.up-image');

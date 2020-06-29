@@ -10,7 +10,7 @@
     <div class="first-page">
         <div class="top">
             <p><img src="/images/logo-lico.png" class="first-logo"> LINK-CONNECTION</p>
-            <p>You don't have an account? <a href="/lico/signup">Sign up here</a></p>
+            <p class="date">You don't have an account? <a href="/lico/signup" class="label">Sign up here</a></p>
         </div>
         <div class="first-body">
             <div class="left">
@@ -22,13 +22,13 @@
                 <form action="/lico/login_submit" method="POST" class="shadow-sm p-3 mb-5 bg-white rounded">
                     <p class="error"><%= errEmail; %></p>
                     <div>
-                        <label for="email">Email *</label><br>
+                        <label for="email" class="slogan">Email *</label><br>
                         <input name="email" id="email" type="email" placeholder="enter your email address"
                             class="form-control" required>
                     </div>
                     <p class="error"><%= errPassword; %></p>
                     <div>
-                        <label for="password">Password *</label><br>
+                        <label for="password" class="slogan">Password *</label><br>
                         <input name="password" id="password" type="password" placeholder="enter password" class="form-control" required>
                     </div>
 
