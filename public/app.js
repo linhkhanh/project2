@@ -179,6 +179,9 @@ const commentImage = () => {
                 const allComments = newData.comments;
                 const newComment = allComments[allComments.length - 1]; // get newest comment
 
+                // format date
+                
+                newComment.createdAt = moment(newComment.createdAt).fromNow();
                 // update div.all-comments
                 $(`#${idImage}-allComments`).append(`<div class="comment"> 
                    <p class="date"><i>${newComment.createdAt}</i></p>
