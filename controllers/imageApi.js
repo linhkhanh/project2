@@ -136,7 +136,6 @@ module.exports = {
 
             // IF THERE IS NOTIFICATION OBJECT, CHECK NOTIFICATION.COMMENTS EXISTS OR NOT
             if (!notification.comments) notification.comments = [];
-
             notification.comments.push({
                 userComment: req.session.userName,
                 idImage: req.params.idImage,
@@ -144,7 +143,7 @@ module.exports = {
             });
             await usersRepository.updateByUserName(req.params.userName, { notification })
 
-            return res.end(JSON.stringify({ comments, idImage: image.id, interestedUser: user.userName }));
+            return res.end(JSON.stringify({ comments, idImage: req.params.idImage, interestedUser: user.userName }));
         }
     }
 }

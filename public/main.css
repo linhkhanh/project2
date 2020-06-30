@@ -4,6 +4,10 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
 }
+.footer {
+    text-align: center;
+    font-size: 16px;
+}
 /* first page */
 .first-page {
     width: 90%;

@@ -196,7 +196,7 @@ const commentImage = () => {
                 if (newComment.userComment === newData.interestedUser) {
                     $('.notification').attr('src', '/images/notification-1.png');
                     $('.list-notification').append(`<p class="dropdown-item"><a href="/lico/${newComment.userComment}">${newComment.userComment}</a> commented <a
-                        href="/lico/${newComment.userComment}/${newComment.idImage}">your image</a></p>`)
+                        href="/lico/${newComment.userComment}/${newData.idImage}">your image</a></p>`)
                 };
 
                 return data;
