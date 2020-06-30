@@ -56,11 +56,29 @@ The objective of the project is to build a working full **CRUD** (Create, Read, 
 
 ## Wireframe Design and User Stories
 * ### Login and Signup Page
+![Image of login page](/images/login-page.png)
+- On mobile
+![Image of login page](/images/login-page-mobile.png)
 * ### List of users
+![Image of list of all users](/images/home-page.png)
+- On mobile
+![Image of home page](/images/home-page-mobile.png)
 * ### All Images
+![Image of index page](/images/index-page.png)
+- On mobile
+![Image of index page](/images/index-page-mobile.png)
 * ### User Profile Page
+![Image of show page](/images/show-page.png)
+- On mobile
+![Image of login page](/images/show-page-mobile.png)
 * ### Image Modal
-* ### Edit image Modal
-* ### Eidt comments Modal
+![Image of image modal](/images/modal-popup.png)
+* ### Image page
+![Image of image page](/images/image-page.png)
+- On mobile
+![Image of login page](/images/image-page-mobile.png)
 
+## Extra Implementation
+* Build a better notification so that, when user comment at an image, if other users also comment at this image, user will get a notification about that.
+* Create a two layers comment, in that, user can reply a comment.
 
