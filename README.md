@@ -56,27 +56,27 @@ The objective of the project is to build a working full **CRUD** (Create, Read, 
 
 ## Wireframe Design and User Stories
 * ### Login and Signup Page
-![Image of login page](/images/login-page.png)
+![Image of login page](public/images/login-page.png)
 - On mobile
-![Image of login page](/images/login-page-mobile.png)
+![Image of login page](public/images/login-page-mobile.png)
 * ### List of users
-![Image of list of all users](/images/home-page.png)
+![Image of list of all users](public/images/home-page.png)
 - On mobile
-![Image of home page](/images/home-page-mobile.png)
+![Image of home page](public/images/home-page-mobile.png)
 * ### All Images
-![Image of index page](/images/index-page.png)
+![Image of index page](public/images/index-page.png)
 - On mobile
-![Image of index page](/images/index-page-mobile.png)
+![Image of index page](public/images/index-page-mobile.png)
 * ### User Profile Page
-![Image of show page](/images/show-page.png)
+![Image of show page](public/images/show-page.png)
 - On mobile
-![Image of login page](/images/show-page-mobile.png)
+![Image of login page](public/images/show-page-mobile.png)
 * ### Image Modal
-![Image of image modal](/images/modal-popup.png)
+![Image of image modal](public/images/modal-popup.png)
 * ### Image page
-![Image of image page](/images/image-page.png)
+![Image of image page](public/images/image-page.png)
 - On mobile
-![Image of login page](/images/image-page-mobile.png)
+![Image of login page](public/images/image-page-mobile.png)
 
 ## Extra Implementation
 * Build a better notification so that, when user comment at an image, if other users also comment at this image, user will get a notification about that.
